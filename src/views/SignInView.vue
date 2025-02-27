@@ -1,6 +1,8 @@
 <template>
   <div class="sign-in">
-    <h1>Login</h1>
+    <img src="@/assets/images/login-img01.png" alt="">
+
+    <RouterView />
   </div>
 </template>
 
@@ -13,9 +15,15 @@
 <style scoped>
 
 .sign-in {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   min-height: calc(100vh - 84px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
+img {
+  max-width: 700px;
+}
+
 </style>
