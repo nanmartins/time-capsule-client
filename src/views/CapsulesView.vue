@@ -1,12 +1,14 @@
 <template>
   <div class="capsules">
-    <h1>Capsules</h1>
+    <!-- <h1>Capsules</h1> -->
+
+    <NewCapsule />
   </div>
 </template>
 
 
 <script setup>
-
+import NewCapsule from '@/components/NewCapsule.vue';
 </script>
 
 
