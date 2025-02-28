@@ -11,7 +11,7 @@
         <button @click="handleLogout">Logout</button>
       </template>
 
-      <div v-else to="/signin">Sign in</div>
+      <RouterLink v-else to="/signin">Sign in</RouterLink>
     </nav>
   </header>
 </template>
