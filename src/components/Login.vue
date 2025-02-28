@@ -11,44 +11,51 @@
       <button type="submit">Sign in</button>
 
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+      <p>Don't have an account? <RouterLink to="/register">Sign up</RouterLink></p>
     </form>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { loginUser } from '@/services.js';
+import { useAuthStore } from '@/stores/authStore.js';
 
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
 const router = useRouter();
+const authStore = useAuthStore();
 
 const handleLogin = async () => {
   try {
     const data = await loginUser(email.value, password.value);
-    localStorage.setItem('token', data.token);
-    router.push('/');
+    authStore.setToken(data.token);
+    await authStore.fetchUserProfile();
+    router.push('/profile');
   } catch (error) {
     errorMessage.value = error.message;
   }
 };
 </script>
 
+
 <style scoped>
 .login-container {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 input {
   display: block;
   width: 100%;
   padding: 8px;
-  margin: 8px 0;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -65,6 +72,10 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+p {
+  margin: 10px 0;
 }
 
 .error {

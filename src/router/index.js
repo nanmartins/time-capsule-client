@@ -4,6 +4,7 @@ import SignInView from '@/views/SignInView.vue'
 import CapsulesView from '@/views/CapsulesView.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
+import Profile from '@/views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,11 @@ const router = createRouter({
       path: '/capsules',
       name: 'capsules',
       component: CapsulesView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
     }
   ],
 })

@@ -20,6 +20,7 @@
   min-height: calc(100vh - 84px);
   max-width: 1200px;
   margin: 0 auto;
+  align-items: center;
 }
 
 img {

@@ -1,18 +1,32 @@
 <template>
   <header>
-    <RouterLink to="/"><img src="@/assets/images/logo.png" alt=""></RouterLink>
+    <RouterLink to="/"><img src="@/assets/images/logo.png" alt="Logo"></RouterLink>
 
     <nav>
       <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/capsules">Capsules</RouterLink>
-      <RouterLink to="/signin">Sign in</RouterLink>
+
+      <template v-if="authStore.user">
+        <RouterLink to="/profile">Profile</RouterLink>
+        <button @click="handleLogout">Logout</button>
+      </template>
+
+      <div v-else to="/signin">Sign in</div>
     </nav>
   </header>
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/authStore.js';
 
+const authStore = useAuthStore();
+
+const handleLogout = () => {
+  authStore.logout();
+  window.location.reload();
+};
 </script>
+
 
 <style scoped>
 
