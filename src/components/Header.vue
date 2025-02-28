@@ -18,12 +18,15 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/authStore.js';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const handleLogout = () => {
   authStore.logout();
-  window.location.reload();
+  router.push('/');
+  // window.location.reload();
 };
 </script>
 

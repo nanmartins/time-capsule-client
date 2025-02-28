@@ -35,7 +35,7 @@ const handleLogin = async () => {
     const data = await loginUser(email.value, password.value);
     authStore.setToken(data.token);
     await authStore.fetchUserProfile();
-    router.push('/profile');
+    router.push('/');
   } catch (error) {
     errorMessage.value = error.message;
   }
