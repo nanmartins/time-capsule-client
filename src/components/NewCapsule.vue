@@ -30,12 +30,12 @@ import { ref } from "vue";
 
 const text = ref("");
 const openAt = ref("");
-const image = ref(null);
+const imageUrl = ref(null);
 const message = ref("");
 
 // Get the selected image
 const handleImageUpload = (event) => {
-  image.value = event.target.files[0];
+  imageUrl.value = event.target.files[0];
 };
 
 // Send data to the server
@@ -48,8 +48,8 @@ const createCapsule = async () => {
   const formData = new FormData();
   formData.append("text", text.value);
   formData.append("openAt", openAt.value);
-  if (image.value) {
-    formData.append("image", image.value);
+  if (imageUrl.value) {
+    formData.append("image", imageUrl.value);
   }
 
   try {
@@ -67,9 +67,9 @@ const createCapsule = async () => {
       message.value = "Capsule created successfully";
       text.value = "";
       openAt.value = "";
-      image.value = null;
+      imageUrl.value = null;
     } else {
-      message.value = data.error || "Error creating capsule";
+      message.value = data.error || `Error creating capsule ${data.error}`;
     }
   } catch (error) {
     message.value = "Error connecting to the server";
@@ -108,7 +108,7 @@ textarea, input {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -116,7 +116,7 @@ button {
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .message {
