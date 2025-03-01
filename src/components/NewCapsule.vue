@@ -3,7 +3,8 @@
     <!-- <h2>Create a Capsule</h2> -->
     <p v-if="message" class="message">{{ message }}</p>
 
-    <form @submit.prevent="createCapsule">
+    <form @submit.prevent="submitCapsule">
+      <h1>New Capsule</h1>
       <div class="form-group">
         <label for="text">Message:</label>
         <textarea id="text" v-model="text" required></textarea>
@@ -26,55 +27,38 @@
 
 
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
+import { createCapsule } from "@/services.js"
 
-const text = ref("");
-const openAt = ref("");
-const imageUrl = ref(null);
-const message = ref("");
+const text = ref("")
+const openAt = ref("")
+const imageUrl = ref(null)
+const message = ref("")
 
 // Get the selected image
 const handleImageUpload = (event) => {
-  imageUrl.value = event.target.files[0];
+  imageUrl.value = event.target.files[0]
 };
 
 // Send data to the server
-const createCapsule = async () => {
+const submitCapsule = async () => {
   if (!text.value || !openAt.value) {
-    message.value = "Text and Open At fields are required";
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("text", text.value);
-  formData.append("openAt", openAt.value);
-  if (imageUrl.value) {
-    formData.append("image", imageUrl.value);
+    message.value = "Text and Open At fields are required"
+    return
   }
 
   try {
-    const response = await fetch("https://time-capsule-server-omega.vercel.app/api/capsules/create", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: formData,
-    });
+    await createCapsule(text.value, openAt.value, imageUrl.value)
 
-    const data = await response.json();
-
-    if (response.ok) {
-      message.value = "Capsule created successfully";
-      text.value = "";
-      openAt.value = "";
-      imageUrl.value = null;
-    } else {
-      message.value = data.error || `Error creating capsule ${data.error}`;
-    }
+    message.value = "Capsule created successfully"
+    text.value = ""
+    openAt.value = ""
+    imageUrl.value = null
   } catch (error) {
-    message.value = "Error connecting to the server";
+    message.value = error.message
   }
-};
+}
+
 </script>
 
 
@@ -103,6 +87,7 @@ textarea, input {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 button {
