@@ -1,13 +1,17 @@
 <template>
-  <div class="user-form-container">
+  <div class="new-capsule-form">
     <!-- <h2>Create a Capsule</h2> -->
-    <p v-if="message" class="message">{{ message }}</p>
-
     <form @submit.prevent="submitCapsule">
       <h1>New Capsule</h1>
+
       <div class="form-group">
-        <label for="text">Message:</label>
-        <textarea id="text" v-model="text" required></textarea>
+        <label for="title">Title:</label>
+        <input type="text" id="title" v-model="title" required />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" v-model="message" required></textarea>
       </div>
 
       <div class="form-group">
@@ -21,6 +25,9 @@
       </div>
 
       <button type="submit">Create Capsule</button>
+
+      <p v-if="errorMessage" class="message">{{ errorMessage }}</p>
+
     </form>
   </div>
 </template>
@@ -30,10 +37,11 @@
 import { ref } from "vue"
 import { createCapsule } from "@/services.js"
 
-const text = ref("")
+const title = ref("")
+const message = ref("")
 const openAt = ref("")
 const imageUrl = ref(null)
-const message = ref("")
+const errorMessage = ref("")
 
 // Get the selected image
 const handleImageUpload = (event) => {
@@ -42,20 +50,21 @@ const handleImageUpload = (event) => {
 
 // Send data to the server
 const submitCapsule = async () => {
-  if (!text.value || !openAt.value) {
-    message.value = "Text and Open At fields are required"
+  if (!title.value || !message.value || !openAt.value) {
+    errorMessage.value = "Title, Message and Date to Open fields are required"
     return
   }
 
   try {
-    await createCapsule(text.value, openAt.value, imageUrl.value)
+    await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
 
-    message.value = "Capsule created successfully"
-    text.value = ""
+    errorMessage.value = "Capsule created successfully"
+    title.value = ""
+    message.value = ""
     openAt.value = ""
     imageUrl.value = null
   } catch (error) {
-    message.value = error.message
+    errorMessage.value = error.message
   }
 }
 
@@ -63,18 +72,20 @@ const submitCapsule = async () => {
 
 
 <style scoped>
-.capsule-form {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+.new-capsule-form {
+  max-width: 320px;
+  margin: 0;
+}
+
+form {
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .form-group {
   margin-bottom: 15px;
 }
+
 
 label {
   font-weight: bold;
@@ -89,10 +100,14 @@ textarea, input {
   border-radius: 4px;
   box-sizing: border-box;
 }
+textarea {
+  resize: none;
+  height: 100px;
+}
 
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #007bff;
   color: white;
   border: none;

@@ -53,13 +53,14 @@ export const getUser = async () => {
 ////////////////////////////////////////CAPSULES SERVICES ///////////////////////////////////////
 
 // Create capsule
-export const createCapsule = async (text, openAt, image) => {
+export const createCapsule = async (title, message, openAt, image) => {
   try {
     const token = localStorage.getItem('token')
     if (!token) throw new Error("User not authenticated. Please sign in.")
 
     const formData = new FormData()
-    formData.append('text', text)
+    formData.append('title', title)
+    formData.append('message', message)
     formData.append('openAt', openAt)
     if (image) {
       formData.append('image', image)
@@ -113,5 +114,16 @@ export const fetchLockedCapsules = async () => {
     return response.data
   } catch (error) {
     throw new Error(error.response?.data?.error || "Error fetching locked capsules")
+  }
+}
+
+// Get capsule details
+export const fetchCapsuleDetails = async (capsuleId) => {
+  try {
+    const response = await axios.get(`${capsulesUrl}/${capsuleId}`)
+    return response.data
+  } catch (error) {
+    console.error("Error fetching capsule details:", error)
+    throw new Error("Failed to fetch capsule details")
   }
 }
