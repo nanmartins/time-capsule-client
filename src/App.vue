@@ -24,8 +24,8 @@ authStore.fetchUserProfile();
 
 <style scoped>
 
-section {
-  min-height: calc(100vh - 84px);
-}
+/* section {
+  min-height: calc(100vh + 70px);
+} */
 
 </style>

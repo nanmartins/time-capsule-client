@@ -1,10 +1,11 @@
 <template>
   <div class="capsules-grid">
-    <!-- Lista de mensagens -->
+
     <div class="capsules-list">
       <h2>My Capsules</h2>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 
+      <!-- Capsules available to open -->
       <h3>📬 Capsules Available:</h3>
       <ul v-if="openCapsules.length">
         <li
@@ -20,6 +21,7 @@
       </ul>
       <p v-else>No capsules available to view.</p>
 
+      <!-- Capsules locked -->
       <h3>🔒 Locked Capsules:</h3>
       <ul v-if="lockedCapsules.length">
         <li
@@ -36,11 +38,10 @@
       <p v-else>No locked capsules.</p>
     </div>
 
-    <!-- Detalhes da Mensagem ou Timer -->
+    <!-- Capsules details -->
     <div class="capsule-details" v-if="selectedCapsule">
-      <h2>Capsule Details</h2>
 
-      <!-- Exibir Timer se a cápsula ainda estiver bloqueada -->
+      <!-- Locked Capsule Details/Timer -->
       <div v-if="isLocked">
         <h2>{{ selectedCapsule.title }}</h2>
         <h3>🔒 This capsule is locked!</h3>
@@ -48,7 +49,7 @@
         <p class="countdown">{{ countdown }}</p>
       </div>
 
-      <!-- Exibir os detalhes se a cápsula estiver aberta -->
+      <!-- Open Capsule Details -->
       <div v-else>
         <h2>{{ selectedCapsule.title }}</h2>
         <p><strong>Message:</strong> {{ selectedCapsule.message }}</p>
@@ -61,7 +62,7 @@
       </div>
     </div>
 
-    <!-- Caso nenhuma cápsula esteja selecionada -->
+    <!-- No capsule selected -->
     <div class="capsule-details empty" v-else>
       <p>Select a capsule to view details.</p>
     </div>
@@ -69,95 +70,93 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails } from "@/services";
+import { ref, onMounted, computed } from "vue"
+import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails } from "@/services"
 
-const openCapsules = ref([]);
-const lockedCapsules = ref([]);
-const errorMessage = ref("");
-const selectedCapsule = ref(null);
-const countdown = ref("");
-let countdownInterval = null;
+const openCapsules = ref([])
+const lockedCapsules = ref([])
+const errorMessage = ref("")
+const selectedCapsule = ref(null)
+const countdown = ref("")
+let countdownInterval = null
 
-// Buscar cápsulas abertas
+// Get open capsules
 const getOpenCapsules = async () => {
   try {
-    openCapsules.value = await fetchOpenCapsules();
+    openCapsules.value = await fetchOpenCapsules()
   } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = error.message
   }
-};
+}
 
-// Buscar cápsulas bloqueadas
+// Get locked capsules
 const getLockedCapsules = async () => {
   try {
-    lockedCapsules.value = await fetchLockedCapsules();
+    lockedCapsules.value = await fetchLockedCapsules()
   } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = error.message
   }
-};
+}
 
-// Buscar detalhes da cápsula aberta
+// Get capsule details
 const selectCapsule = async (capsule) => {
-  clearInterval(countdownInterval); // Para qualquer contador em execução
+  clearInterval(countdownInterval)
   try {
-    const details = await fetchCapsuleDetails(capsule._id);
-    selectedCapsule.value = details;
+    const details = await fetchCapsuleDetails(capsule._id)
+    selectedCapsule.value = details
   } catch (error) {
-    errorMessage.value = "Failed to load capsule details.";
+    errorMessage.value = "Failed to load capsule details."
   }
-};
+}
 
-// Configurar o Timer para uma cápsula bloqueada
+// Select a locked capsule and show the countdown
 const selectLockedCapsule = (capsule) => {
-  clearInterval(countdownInterval); // Para qualquer contador em execução
-  selectedCapsule.value = capsule;
+  clearInterval(countdownInterval)
+  selectedCapsule.value = capsule
 
   const updateCountdown = () => {
-    const now = new Date().getTime();
-    const unlockTime = new Date(capsule.openAt).getTime();
-    const timeLeft = unlockTime - now;
+    const now = new Date().getTime()
+    const unlockTime = new Date(capsule.openAt).getTime()
+    const timeLeft = unlockTime - now
 
     if (timeLeft <= 0) {
-      clearInterval(countdownInterval);
-      selectCapsule(capsule); // Atualiza para exibir os detalhes quando atingir o tempo
-      return;
+      clearInterval(countdownInterval)
+      selectCapsule(capsule)
+      return
     }
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000)
 
-    countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  };
+    countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
+  }
 
-  updateCountdown(); // Atualiza imediatamente
-  countdownInterval = setInterval(updateCountdown, 1000); // Atualiza a cada segundo
-};
+  updateCountdown()
+  countdownInterval = setInterval(updateCountdown, 1000)
+}
 
-// Computed para verificar se a cápsula está bloqueada
+// Computed to check if a capsule is locked
 const isLocked = computed(() => {
-  if (!selectedCapsule.value) return false;
-  return new Date(selectedCapsule.value.openAt).getTime() > new Date().getTime();
-});
+  if (!selectedCapsule.value) return false
+  return new Date(selectedCapsule.value.openAt).getTime() > new Date().getTime()
+})
 
 onMounted(() => {
-  getOpenCapsules();
-  getLockedCapsules();
-});
+  getOpenCapsules()
+  getLockedCapsules()
+})
 </script>
 
 <style scoped>
-/* Layout principal */
 .capsules-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 100%;
-  height: calc(100vh - 84px);
+  min-height: 100vh;
 }
 
-/* Lista de cápsulas */
 .capsules-list {
   overflow-y: auto;
   background: #f8f8f8;
@@ -184,7 +183,6 @@ li.active {
   font-weight: bold;
 }
 
-/* Seção de detalhes */
 .capsule-details {
   padding: 20px;
   overflow-y: auto;
@@ -198,14 +196,12 @@ li.active {
   color: #666;
 }
 
-/* Timer */
 .countdown {
   font-size: 1.5rem;
   font-weight: bold;
   color: #d9534f;
 }
 
-/* Imagem da cápsula */
 .capsule-image {
   max-width: 100%;
   height: auto;

@@ -12,22 +12,22 @@
 </template>
 
 <script setup>
-import NewCapsule from '@/components/NewCapsule.vue';
-import CapsulesList from '@/components/CapsulesList.vue';
-import { useAuthStore } from '@/stores/authStore.js';
+import NewCapsule from '@/components/NewCapsule.vue'
+import CapsulesList from '@/components/CapsulesList.vue'
+import { useAuthStore } from '@/stores/authStore.js'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 </script>
 
 <style scoped>
 .capsule-grid {
   display: grid;
   grid-template-columns: 1fr 300px;
-  /* gap: 20px; */
   max-width: 1200px;
   width: 100%;
-  min-height: calc(100vh - 84px);
+  min-height: 100vh;
   margin: 0 auto;
+  margin-top: 150px;
   padding: 20px;
   align-content: top;
 }

@@ -14,3 +14,13 @@ import { useAuthStore } from '@/stores/authStore.js';
 
 const authStore = useAuthStore();
 </script>
+
+
+<style scoped>
+
+div {
+  min-height: calc(100vh + 70px);
+  padding: 200px 30px;
+}
+
+</style>

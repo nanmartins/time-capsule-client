@@ -123,7 +123,6 @@ export const fetchCapsuleDetails = async (capsuleId) => {
     const response = await axios.get(`${capsulesUrl}/${capsuleId}`)
     return response.data
   } catch (error) {
-    console.error("Error fetching capsule details:", error)
     throw new Error("Failed to fetch capsule details")
   }
 }
