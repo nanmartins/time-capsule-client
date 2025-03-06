@@ -25,6 +25,7 @@
 
 img {
   max-width: 580px;
+  opacity: 0.75;
 }
 
 </style>

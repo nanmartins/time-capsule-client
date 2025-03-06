@@ -64,13 +64,11 @@ a {
   text-decoration: none;
   color: #000;
   font-size: 15px;
+  text-shadow: 2px 1px 1px #FFFFFF;
 }
 
 button {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
-  padding: 8px 10px 6px 10px;
+  padding: 10px 10px 6px 10px;
   background: transparent;
   border: 1px solid #333333;
   border-radius: 5px;
