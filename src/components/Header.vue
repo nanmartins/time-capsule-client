@@ -38,13 +38,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px 25px;
   width: 100%;
+  background-color: #FFFFFF;
   box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
+  box-shadow: 1px 1px 5px #dfdfdf;
 }
 
 nav {
@@ -56,7 +58,7 @@ nav {
 }
 
 img {
-  width: 100px;
+  width: 70px;
 }
 
 a {

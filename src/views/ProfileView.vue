@@ -11,8 +11,13 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/authStore.js';
+import { onMounted } from 'vue';
 
 const authStore = useAuthStore();
+
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+})
 </script>
 
 

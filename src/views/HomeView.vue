@@ -7,7 +7,11 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+})
 </script>
 
 <style scoped>
@@ -28,7 +32,7 @@
 }
 
 img {
-  width: 75%;
+  width: 65%;
   size: cover;
   opacity: 0.8;
 }
@@ -47,7 +51,7 @@ h1 {
   font-size: 70px;
 }
 
-span {
+/* span {
   text-decoration: underline;
-}
+} */
 </style>

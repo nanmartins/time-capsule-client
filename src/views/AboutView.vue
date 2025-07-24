@@ -6,7 +6,11 @@
 
 
 <script setup>
+import { onMounted } from 'vue';
 
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+})
 </script>
 
 

@@ -1,8 +1,13 @@
 <template>
-  <div class="new-capsule-form">
+  <div class="new-capsule-form" v-if="authStore.user">
+
+    <div v-if="!formActive" class="open">
+      <h1 @click="formActive = true">+ New Capsule</h1>
+    </div>
     <!-- <h2>Create a Capsule</h2> -->
-    <form @submit.prevent="submitCapsule">
+    <form @submit.prevent="submitCapsule" v-else>
       <h1>New Capsule</h1>
+      <span class="close" @click="formActive = false">X</span>
 
       <div class="form-group">
         <label for="title">Title:</label>
@@ -36,12 +41,18 @@
 <script setup>
 import { ref } from "vue"
 import { createCapsule } from "@/services.js"
+import { useAuthStore } from '@/stores/authStore.js'
 
 const title = ref("")
 const message = ref("")
 const openAt = ref("")
 const imageUrl = ref(null)
 const errorMessage = ref("")
+const authStore = useAuthStore()
+const formActive = ref(false)
+
+// testing auto refresh of capsule list after creation *******
+const emit = defineEmits(["capsuleCreated"])
 
 // Get the selected image
 const handleImageUpload = (event) => {
@@ -57,7 +68,8 @@ const submitCapsule = async () => {
 
   try {
     await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
-
+    // testing auto refresh of capsule list after creation ******
+    emit("capsuleCreated")
     errorMessage.value = "Capsule created successfully"
     title.value = ""
     message.value = ""
@@ -73,17 +85,23 @@ const submitCapsule = async () => {
 
 <style scoped>
 .new-capsule-form {
-  max-width: 320px;
+  max-width: 1000px;
   margin: 0;
+  /* background: #f8f8f8; */
+  /* border: 1px solid #ccc; */
+  margin-bottom: 30px;
 }
 
 form {
   box-shadow: none;
   border-radius: 0;
+  position: relative;
+  max-width: 500px;
+  margin: auto;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  padding-bottom: 18px;
 }
 
 
@@ -94,7 +112,7 @@ label {
 
 textarea, input {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -102,15 +120,17 @@ textarea, input {
 }
 textarea {
   resize: none;
-  height: 100px;
+  height: 200px;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  display: block;
+  /* width: 100%; */
+  padding: 20px;
+  background-color: transparent;
+  color: black;
+  /* border: none; */
+  border: 1.5px solid #777777;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -123,5 +143,21 @@ button:hover {
   color: #d9534f;
   font-weight: bold;
   margin-bottom: 10px;
+}
+.open h1 {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
 }
 </style>

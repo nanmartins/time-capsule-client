@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue"
+import { ref, onMounted, computed, watch } from "vue"
 import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails } from "@/services"
 
 const openCapsules = ref([])
@@ -79,6 +79,11 @@ const errorMessage = ref("")
 const selectedCapsule = ref(null)
 const countdown = ref("")
 let countdownInterval = null
+
+// Props to trigger refresh of capsule list
+const props = defineProps({
+  refreshTrigger: Number
+})
 
 // Get open capsules
 const getOpenCapsules = async () => {
@@ -143,11 +148,24 @@ const isLocked = computed(() => {
   return new Date(selectedCapsule.value.openAt).getTime() > new Date().getTime()
 })
 
+// Watch for changes in the refreshTrigger prop
+watch(
+  () => props.refreshTrigger,
+  () => {
+    getOpenCapsules()
+    getLockedCapsules()
+    selectedCapsule.value = null
+    clearInterval(countdownInterval)
+  }
+)
+
+// Lifecycle hooks to fetch data
 onMounted(() => {
   getOpenCapsules()
   getLockedCapsules()
 })
 </script>
+
 
 <style scoped>
 .capsules-grid {

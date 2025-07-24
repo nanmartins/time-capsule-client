@@ -1,8 +1,10 @@
 <template>
   <div class="capsules">
-    <div v-if="authStore.user" class="capsule-grid">
-      <CapsulesList class="capsules-list" />
-      <NewCapsule class="new-capsule" />
+
+    <NewCapsule class="new-capsule" @capsuleCreated="refreshCapsules" />
+
+    <div v-if="authStore.user" class="capsules-view">
+      <CapsulesList class="capsules-list" :refreshTrigger="capsuleRefreshKey" />
     </div>
 
     <div v-else>
@@ -15,17 +17,33 @@
 import NewCapsule from '@/components/NewCapsule.vue'
 import CapsulesList from '@/components/CapsulesList.vue'
 import { useAuthStore } from '@/stores/authStore.js'
+import { ref, onMounted } from 'vue'
+
+// value to change to force refresh
+const capsuleRefreshKey = ref(0)
+const refreshCapsules = () => {
+  capsuleRefreshKey.value += 1
+}
 
 const authStore = useAuthStore()
+
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+})
 </script>
 
 <style scoped>
-.capsule-grid {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  max-width: 1200px;
+
+.capsules {
+  padding-top: 170px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.capsule-view {
+  /* display: grid; */
+  /* grid-template-columns: 1fr auto; */
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin: 0 auto;
   margin-top: 150px;
   padding: 20px;
@@ -36,9 +54,9 @@ const authStore = useAuthStore()
   grid-column: 1;
 }
 
-.new-capsule {
+/* .new-capsule {
   grid-column: 2;
-}
+} */
 
 p {
   display: flex;

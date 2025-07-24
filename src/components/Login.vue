@@ -33,7 +33,6 @@ const authStore = useAuthStore();
 const handleLogin = async () => {
   try {
     const data = await loginUser(email.value, password.value);
-    console.log(data.token)
     authStore.setToken(data.token);
     await authStore.fetchUserProfile();
     router.push('/');
