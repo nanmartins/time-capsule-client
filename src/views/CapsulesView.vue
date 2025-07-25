@@ -1,8 +1,6 @@
 <template>
   <div class="capsules">
 
-    <NewCapsule class="new-capsule" @capsuleCreated="refreshCapsules" />
-
     <div v-if="authStore.user" class="capsules-view">
       <CapsulesList class="capsules-list" :refreshTrigger="capsuleRefreshKey" />
     </div>
@@ -10,6 +8,9 @@
     <div v-else>
       <p>Please sign in to view your capsules. <RouterLink to="/signin" style="padding-left: 5px;"> Sign in</RouterLink></p>
     </div>
+
+    <NewCapsule class="new-capsule" @capsuleCreated="refreshCapsules" />
+
   </div>
 </template>
 
@@ -35,8 +36,8 @@ onMounted(() => {
 <style scoped>
 
 .capsules {
-  padding-top: 170px;
-  max-width: 1000px;
+  padding-top: 95px;
+  max-width: 100vw;
   margin: 0 auto;
 }
 .capsule-view {

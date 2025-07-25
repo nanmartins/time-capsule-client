@@ -70,7 +70,9 @@
 
     <!-- No capsule selected -->
     <div class="capsule-details empty" v-else>
-      <p>Select a capsule to view details.</p>
+      <MailSVG />
+      <h3>Select a Time Capsule</h3>
+      <p>Choose a capsule from the list to view its details and content</p>
     </div>
   </div>
 </template>
@@ -78,6 +80,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
 import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails, deleteCapsule } from "@/services"
+import MailSVG from "@/assets/icons/MailSVG.vue"
 
 const openCapsules = ref([])
 const lockedCapsules = ref([])
@@ -199,14 +202,14 @@ onMounted(() => {
 <style scoped>
 .capsules-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 450px 1fr;
   width: 100%;
-  min-height: 100vh;
+  height: calc(100vh - 95px);
 }
 
 .capsules-list {
   overflow-y: auto;
-  background: #f8f8f8;
+  background: #ffffff;
 }
 
 ul {
@@ -216,7 +219,6 @@ ul {
 
 li {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -233,13 +235,14 @@ li.active {
 .capsule-details {
   padding: 20px;
   overflow-y: auto;
+  background-color: #e0e0e083;
 }
 
 .capsule-details.empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-style: italic;
   color: #666;
 }
 
