@@ -4,7 +4,7 @@
     <div v-if="!formActive" class="open">
       <h1 @click="formActive = true">+ New Capsule</h1>
     </div>
-    <!-- <h2>Create a Capsule</h2> -->
+
     <form @submit.prevent="submitCapsule" v-else>
       <h1>New Capsule</h1>
       <span class="close" @click="formActive = false">X</span>
@@ -50,8 +50,6 @@ const imageUrl = ref(null)
 const errorMessage = ref("")
 const authStore = useAuthStore()
 const formActive = ref(false)
-
-// testing auto refresh of capsule list after creation *******
 const emit = defineEmits(["capsuleCreated"])
 
 // Get the selected image
@@ -68,7 +66,6 @@ const submitCapsule = async () => {
 
   try {
     await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
-    // testing auto refresh of capsule list after creation ******
     emit("capsuleCreated")
     errorMessage.value = "Capsule created successfully"
     title.value = ""
@@ -87,8 +84,6 @@ const submitCapsule = async () => {
 .new-capsule-form {
   max-width: 1000px;
   margin: 0;
-  /* background: #f8f8f8; */
-  /* border: 1px solid #ccc; */
   margin-bottom: 30px;
 }
 
@@ -125,11 +120,9 @@ textarea {
 
 button {
   display: block;
-  /* width: 100%; */
   padding: 20px;
   background-color: transparent;
   color: black;
-  /* border: none; */
   border: 1.5px solid #777777;
   border-radius: 4px;
   cursor: pointer;

@@ -59,6 +59,12 @@
           <h3>Attached Image:</h3>
           <img :src="selectedCapsule.imageUrl" alt="Capsule Image" class="capsule-image" />
         </div>
+
+        <!-- Delete capsule button -->
+        <button @click="deleteSelectedCapsule" class="delete-button">
+          🗑️ Delete Capsule
+        </button>
+
       </div>
     </div>
 
@@ -71,7 +77,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
-import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails } from "@/services"
+import { fetchOpenCapsules, fetchLockedCapsules, fetchCapsuleDetails, deleteCapsule } from "@/services"
 
 const openCapsules = ref([])
 const lockedCapsules = ref([])
@@ -147,6 +153,29 @@ const isLocked = computed(() => {
   if (!selectedCapsule.value) return false
   return new Date(selectedCapsule.value.openAt).getTime() > new Date().getTime()
 })
+
+// Delete a capsule
+const deleteSelectedCapsule = async () => {
+  if (!selectedCapsule.value) return
+
+  const confirmDelete = confirm("Are you sure you want to delete this capsule?")
+  if (!confirmDelete) return
+
+  try {
+    await deleteCapsule(selectedCapsule.value._id)
+
+    // Refresh the capsule list after deletion
+    await getOpenCapsules()
+    await getLockedCapsules()
+
+    selectedCapsule.value = null
+    clearInterval(countdownInterval)
+    alert("Capsule deleted successfully!")
+  } catch (error) {
+    alert("Error deleting capsule: " + error.message)
+  }
+}
+
 
 // Watch for changes in the refreshTrigger prop
 watch(
