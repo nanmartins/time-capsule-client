@@ -40,10 +40,7 @@ onMounted(() => {
   margin: 0 auto;
 }
 .capsule-view {
-  /* display: grid; */
-  /* grid-template-columns: 1fr auto; */
   width: 100%;
-  /* min-height: 100vh; */
   margin: 0 auto;
   margin-top: 150px;
   padding: 20px;
@@ -53,10 +50,6 @@ onMounted(() => {
 .capsules-list {
   grid-column: 1;
 }
-
-/* .new-capsule {
-  grid-column: 2;
-} */
 
 p {
   display: flex;
