@@ -1,61 +1,127 @@
 <template>
-  <div class="capsules">
+  <div class="capsules-grid">
+    <!-- Capsules list -->
+    <CapsulesList
+      :openCapsules="openCapsules"
+      :lockedCapsules="lockedCapsules"
+      :selectedCapsule="selectedCapsule"
+      @select-capsule="handleSelectCapsule"
+      @select-locked-capsule="handleSelectLockedCapsule"
+    />
 
-    <div v-if="authStore.user" class="capsules-view">
-      <CapsulesList class="capsules-list" :refreshTrigger="capsuleRefreshKey" />
-    </div>
-
-    <div v-else>
-      <p>Please sign in to view your capsules. <RouterLink to="/signin" style="padding-left: 5px;"> Sign in</RouterLink></p>
-    </div>
-
-    <NewCapsule class="new-capsule" @capsuleCreated="refreshCapsules" />
-
+    <!-- Selected capsule details -->
+    <CapsuleDetails
+      :selectedCapsule="selectedCapsule"
+      :countdown="countdown"
+      @delete-capsule="handleDelete"
+    />
   </div>
 </template>
 
 <script setup>
-import NewCapsule from '@/components/NewCapsule.vue'
-import CapsulesList from '@/components/CapsulesList.vue'
-import { useAuthStore } from '@/stores/authStore.js'
 import { ref, onMounted } from 'vue'
+import CapsulesList from '@/components/CapsulesList.vue'
+import CapsuleDetails from '@/components/CapsuleDetails.vue'
+import {
+  fetchOpenCapsules,
+  fetchLockedCapsules,
+  fetchCapsuleDetails,
+  deleteCapsule,
+} from '@/services'
 
-// value to change to force refresh
-const capsuleRefreshKey = ref(0)
-const refreshCapsules = () => {
-  capsuleRefreshKey.value += 1
+const openCapsules = ref([])
+const lockedCapsules = ref([])
+const selectedCapsule = ref(null)
+const countdown = ref('')
+let countdownInterval = null
+
+// Search capsules ready to open
+const getOpenCapsules = async () => {
+  try {
+    openCapsules.value = await fetchOpenCapsules()
+  } catch (err) {
+    console.error('Error fetching open capsules:', err.message)
+  }
 }
 
-const authStore = useAuthStore()
+// Search capsules locked
+const getLockedCapsules = async () => {
+  try {
+    lockedCapsules.value = await fetchLockedCapsules()
+  } catch (err) {
+    console.error('Error fetching locked capsules:', err.message)
+  }
+}
 
+// Select capsule to view details
+const handleSelectCapsule = async (capsule) => {
+  clearInterval(countdownInterval)
+  try {
+    const details = await fetchCapsuleDetails(capsule._id)
+    selectedCapsule.value = details
+    countdown.value = ''
+  } catch (err) {
+    console.error('Failed to load capsule details')
+  }
+}
+
+// Select locked capsule to view countdown
+const handleSelectLockedCapsule = (capsule) => {
+  clearInterval(countdownInterval)
+  selectedCapsule.value = capsule
+
+  const updateCountdown = () => {
+    const now = Date.now()
+    const unlockTime = new Date(capsule.openAt).getTime()
+    const timeLeft = unlockTime - now
+
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval)
+      handleSelectCapsule(capsule)
+      return
+    }
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+    // const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000)
+
+    // countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
+    countdown.value = `${days}d ${hours}h ${minutes}m`
+
+  }
+
+  updateCountdown()
+  countdownInterval = setInterval(updateCountdown, 1000)
+}
+
+// Delete capsule
+const handleDelete = async (capsuleId) => {
+  try {
+    await deleteCapsule(capsuleId)
+    await getOpenCapsules()
+    await getLockedCapsules()
+    selectedCapsule.value = null
+    countdown.value = ''
+    alert('Capsule deleted successfully!')
+  } catch (error) {
+    alert('Error deleting capsule: ' + error.message)
+  }
+}
+
+// Get open and locked capsules
 onMounted(() => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  getOpenCapsules()
+  getLockedCapsules()
 })
 </script>
 
 <style scoped>
-
-.capsules {
-  padding-top: 95px;
-  max-width: 100vw;
-  margin: 0 auto;
-}
-.capsule-view {
+.capsules-grid {
+  display: grid;
+  grid-template-columns: 450px 1fr;
   width: 100%;
-  margin: 0 auto;
-  margin-top: 150px;
-  padding: 20px;
-  align-content: top;
-}
-
-.capsules-list {
-  grid-column: 1;
-}
-
-p {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 84px);
+  height: calc(100vh - 95px);
+  margin-top: 95px;
 }
 </style>
