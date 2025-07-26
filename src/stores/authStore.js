@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       this.token = null
       localStorage.removeItem('token')
-      window.location.href = '/signin' // ou apenas reload se preferir
+      window.location.href = '/'
     }
   }
 })
