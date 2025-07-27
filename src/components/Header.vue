@@ -1,6 +1,11 @@
 <template>
   <header>
-    <RouterLink to="/"><img src="@/assets/images/logo-test.png" alt="Logo"></RouterLink>
+    <!-- <RouterLink to="/"><img src="@/assets/images/logo-test.png" alt="Logo"></RouterLink> -->
+    <RouterLink to="/" class="logo-container">
+      <img src="@/assets/images/Timenest-logo.png" alt="Logo">
+      <span>Timenest</span>
+    </RouterLink>
+
 
     <nav>
       <RouterLink to="/">Home</RouterLink>
@@ -19,7 +24,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore.js';
 import { useRouter } from 'vue-router';
-import LogoutSVG from '@/assets/icons/LogoutSVG.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -38,48 +42,69 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 25px;
+  padding: 15px 25px;
   width: 100%;
-  /* background-color: #FFFFFF; */
   background-color: #FAF9F6;
   box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 1px 1px 5px #dfdfdf;
+  box-shadow: 1px 1px #dfdfdf;
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 35px;
   padding-right: 10px;
-  /* text-transform: uppercase; */
-}
-
-img {
-  width: 70px;
 }
 
 a {
-  /* font-family: "Josefin Sans", sans-serif; */
   font-family: 'Avenir Next', sans-serif;
   text-decoration: none;
-  color: #1F1F1F;
+  letter-spacing: 3px;
+  color: #000;
   font-size: 18px;
+  font-weight: 300;
   text-shadow: 2px 1px 1px #FFFFFF;
+  opacity: 0.75;
+}
+
+a:hover {
+  opacity: 1;
 }
 
 button {
   padding: 10px 15px 10px 15px;
   background: transparent;
-  border: 1px solid #1F1F1F;
+  border: 1px solid #000;
   border-radius: 5px;
-  /* font-family: "Josefin Sans", sans-serif; */
   font-family: 'Avenir Next', sans-serif;
-  font-size: 18px;
-  /* text-transform: uppercase; */
+  font-size: 20px;
   line-height: 17px;
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+/* // new logo style */
+img {
+  width: 50px;
+  opacity: 0.85;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.logo-container span {
+  font-weight: 300;
+  text-shadow: 2px 1px 1px #FFFFFF;
+  font-size: 32px;
+  letter-spacing: 8px;
+  opacity: 0.85;
 }
 </style>
