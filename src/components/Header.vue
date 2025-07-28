@@ -50,7 +50,9 @@ header {
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 1px 1px #dfdfdf;
+  /* box-shadow: 1px 1px #dfdfdf; */
+  border-bottom: 1px solid #dfdfdf;
+
 }
 
 nav {
