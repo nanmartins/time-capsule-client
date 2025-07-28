@@ -5,6 +5,8 @@
       :openCapsules="openCapsules"
       :lockedCapsules="lockedCapsules"
       :selectedCapsule="selectedCapsule"
+      :unlockedCapsulesCount="unlockedCapsulesCount"
+      :lockedCapsulesCount="lockedCapsulesCount"
       @select-capsule="handleSelectCapsule"
       @select-locked-capsule="handleSelectLockedCapsule"
     />
@@ -19,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import CapsulesList from '@/components/CapsulesList.vue'
 import CapsuleDetails from '@/components/CapsuleDetails.vue'
 import {
@@ -95,6 +97,16 @@ const handleSelectLockedCapsule = (capsule) => {
   countdownInterval = setInterval(updateCountdown, 1000)
 }
 
+// Count unlocked capsules
+const unlockedCapsulesCount = computed(() => {
+  return openCapsules.value.length
+})
+
+// Count locked capsules
+const lockedCapsulesCount = computed(() => {
+  return lockedCapsules.value.length
+})
+
 // Delete capsule
 const handleDelete = async (capsuleId) => {
   try {
@@ -119,9 +131,9 @@ onMounted(() => {
 <style scoped>
 .capsules-grid {
   display: grid;
-  grid-template-columns: 450px 1fr;
+  grid-template-columns: 420px 1fr;
   width: 100%;
-  height: calc(100vh - 95px);
-  margin-top: 95px;
+  height: calc(100vh - 80px);
+  margin-top: 80px;
 }
 </style>
