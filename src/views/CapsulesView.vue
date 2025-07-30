@@ -1,5 +1,8 @@
 <template>
   <div class="capsules-grid">
+
+    <!-- <NewCapsule /> -->
+
     <!-- Capsules list -->
     <CapsulesList
       :openCapsules="openCapsules"
@@ -18,11 +21,13 @@
       :countdown="countdown"
       @delete-capsule="handleDelete"
     />
+
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import NewCapsule from '@/components/NewCapsule.vue'
 import CapsulesList from '@/components/CapsulesList.vue'
 import CapsuleDetails from '@/components/CapsuleDetails.vue'
 import {
