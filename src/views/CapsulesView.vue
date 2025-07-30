@@ -7,6 +7,7 @@
       :selectedCapsule="selectedCapsule"
       :unlockedCapsulesCount="unlockedCapsulesCount"
       :lockedCapsulesCount="lockedCapsulesCount"
+      :countdown="countdown"
       @select-capsule="handleSelectCapsule"
       @select-locked-capsule="handleSelectLockedCapsule"
     />
