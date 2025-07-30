@@ -18,3 +18,9 @@ defineProps({
   }
 })
 </script>
+
+<style scoped>
+svg {
+  margin-bottom: 2px;
+}
+</style>

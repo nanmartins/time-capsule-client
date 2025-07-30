@@ -40,6 +40,8 @@
 
         </div>
 
+        <p class="capsule-preview">{{ capsule.message }}</p>
+
         <div class="capsule-date-container">
           <span>
             <CalendarSVG />
@@ -60,7 +62,7 @@
       </li>
     </ul>
 
-    <p v-else>No capsules available to view.</p>
+    <p v-else class="capsules-list-empty">No capsules available to view.</p>
 
     <!-- Capsules locked -->
     <ul v-if="filteredLockedCapsules.length">
@@ -101,7 +103,7 @@
       </li>
     </ul>
 
-    <p v-else>No locked capsules.</p>
+    <p v-else class="capsules-list-empty">No locked capsules.</p>
 
   </div>
 </template>
@@ -198,6 +200,9 @@ const getCountdown = (openAt) => {
   justify-content: space-between;
   font-size: 15px;
   font-weight: 300;
+  color: #000;
+  opacity: 0.7;
+  padding-top: 10px;
 }
 
 .capsules-count {
@@ -224,6 +229,9 @@ const getCountdown = (openAt) => {
 
 /* CAPSULES LIST */
 ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin: 10px;
   list-style-type: none;
 }
@@ -231,7 +239,7 @@ ul {
 li {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   padding: 15px;
   cursor: pointer;
   transition: background 0.3s;
@@ -256,15 +264,30 @@ li p {
   opacity: 0.7;
 }
 
+.capsule-preview {
+  font-size: 14px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.4em;
+  max-height: 2.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+
 .capsule-list-status {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   width: 100%;
-  background: #3ac76e58;
+  background: #6fe99c58;
   color: #036929;
   padding: 3px;
   border-radius: 6px;
@@ -275,10 +298,10 @@ li p {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   width: 100%;
-  background: #d7d7d7;
+  background: #e4e4e4;
   color: #656565;
   padding: 3px;
   border-radius: 6px;
@@ -314,6 +337,10 @@ li p {
   align-items: center;
   gap: 5px;
   font-size: 14px;
+}
+
+.capsules-list-empty {
+  padding: 15px;
 }
 
 </style>
