@@ -21,39 +21,101 @@
     </div>
 
     <!-- Capsules available to open -->
-    <h3>📬 Capsules Available:</h3>
-    <ul v-if="openCapsules.length">
+    <ul v-if="filteredOpenCapsules.length">
       <li
-        v-for="capsule in openCapsules"
+        v-for="capsule in filteredOpenCapsules"
         :key="capsule._id"
         @click="selectCapsule(capsule)"
         :class="{ active: selectedCapsule && selectedCapsule._id === capsule._id }"
       >
-        <strong>{{ capsule.title }}</strong><br />
-        created at: {{ new Date(capsule.createdAt).toLocaleDateString() }}
+        <div class="capsule-title-container">
+          <p>{{ capsule.title }}</p>
+
+          <div class="capsule-title-icons-container">
+            <div v-if="capsule.imageUrl">
+              <HasImageSVG />
+            </div>
+            <UnlockedSVG :stroke="'#22C55E'" />
+          </div>
+
+        </div>
+
+        <div class="capsule-date-container">
+          <span>
+            <CalendarSVG />
+            {{ new Date(capsule.createdAt).toLocaleDateString() }}
+          </span>
+
+          <span>
+            <TimerSVG />
+            {{ new Date(capsule.openAt).toLocaleDateString() }}
+          </span>
+        </div>
+
+        <span class="capsule-list-status">
+          <MailSVG :width="'18px'" :height="'18px'" :fill="'#036929'"/>
+          Ready to read
+        </span>
+
       </li>
     </ul>
+
     <p v-else>No capsules available to view.</p>
 
     <!-- Capsules locked -->
-    <h3>🔒 Locked Capsules:</h3>
-    <ul v-if="lockedCapsules.length">
+    <ul v-if="filteredLockedCapsules.length">
       <li
-        v-for="capsule in lockedCapsules"
+        v-for="capsule in filteredLockedCapsules"
         :key="capsule._id"
         @click="selectLockedCapsule(capsule)"
         :class="{ active: selectedCapsule && selectedCapsule._id === capsule._id }"
       >
-        <strong>{{ capsule.title }}</strong><br />
-        available at: <em>{{ new Date(capsule.openAt).toLocaleDateString() }}</em>
+        <div class="capsule-title-container">
+          <p>{{ capsule.title }}</p>
+
+          <div class="capsule-title-icons-container">
+            <div v-if="capsule.imageUrl">
+              <HasImageSVG />
+            </div>
+            <LockedSVG />
+          </div>
+
+        </div>
+
+        <div class="capsule-date-container">
+          <span>
+            <CalendarSVG />
+            {{ new Date(capsule.createdAt).toLocaleDateString() }}
+          </span>
+
+          <span>
+            <TimerSVG />
+            {{ new Date(capsule.openAt).toLocaleDateString() }}
+          </span>
+        </div>
+
+        <span class="capsule-list-locked-status">
+          <TimerSVG :width="'15px'" :height="'15px'" />
+          {{ getCountdown(capsule.openAt) }} left
+        </span>
       </li>
     </ul>
+
     <p v-else>No locked capsules.</p>
+
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import CircleSVG from '@/assets/icons/CircleSVG.vue'
+import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
+import TimerSVG from '@/assets/icons/TimerSVG.vue'
+import HasImageSVG from '@/assets/icons/HasImageSVG.vue'
+import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
+import LockedSVG from '@/assets/icons/LockedSVG.vue'
+import MailSVG from '@/assets/icons/MailSVG.vue'
+
 const props = defineProps({
   openCapsules: Array,
   lockedCapsules: Array,
@@ -71,6 +133,42 @@ const selectCapsule = (capsule) => {
 const selectLockedCapsule = (capsule) => {
   emit('select-locked-capsule', capsule)
 }
+
+// Search capsules
+const searchQuery = ref("")
+
+const filteredOpenCapsules = computed(() =>
+  props.openCapsules.filter((capsule) =>
+    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+const filteredLockedCapsules = computed(() =>
+  props.lockedCapsules.filter((capsule) =>
+    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+// Countdown timer for locked capsules
+const getCountdown = (openAt) => {
+  const now = new Date()
+  const openDate = new Date(openAt)
+
+  const diffMs = openDate - now
+
+  if (diffMs <= 0) return 'Available now'
+
+  const totalMinutes = Math.floor(diffMs / 1000 / 60)
+  const days = Math.floor(totalMinutes / 60 / 24)
+  const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+  const minutes = totalMinutes % 60
+
+  if (days > 0) return `${days} day${days > 1 ? 's' : ''}`
+  if (hours > 0) return `${hours}h`
+  return `${minutes}m`
+}
+
+
 </script>
 
 <style scoped>
@@ -90,15 +188,16 @@ const selectLockedCapsule = (capsule) => {
 
 .capsules-list-header h2 {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
   color: #000;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .capsules-count-container {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 300;
 }
 
 .capsules-count {
@@ -124,26 +223,97 @@ const selectLockedCapsule = (capsule) => {
 }
 
 /* CAPSULES LIST */
-
 ul {
+  margin: 10px;
   list-style-type: none;
-  padding: 0;
-  margin-bottom: 20px;
 }
 
 li {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
   cursor: pointer;
   transition: background 0.3s;
   border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  border-left: 4px solid #cfcfcf;
 }
 
 li:hover {
-  background: #e0e0e0;
+  background: #f0f0f0;
+  box-shadow: 1px 3px 5px #e0e0e0;
 }
 
 li.active {
-  background: #cce5ff;
-  font-weight: bold;
+  background: #f0f0f0;
 }
+
+li p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  opacity: 0.7;
+}
+
+.capsule-list-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  background: #3ac76e58;
+  color: #036929;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.capsule-list-locked-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  background: #d7d7d7;
+  color: #656565;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.capsule-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.capsule-title-icons-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.capsule-title-icons-container div {
+  display: flex;
+  align-items: center;
+}
+
+.capsule-date-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.capsule-date-container span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
 </style>

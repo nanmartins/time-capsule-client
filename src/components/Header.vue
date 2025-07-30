@@ -70,7 +70,7 @@ a {
   font-size: 18px;
   font-weight: 300;
   text-shadow: 2px 1px 1px #FFFFFF;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 a:hover {
@@ -85,7 +85,7 @@ button {
   font-family: 'Avenir Next', sans-serif;
   font-size: 20px;
   line-height: 17px;
-  opacity: 0.75;
+  opacity: 0.85;
   cursor: pointer;
 }
 
