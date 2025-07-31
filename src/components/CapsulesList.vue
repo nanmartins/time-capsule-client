@@ -98,7 +98,7 @@
 
         <span class="capsule-list-locked-status">
           <TimerSVG :width="'15px'" :height="'15px'" />
-          {{ getCountdown(capsule.openAt) }} left
+          {{ getCountdown(capsule.openAt) }}
         </span>
       </li>
     </ul>
@@ -165,9 +165,9 @@ const getCountdown = (openAt) => {
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
   const minutes = totalMinutes % 60
 
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''}`
-  if (hours > 0) return `${hours}h`
-  return `${minutes}m`
+  if (days > 0) return `${days} day${days > 1 ? 's' : ''} left`
+  if (hours > 0) return `${hours}h left`
+  return `${minutes}m left`
 }
 
 
@@ -312,6 +312,9 @@ li p {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+}
+.capsule-title-container p {
+  text-transform: capitalize;
 }
 
 .capsule-title-icons-container {
