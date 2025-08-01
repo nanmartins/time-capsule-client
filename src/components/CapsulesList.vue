@@ -177,6 +177,7 @@ const getCountdown = (openAt) => {
 .capsules-list {
   overflow-y: auto;
   background-color: #FAF9F6;
+  border-right: 1px solid #e6e6e6;
 }
 
 /* CAPSULES LIST HEADER */
@@ -185,7 +186,7 @@ const getCountdown = (openAt) => {
   flex-direction: column;
   gap: 5px;
   padding: 20px 15px;
-  border-bottom: 1px solid #dfdfdf;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .capsules-list-header h2 {
@@ -214,7 +215,7 @@ const getCountdown = (openAt) => {
   width: 100%;
   padding: 10px;
   margin: 10px 0 0 0;
-  border: 1px solid #ccc;
+  border: 1px solid #e6e6e6;
   border-radius: 6px;
   font-size: 1rem;
   background-color: transparent;
@@ -222,7 +223,7 @@ const getCountdown = (openAt) => {
 
 .search-capsules:focus {
   outline: none;
-  border: 1px solid #ccc;
+  /* border: 1px solid #e6e6e6; */
   box-shadow: 0 0 0 1px #ccc;
   background-color: #fff;
 }
