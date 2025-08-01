@@ -98,7 +98,7 @@
 
         <span class="capsule-list-locked-status">
           <TimerSVG :width="'15px'" :height="'15px'" />
-          {{ getCountdown(capsule.openAt) }} left
+          {{ getCountdown(capsule.openAt) }}
         </span>
       </li>
     </ul>
@@ -165,9 +165,9 @@ const getCountdown = (openAt) => {
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
   const minutes = totalMinutes % 60
 
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''}`
-  if (hours > 0) return `${hours}h`
-  return `${minutes}m`
+  if (days > 0) return `${days} day${days > 1 ? 's' : ''} left`
+  if (hours > 0) return `${hours}h left`
+  return `${minutes}m left`
 }
 
 
@@ -177,6 +177,7 @@ const getCountdown = (openAt) => {
 .capsules-list {
   overflow-y: auto;
   background-color: #FAF9F6;
+  border-right: 1px solid #e6e6e6;
 }
 
 /* CAPSULES LIST HEADER */
@@ -185,7 +186,7 @@ const getCountdown = (openAt) => {
   flex-direction: column;
   gap: 5px;
   padding: 20px 15px;
-  border-bottom: 1px solid #dfdfdf;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .capsules-list-header h2 {
@@ -214,7 +215,7 @@ const getCountdown = (openAt) => {
   width: 100%;
   padding: 10px;
   margin: 10px 0 0 0;
-  border: 1px solid #ccc;
+  border: 1px solid #e6e6e6;
   border-radius: 6px;
   font-size: 1rem;
   background-color: transparent;
@@ -222,7 +223,7 @@ const getCountdown = (openAt) => {
 
 .search-capsules:focus {
   outline: none;
-  border: 1px solid #ccc;
+  /* border: 1px solid #e6e6e6; */
   box-shadow: 0 0 0 1px #ccc;
   background-color: #fff;
 }
@@ -312,6 +313,9 @@ li p {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+}
+.capsule-title-container p {
+  text-transform: capitalize;
 }
 
 .capsule-title-icons-container {
