@@ -19,7 +19,7 @@
           <!-- Open capsules header -->
           <div>
             <h2>{{ selectedCapsule.title }}</h2>
-            <p><UnlockedSVG :stroke="'#036929'" :strokeWidth="2"/> Unlocked</p>
+            <p><UnlockedSVG class="unlocked-header-icon" :stroke="'#036929'" :strokeWidth="2" /> Unlocked</p>
           </div>
 
           <ul>
@@ -46,8 +46,24 @@
             <div class="image-overlay">Click to view full size</div>
           </div>
 
-          <p>Message: {{ selectedCapsule.message }}</p>
+          <div class="capsule-details-message-container">
+            <h3>
+              <MailSVG :width="22" :height="22" :fill="'#036929'"/>
+              Your Message from the Past
+            </h3>
+            <p>{{ selectedCapsule.message }}</p>
+          </div>
 
+          <!-- Days to unlock capsule -->
+          <div class="capsule-unlocked-details-countdown">
+            <UnlockedSVG class="unlocked-countdown-icon" :width="32" :height="32" :stroke="'#036929'" :strokeWidth="2" />
+            <div class="capsule-unlocked-details-countdown-text">
+              <p>Unlocked on {{ formatDate(selectedCapsule.openAt) }}</p>
+              <p>You waited {{ daysLocked }} day<span v-if="daysLocked > 1">s</span> to unlock this capsule</p>
+            </div>
+          </div>
+
+          <!-- Delete capsule button -->
           <button @click="confirmDelete" class="delete-button">
             🗑️ Delete Capsule
           </button>
@@ -61,10 +77,7 @@
           </div>
         </div>
 
-
-
       </div>
-
 
     </div>
 
@@ -118,6 +131,19 @@ const confirmDelete = () => {
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
+
+// Days the capsule has been locked
+const daysLocked = computed(() => {
+  if (!props.selectedCapsule) return null
+
+  const created = new Date(props.selectedCapsule.createdAt)
+  const opened = new Date(props.selectedCapsule.openAt)
+
+  const diffInMs = opened - created
+  const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24))
+
+  return diffInDays
+})
 
 </script>
 
@@ -186,6 +212,10 @@ const formatDate = (date) => {
   zoom: 0.8;
 }
 
+.unlocked-header-icon {
+  margin-bottom: 2px;
+}
+
 .capsule-unlocked-details-header ul {
   display: flex;
   align-content: center;
@@ -204,6 +234,9 @@ const formatDate = (date) => {
 
 /* Unklocked capsule body */
 .capsule-unlocked-details-body {
+  /* display: flex;
+  flex-direction: column;
+  gap: 24px; */
   background: #FAF9F6;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
@@ -310,6 +343,57 @@ const formatDate = (date) => {
   background: white;
 }
 
+/* Unlocked capsule message */
+.capsule-details-message-container {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  background: #FAF9F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.capsule-details-message-container h3 {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.capsule-details-message-container p {
+  font-size: 16px;
+  color: #000000;
+  opacity: 0.7;
+}
+
+/* Unlocked capsules days counts */
+.capsule-unlocked-details-countdown {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  font-size: 14px;
+  letter-spacing: 0px;
+  background: #6fe99c58;
+  color: #036929;
+  border: 1px solid #22C55E;
+  border-radius: 6px;
+}
+
+.unlocked-countdown-icon {
+  padding: 8px;
+  background: #22c55e6d;
+  border-radius: 10%;
+  border: 1px solid #22C55E;
+}
+
+.capsule-unlocked-details-countdown-text p:first-child {
+  font-weight: 500;
+}
 
 
 
@@ -343,6 +427,14 @@ const formatDate = (date) => {
   font-size: 16px;
   max-width: 400px;
 }
+
+
+
+
+
+
+
+
 
 
 
