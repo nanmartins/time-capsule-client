@@ -16,6 +16,7 @@
       <div class="capsule-unlocked-details" v-else>
 
         <div class="capsule-unlocked-details-header">
+          <!-- Open capsules header -->
           <div>
             <h2>{{ selectedCapsule.title }}</h2>
             <p><UnlockedSVG :stroke="'#036929'" :strokeWidth="2"/> Unlocked</p>
@@ -38,16 +39,30 @@
 
         </div>
 
-        <div v-if="selectedCapsule.imageUrl">
-          <img :src="selectedCapsule.imageUrl" alt="Capsule Image" class="capsule-image" />
+        <!-- Open capsules content body -->
+        <div class="capsule-unlocked-details-body">
+          <div class="capsule-details-image-container" v-if="selectedCapsule.imageUrl">
+            <img :src="selectedCapsule.imageUrl" alt="Capsule Image" @click="showModal = true"/>
+            <div class="image-overlay">Click to view full size</div>
+          </div>
+
+          <p>Message: {{ selectedCapsule.message }}</p>
+
+          <button @click="confirmDelete" class="delete-button">
+            🗑️ Delete Capsule
+          </button>
         </div>
 
-        <p><strong>Message:</strong> {{ selectedCapsule.message }}</p>
+        <!-- Modal -->
+        <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+          <div class="modal-content">
+            <img :src="selectedCapsule.imageUrl" alt="Full Capsule Image" />
+            <button class="modal-close" @click="closeModal">✕</button>
+          </div>
+        </div>
 
 
-        <button @click="confirmDelete" class="delete-button">
-          🗑️ Delete Capsule
-        </button>
+
       </div>
 
 
@@ -67,7 +82,7 @@
 
 <script setup>
 import MailSVG from '@/assets/icons/MailSVG.vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import TimerSVG from '@/assets/icons/TimerSVG.vue'
@@ -79,6 +94,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['delete-capsule'])
+const showModal = ref(false)
+
+const openModal = () => {
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+}
 
 const isLocked = computed(() => {
   if (!props.selectedCapsule) return false
@@ -94,11 +118,11 @@ const confirmDelete = () => {
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
-console.log(props.selectedCapsule)
 
 </script>
 
 <style scoped>
+
 /* Main container */
 .capsule-details {
   padding: 24px 0;
@@ -178,6 +202,119 @@ console.log(props.selectedCapsule)
   color: #666;
 }
 
+/* Unklocked capsule body */
+.capsule-unlocked-details-body {
+  background: #FAF9F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 24px 24px 18px 24px;
+}
+
+
+/* Unlocked capsule image container */
+.capsule-details-image-container {
+  position: relative;
+  max-height: 250px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #dddddd;
+  border-radius: 6px;
+}
+
+.capsule-details-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Overlay */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.6);
+  color: white;
+  text-shadow: 1px 1px #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 1.7px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+/* Show overlay on hover */
+.capsule-details-image-container:hover .image-overlay {
+  border: none;
+  opacity: 1;
+}
+
+/* Image modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 10, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  padding: 6px 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: white;
+}
+
+
+
+
+
+
 /* No capsule selected */
 .capsule-empty {
   display: flex;
@@ -216,13 +353,6 @@ console.log(props.selectedCapsule)
   font-size: 1.5rem;
   font-weight: bold;
   color: #d9534f;
-}
-
-.capsule-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-top: 10px;
 }
 
 .delete-button {
