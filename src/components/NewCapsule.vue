@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label for="openAt">Open At:</label>
-        <input type="datetime-local" id="openAt" v-model="openAt" required />
+        <input type="datetime-local" id="openAt" v-model="openAt" required :min="minOpenDate" />
       </div>
 
       <div class="form-group">
@@ -39,7 +39,7 @@
 
 
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { createCapsule } from "@/services.js"
 import { useAuthStore } from '@/stores/authStore.js'
 
@@ -58,9 +58,38 @@ const handleImageUpload = (event) => {
 };
 
 // Send data to the server
+// const submitCapsule = async () => {
+//   if (!title.value || !message.value || !openAt.value) {
+//     errorMessage.value = "Title, Message and Date to Open fields are required"
+//     return
+//   }
+
+//   try {
+//     await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
+//     emit("capsuleCreated")
+//     errorMessage.value = "Capsule created successfully"
+//     title.value = ""
+//     message.value = ""
+//     openAt.value = ""
+//     imageUrl.value = null
+//   } catch (error) {
+//     errorMessage.value = error.message
+//   }
+// }
+
 const submitCapsule = async () => {
   if (!title.value || !message.value || !openAt.value) {
     errorMessage.value = "Title, Message and Date to Open fields are required"
+    return
+  }
+
+  const now = new Date()
+  const openDate = new Date(openAt.value)
+
+  const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000)
+
+  if (openDate < twoHoursFromNow) {
+    errorMessage.value = "The opening date must be at least 2 hours in the future"
     return
   }
 
@@ -76,6 +105,14 @@ const submitCapsule = async () => {
     errorMessage.value = error.message
   }
 }
+
+// Minimum open date
+const minOpenDate = computed(() => {
+  const now = new Date(Date.now() + 2 * 60 * 60 * 1000)
+  const pad = (n) => (n < 10 ? '0' + n : n)
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`
+})
+
 
 </script>
 

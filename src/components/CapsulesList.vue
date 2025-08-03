@@ -33,9 +33,9 @@
 
           <div class="capsule-title-icons-container">
             <div v-if="capsule.imageUrl">
-              <HasImageSVG />
+              <HasImageSVG :width="'18'" :height="'18'" />
             </div>
-            <UnlockedSVG :stroke="'#22C55E'" />
+            <UnlockedSVG :stroke="'#22C55E'" :stroke-width="'1.2'" />
           </div>
 
         </div>
@@ -77,9 +77,9 @@
 
           <div class="capsule-title-icons-container">
             <div v-if="capsule.imageUrl">
-              <HasImageSVG />
+              <HasImageSVG :width="'18'" :height="'18'" />
             </div>
-            <LockedSVG />
+            <LockedSVG :stroke-width="'1.2'" />
           </div>
 
         </div>

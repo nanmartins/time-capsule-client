@@ -3,20 +3,44 @@
 
     <div class="capsule-details-container" v-if="selectedCapsule">
 
-      <!-- Locked Capsule Details / Timer -->
-      <div v-if="isLocked">
-        <h2>{{ selectedCapsule.title }}</h2>
+      <!-- Locked Capsule Details -->
+      <div class="capsule-locked-details" v-if="isLocked">
+
+        <!-- Locked capsules header -->
+        <div class="capsule-locked-details-header">
+
+          <div>
+            <h2>{{ selectedCapsule.title }}</h2>
+            <p><LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#000000b7'" :stroke-width="2" /> Locked</p>
+          </div>
+
+        </div>
+
+
         <h3>🔒 This capsule is locked!</h3>
-        <p>It will open in:</p>
-        <p class="countdown">{{ countdown }}</p>
+
+        <div class="capsule-locked-details-body">
+
+          <span class="locked-duration-number">{{ lockedDuration.value }}</span>
+          <span class="locked-duration-unit">{{ lockedDuration.unit }}</span>
+
+          <div class="progress-wrapper">
+            <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+          </div>
+
+          <p>{{ Math.floor(progressPercent) }}% unlocked</p>
+
+        </div>
+
       </div>
 
 
-      <!-- Open Capsule Details -->
+      <!-- Unlocked Capsule Details -->
       <div class="capsule-unlocked-details" v-else>
 
         <div class="capsule-unlocked-details-header">
-          <!-- Open capsules header -->
+
+          <!-- Unlocked capsules header -->
           <div>
             <h2>{{ selectedCapsule.title }}</h2>
             <p><UnlockedSVG class="unlocked-header-icon" :stroke="'#036929'" :strokeWidth="2" /> Unlocked</p>
@@ -48,7 +72,7 @@
 
           <div class="capsule-details-message-container">
             <h3>
-              <MailSVG :width="22" :height="22" :fill="'#036929'"/>
+              <MailSVG :width="'22'" :height="'22'" :fill="'#036929'"/>
               Your Message from the Past
             </h3>
             <p>{{ selectedCapsule.message }}</p>
@@ -56,17 +80,31 @@
 
           <!-- Days to unlock capsule -->
           <div class="capsule-unlocked-details-countdown">
-            <UnlockedSVG class="unlocked-countdown-icon" :width="32" :height="32" :stroke="'#036929'" :strokeWidth="2" />
+            <UnlockedSVG class="unlocked-countdown-icon" :width="'30'" :height="'30'" :stroke="'#036929'" :strokeWidth="2" />
             <div class="capsule-unlocked-details-countdown-text">
               <p>Unlocked on {{ formatDate(selectedCapsule.openAt) }}</p>
-              <p>You waited {{ daysLocked }} day<span v-if="daysLocked > 1">s</span> to unlock this capsule</p>
+              <p>You waited {{ getLockedDuration() }} to unlock this capsule</p>
             </div>
           </div>
 
           <!-- Delete capsule button -->
-          <button @click="confirmDelete" class="delete-button">
-            🗑️ Delete Capsule
-          </button>
+           <div class="capsule-unlocked-details-footer">
+
+            <button class="download-button">
+              <DownloadSVG :width="'18'" :height="'18'" :stroke="'#FFFFFF'" :stroke-width="2"/>
+              Download
+            </button>
+
+            <button class="share-button">
+              <ShareSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
+              Share
+            </button>
+
+            <button @click="confirmDelete" class="delete-button">
+              <DeleteSVG :width="'20'" :height="'20'" :stroke="'#B91C1B'" :strokeWidth="1.5"/>
+              Delete
+            </button>
+           </div>
         </div>
 
         <!-- Modal -->
@@ -83,7 +121,7 @@
 
     <!-- No capsule selected -->
     <div class="capsule-empty" v-else>
-      <MailSVG :width="70" :height="70" class="capsule-empty-icon" />
+      <MailSVG :width="'70'" :height="'70'" class="capsule-empty-icon" />
       <h3>Select a Time Capsule</h3>
       <p>Choose a capsule from the list to view its details and content</p>
     </div>
@@ -94,12 +132,17 @@
 
 
 <script setup>
-import MailSVG from '@/assets/icons/MailSVG.vue'
 import { computed, ref } from 'vue'
+import MailSVG from '@/assets/icons/MailSVG.vue'
 import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
+import LockedSVG from '@/assets/icons/LockedSVG.vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import TimerSVG from '@/assets/icons/TimerSVG.vue'
 import HasImageSVG from '@/assets/icons/HasImageSVG.vue'
+import DeleteSVG from '@/assets/icons/DeleteSVG.vue'
+import DownloadSVG from '@/assets/icons/DownloadSVG.vue'
+import ShareSVG from '@/assets/icons/ShareSVG.vue'
+
 
 const props = defineProps({
   selectedCapsule: Object,
@@ -133,17 +176,48 @@ const formatDate = (date) => {
 }
 
 // Days the capsule has been locked
-const daysLocked = computed(() => {
-  if (!props.selectedCapsule) return null
+const getLockedDurationRaw = () => {
+  if (!props.selectedCapsule) return { value: 0, unit: '' }
 
   const created = new Date(props.selectedCapsule.createdAt)
   const opened = new Date(props.selectedCapsule.openAt)
 
-  const diffInMs = opened - created
-  const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24))
+  const diffMs = opened - created
+  const totalHours = Math.floor(diffMs / (1000 * 60 * 60))
+  const totalDays = Math.floor(totalHours / 24)
 
-  return diffInDays
+  if (totalDays > 1) {
+    return { value: totalDays, unit: 'days' }
+  } else if (totalDays === 1) {
+    return { value: totalDays, unit: 'day' }
+  } else if (totalHours > 1 && totalDays < 1) {
+    return { value: totalHours, unit: 'hours' }
+  } else {
+    return { value: totalHours, unit: 'hour' }
+  }
+}
+
+// Days the capsule has been locked formatted
+const getLockedDuration = () => {
+  const { value, unit } = getLockedDurationRaw()
+  return `${value} ${unit}${value > 1 ? 's' : ''}`
+}
+
+const lockedDuration = getLockedDurationRaw()
+
+// Progress bar
+const progressPercent = computed(() => {
+  const now = new Date().getTime()
+  const created = new Date(props.selectedCapsule.createdAt).getTime()
+  const open = new Date(props.selectedCapsule.openAt).getTime()
+
+  if (now >= open) return 100
+  if (now <= created) return 0
+
+  const progress = ((now - created) / (open - created)) * 100
+  return Math.min(100, Math.max(0, progress))
 })
+
 
 </script>
 
@@ -166,6 +240,7 @@ const daysLocked = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   max-width: 800px;
 }
 
@@ -173,6 +248,54 @@ const daysLocked = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.capsule-locked-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Locked header */
+.capsule-locked-details-header {
+  background: #FAF9F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 24px 24px 18px 24px;
+}
+
+.capsule-locked-details-header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.capsule-locked-details-header div h2 {
+  font-size: 26px;
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 0.7;
+}
+
+.capsule-locked-details-header div p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: #ececec;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000b7;
+  letter-spacing: 0px;
+  border-radius: 20px;
+  border: 1px solid #b3b3b3;
+  zoom: 0.8;
+}
+
+.locked-header-icon {
+  margin-bottom: 2px;
 }
 
 /* Unlocked header */
@@ -234,9 +357,6 @@ const daysLocked = computed(() => {
 
 /* Unklocked capsule body */
 .capsule-unlocked-details-body {
-  /* display: flex;
-  flex-direction: column;
-  gap: 24px; */
   background: #FAF9F6;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
@@ -254,6 +374,7 @@ const daysLocked = computed(() => {
   align-items: center;
   border: 1px dashed #dddddd;
   border-radius: 6px;
+  margin-bottom: 24px;
 }
 
 .capsule-details-image-container img {
@@ -352,7 +473,6 @@ const daysLocked = computed(() => {
   border: 1px solid #e6e6e6;
   border-radius: 6px;
   padding: 24px;
-  margin: 24px 0;
 }
 
 .capsule-details-message-container h3 {
@@ -382,20 +502,61 @@ const daysLocked = computed(() => {
   color: #036929;
   border: 1px solid #22C55E;
   border-radius: 6px;
+  margin-top: 24px;
 }
 
 .unlocked-countdown-icon {
-  padding: 8px;
-  background: #22c55e6d;
+  padding: 6px;
+  background: #22c55e49;
   border-radius: 10%;
   border: 1px solid #22C55E;
 }
 
 .capsule-unlocked-details-countdown-text p:first-child {
+  color: #000000;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* Unlocked capsules buttons container */
+.capsule-unlocked-details-footer {
+  display: flex;
+  gap: 15px;
+  /* justify-content: end; */
+  margin-top: 48px;
+}
+
+.capsule-unlocked-details-footer button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  font-family: 'Avenir Next', sans-serif;
+  font-size: 15px;
   font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 
+.delete-button {
+  background: #fda5a528;
+  color: #B91C1B;
+  border: 1px solid #FDA5A5;
+}
+
+.download-button {
+  background: #22C55E;
+  color: #FFFFFF;
+  border: 1px solid #22C55E;
+}
+
+.share-button {
+  background: transparent;
+  color: #000000;
+  opacity: 0.7;
+  border: 1px solid #cecece;
+}
 
 
 
@@ -430,34 +591,21 @@ const daysLocked = computed(() => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-.countdown {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #d9534f;
+/* progress bar */
+.progress-wrapper {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 
-.delete-button {
-  background-color: #d9534f;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
+.progress-bar {
+  height: 100%;
+  background-color: #22c55e;
+  transition: width 0.3s ease-in-out;
 }
 
-.delete-button:hover {
-  background-color: #c9302c;
-}
+
 </style>
