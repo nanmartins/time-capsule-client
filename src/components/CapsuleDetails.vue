@@ -56,17 +56,20 @@
 
           <!-- Days to unlock capsule -->
           <div class="capsule-unlocked-details-countdown">
-            <UnlockedSVG class="unlocked-countdown-icon" :width="32" :height="32" :stroke="'#036929'" :strokeWidth="2" />
+            <UnlockedSVG class="unlocked-countdown-icon" :width="30" :height="30" :stroke="'#036929'" :strokeWidth="2" />
             <div class="capsule-unlocked-details-countdown-text">
               <p>Unlocked on {{ formatDate(selectedCapsule.openAt) }}</p>
-              <p>You waited {{ daysLocked }} day<span v-if="daysLocked > 1">s</span> to unlock this capsule</p>
+              <p>You waited {{ getLockedDuration() }} to unlock this capsule</p>
             </div>
           </div>
 
           <!-- Delete capsule button -->
-          <button @click="confirmDelete" class="delete-button">
-            🗑️ Delete Capsule
-          </button>
+           <div class="capsule-unlocked-details-footer">
+             <button @click="confirmDelete" class="delete-button">
+              <DeleteSVG :width="20" :height="20" :stroke="'#B91C1B'" :strokeWidth="1.5"/>
+              Delete
+             </button>
+           </div>
         </div>
 
         <!-- Modal -->
@@ -100,6 +103,8 @@ import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import TimerSVG from '@/assets/icons/TimerSVG.vue'
 import HasImageSVG from '@/assets/icons/HasImageSVG.vue'
+import DeleteSVG from '@/assets/icons/DeleteSVG.vue'
+
 
 const props = defineProps({
   selectedCapsule: Object,
@@ -133,17 +138,22 @@ const formatDate = (date) => {
 }
 
 // Days the capsule has been locked
-const daysLocked = computed(() => {
-  if (!props.selectedCapsule) return null
+const getLockedDuration = () => {
+  if (!props.selectedCapsule) return ''
 
   const created = new Date(props.selectedCapsule.createdAt)
   const opened = new Date(props.selectedCapsule.openAt)
 
-  const diffInMs = opened - created
-  const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24))
+  const diffMs = opened - created
+  const totalHours = Math.floor(diffMs / (1000 * 60 * 60))
+  const totalDays = Math.floor(totalHours / 24)
 
-  return diffInDays
-})
+  if (totalDays >= 1) {
+    return `${totalDays} day${totalDays > 1 ? 's' : ''}`
+  } else {
+    return `${totalHours} hour${totalHours > 1 ? 's' : ''}`
+  }
+}
 
 </script>
 
@@ -385,16 +395,37 @@ const daysLocked = computed(() => {
 }
 
 .unlocked-countdown-icon {
-  padding: 8px;
-  background: #22c55e6d;
+  padding: 6px;
+  background: #22c55e49;
   border-radius: 10%;
   border: 1px solid #22C55E;
 }
 
 .capsule-unlocked-details-countdown-text p:first-child {
-  font-weight: 500;
+  color: #000000;
+  font-weight: 600;
+  opacity: 0.7;
 }
 
+/* Unlocked capsules buttons container */
+.capsule-unlocked-details-footer {
+  display: flex;
+  justify-content: end;
+  margin-top: 42px;
+}
+.capsule-unlocked-details-footer button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  font-family: 'Avenir Next', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  color: #B91C1B;
+  border: 1px solid #FDA5A5;
+  border-radius: 6px;
+}
 
 
 
@@ -447,17 +478,4 @@ const daysLocked = computed(() => {
   color: #d9534f;
 }
 
-.delete-button {
-  background-color: #d9534f;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.delete-button:hover {
-  background-color: #c9302c;
-}
 </style>
