@@ -14,6 +14,21 @@
             <p><LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#000000b7'" :stroke-width="2" /> Locked</p>
           </div>
 
+          <ul>
+            <li>
+              <CalendarSVG />
+              Created: {{ formatDate(selectedCapsule.createdAt) }}
+            </li>
+            <li>
+              <TimerSVG />
+              Unlocked: {{ formatDate(selectedCapsule.openAt) }}
+            </li>
+            <li v-if="selectedCapsule.imageUrl">
+              <HasImageSVG style="margin-bottom: 2px;"/>
+              Has attachement
+            </li>
+          </ul>
+
         </div>
 
 
@@ -297,6 +312,25 @@ const progressPercent = computed(() => {
 .locked-header-icon {
   margin-bottom: 2px;
 }
+
+.capsule-locked-details-header ul {
+  display: flex;
+  align-content: center;
+  gap: 25px;
+  list-style: none;
+  padding-top: 8px;
+}
+
+.capsule-locked-details-header ul li {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  color: #666;
+}
+
+
+
 
 /* Unlocked header */
 .capsule-unlocked-details-header {
