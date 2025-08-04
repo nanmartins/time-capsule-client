@@ -32,12 +32,21 @@
         </div>
 
 
-        <h3>🔒 This capsule is locked!</h3>
 
         <div class="capsule-locked-details-body">
 
-          <span class="locked-duration-number">{{ lockedDuration.value }}</span>
-          <span class="locked-duration-unit">{{ lockedDuration.unit }}</span>
+          <LockedSVG :width="'100'" :height="'100'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
+
+          <h3>This capsule is locked</h3>
+
+          <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
+
+          <div>
+
+          </div>
+
+          <p class="locked-duration-number">{{ lockedDuration.value }}</p>
+          <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
 
           <div class="progress-wrapper">
             <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
@@ -201,24 +210,21 @@ const getLockedDurationRaw = () => {
   const totalHours = Math.floor(diffMs / (1000 * 60 * 60))
   const totalDays = Math.floor(totalHours / 24)
 
-  if (totalDays > 1) {
-    return { value: totalDays, unit: 'days' }
-  } else if (totalDays === 1) {
-    return { value: totalDays, unit: 'day' }
-  } else if (totalHours > 1 && totalDays < 1) {
-    return { value: totalHours, unit: 'hours' }
-  } else {
-    return { value: totalHours, unit: 'hour' }
+  if (totalDays >= 1) {
+    return { value: totalDays, unit: totalDays === 1 ? 'day' : 'days' }
   }
+
+  // less than a day
+  return { value: totalHours, unit: totalHours === 1 ? 'hour' : 'hours' }
 }
 
 // Days the capsule has been locked formatted
 const getLockedDuration = () => {
   const { value, unit } = getLockedDurationRaw()
-  return `${value} ${unit}${value > 1 ? 's' : ''}`
+  return `${value} ${unit}`
 }
 
-const lockedDuration = getLockedDurationRaw()
+const lockedDuration = computed(() => getLockedDurationRaw())
 
 // Progress bar
 const progressPercent = computed(() => {
@@ -328,6 +334,32 @@ const progressPercent = computed(() => {
   font-size: 14px;
   color: #666;
 }
+
+
+/* Locked body */
+.capsule-locked-details-body {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+  padding: 24px;
+  background: #FAF9F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+}
+
+.capsule-locked-body-icon {
+  padding: 20px;
+  background: #F3F4F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 20%;
+  align-self: center;
+}
+
+
+
 
 
 

@@ -35,7 +35,7 @@
             <div v-if="capsule.imageUrl">
               <HasImageSVG :width="'18'" :height="'18'" />
             </div>
-            <UnlockedSVG :stroke="'#22C55E'" :stroke-width="'1.2'" />
+            <UnlockedSVG :stroke="'#22C55E'" :stroke-width="1.2" />
           </div>
 
         </div>
@@ -79,7 +79,7 @@
             <div v-if="capsule.imageUrl">
               <HasImageSVG :width="'18'" :height="'18'" />
             </div>
-            <LockedSVG :stroke-width="'1.2'" />
+            <LockedSVG :stroke-width="1.2" />
           </div>
 
         </div>
