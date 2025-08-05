@@ -32,27 +32,32 @@
         </div>
 
 
-
+        <!-- Capsule locked body -->
         <div class="capsule-locked-details-body">
 
-          <LockedSVG :width="'100'" :height="'100'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
+          <div class="capsule-locked-body-content">
 
-          <h3>This capsule is locked</h3>
+            <LockedSVG :width="'90'" :height="'90'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
 
-          <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
+            <div class="capsule-locked-body-message">
+              <h2>This capsule is locked</h2>
+              <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
+            </div>
 
-          <div>
+            <div class="capsule-locked-duration-progress">
+
+              <h3 class="locked-duration-number">{{ lockedDuration.value }}</h3>
+              <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
+
+              <div class="progress-wrapper">
+                <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+              </div>
+
+              <p>{{ Math.floor(progressPercent) }}% unlocked</p>
+
+            </div>
 
           </div>
-
-          <p class="locked-duration-number">{{ lockedDuration.value }}</p>
-          <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
-
-          <div class="progress-wrapper">
-            <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
-          </div>
-
-          <p>{{ Math.floor(progressPercent) }}% unlocked</p>
 
         </div>
 
@@ -87,7 +92,7 @@
 
         </div>
 
-        <!-- Open capsules content body -->
+        <!-- Unlocked capsule body -->
         <div class="capsule-unlocked-details-body">
           <div class="capsule-details-image-container" v-if="selectedCapsule.imageUrl">
             <img :src="selectedCapsule.imageUrl" alt="Capsule Image" @click="showModal = true"/>
@@ -338,25 +343,109 @@ const progressPercent = computed(() => {
 
 /* Locked body */
 .capsule-locked-details-body {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  text-align: center;
-  gap: 24px;
   padding: 24px;
   background: #FAF9F6;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
 }
 
+.capsule-locked-body-content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+  padding: 48px 0;
+}
+
 .capsule-locked-body-icon {
-  padding: 20px;
+  padding: 12px 18px;
   background: #F3F4F6;
   border: 1px solid #e6e6e6;
   border-radius: 20%;
   align-self: center;
 }
+
+.capsule-locked-body-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.capsule-locked-body-message h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+
+.capsule-locked-body-message p {
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.6;
+  max-width: 450px;
+}
+
+.capsule-locked-duration-progress {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  /* gap: 5px; */
+  padding: 24px;
+  margin: 0 auto;
+  background: #F3F4F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+}
+
+.capsule-locked-duration-progress h3 {
+  font-size: 30px;
+  font-weight: 700;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.capsule-locked-duration-progress span {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.capsule-locked-duration-progress p {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* progress bar */
+.progress-wrapper {
+  width: 100%;
+  max-width: 400px;
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #858585;
+  transition: width 0.3s ease-in-out;
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
 
 
 
@@ -654,24 +743,5 @@ const progressPercent = computed(() => {
   font-size: 16px;
   max-width: 400px;
 }
-
-
-
-/* progress bar */
-.progress-wrapper {
-  width: 100%;
-  height: 20px;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #22c55e;
-  transition: width 0.3s ease-in-out;
-}
-
 
 </style>
