@@ -32,27 +32,28 @@
         </div>
 
 
-
+        <!-- Capsule locked body -->
         <div class="capsule-locked-details-body">
 
-          <LockedSVG :width="'100'" :height="'100'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
+          <div class="capsule-locked-body-content">
+            <LockedSVG :width="'90'" :height="'90'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
 
-          <h3>This capsule is locked</h3>
+            <div class="capsule-locked-body-message">
+              <h2>This capsule is locked</h2>
+              <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
+            </div>
 
-          <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
+            <div class="capsule-locked-duration-progress">
+              <h3 class="locked-duration-number">{{ lockedDuration.value }}</h3>
+              <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
 
-          <div>
+              <div class="progress-wrapper">
+                <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+              </div>
 
+              <p>{{ Math.floor(progressPercent) }}% unlocked</p>
+            </div>
           </div>
-
-          <p class="locked-duration-number">{{ lockedDuration.value }}</p>
-          <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
-
-          <div class="progress-wrapper">
-            <div class="progress-bar" :style="{ width: `${progressPercent}%` }"></div>
-          </div>
-
-          <p>{{ Math.floor(progressPercent) }}% unlocked</p>
 
         </div>
 
@@ -87,7 +88,7 @@
 
         </div>
 
-        <!-- Open capsules content body -->
+        <!-- Unlocked capsule body -->
         <div class="capsule-unlocked-details-body">
           <div class="capsule-details-image-container" v-if="selectedCapsule.imageUrl">
             <img :src="selectedCapsule.imageUrl" alt="Capsule Image" @click="showModal = true"/>
@@ -120,7 +121,7 @@
             </button>
 
             <button class="share-button">
-              <ShareSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
+              <SharingSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
               Share
             </button>
 
@@ -165,7 +166,7 @@ import TimerSVG from '@/assets/icons/TimerSVG.vue'
 import HasImageSVG from '@/assets/icons/HasImageSVG.vue'
 import DeleteSVG from '@/assets/icons/DeleteSVG.vue'
 import DownloadSVG from '@/assets/icons/DownloadSVG.vue'
-import ShareSVG from '@/assets/icons/ShareSVG.vue'
+import SharingSVG from '@/assets/icons/SharingSVG.vue'
 
 
 const props = defineProps({
@@ -199,32 +200,37 @@ const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
 
-// Days the capsule has been locked
+// Days to unlock
 const getLockedDurationRaw = () => {
   if (!props.selectedCapsule) return { value: 0, unit: '' }
 
-  const created = new Date(props.selectedCapsule.createdAt)
-  const opened = new Date(props.selectedCapsule.openAt)
+  const now = new Date()
+  const openDate = new Date(props.selectedCapsule.openAt)
+  const diffMs = openDate - now
 
-  const diffMs = opened - created
-  const totalHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const totalDays = Math.floor(totalHours / 24)
-
-  if (totalDays >= 1) {
-    return { value: totalDays, unit: totalDays === 1 ? 'day' : 'days' }
+  if (diffMs <= 0) {
+    return { value: 0, unit: 'days' }
   }
 
-  // less than a day
-  return { value: totalHours, unit: totalHours === 1 ? 'hour' : 'hours' }
+  const totalMinutes = Math.floor(diffMs / 1000 / 60)
+  const days = Math.floor(totalMinutes / (60 * 24))
+  const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+
+  if (days >= 1) {
+    return { value: days, unit: days === 1 ? 'day' : 'days' }
+  }
+
+  return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
 }
 
-// Days the capsule has been locked formatted
+// Days to unlock formatted
 const getLockedDuration = () => {
   const { value, unit } = getLockedDurationRaw()
   return `${value} ${unit}`
 }
 
 const lockedDuration = computed(() => getLockedDurationRaw())
+
 
 // Progress bar
 const progressPercent = computed(() => {
@@ -263,14 +269,11 @@ const progressPercent = computed(() => {
   justify-content: center;
   width: 100%;
   max-width: 800px;
+  margin: auto;
 }
 
-.capsule-unlocked-details {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 
+/* LOCKED CAPSULES */
 .capsule-locked-details {
   display: flex;
   flex-direction: column;
@@ -338,31 +341,111 @@ const progressPercent = computed(() => {
 
 /* Locked body */
 .capsule-locked-details-body {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  text-align: center;
-  gap: 24px;
   padding: 24px;
   background: #FAF9F6;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
 }
 
+.capsule-locked-body-content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+  padding: 48px 0;
+}
+
 .capsule-locked-body-icon {
-  padding: 20px;
+  padding: 12px 18px;
   background: #F3F4F6;
   border: 1px solid #e6e6e6;
   border-radius: 20%;
   align-self: center;
 }
 
+.capsule-locked-body-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.capsule-locked-body-message h2 {
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+
+.capsule-locked-body-message p {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.6;
+  max-width: 450px;
+}
+
+.capsule-locked-duration-progress {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  /* gap: 5px; */
+  padding: 24px;
+  margin: 0 auto;
+  background: #F3F4F6;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+}
+
+.capsule-locked-duration-progress h3 {
+  font-size: 30px;
+  font-weight: 700;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.capsule-locked-duration-progress span {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+/* progress percentage */
+.capsule-locked-duration-progress p {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* progress bar */
+.progress-wrapper {
+  width: 100%;
+  max-width: 400px;
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #858585;
+  transition: width 0.3s ease-in-out;
+  border-radius: 50%;
+}
 
 
-
-
-
+/* UNLOCKED CAPSULES */
+.capsule-unlocked-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
 /* Unlocked header */
 .capsule-unlocked-details-header {
@@ -588,7 +671,6 @@ const progressPercent = computed(() => {
 .capsule-unlocked-details-footer {
   display: flex;
   gap: 15px;
-  /* justify-content: end; */
   margin-top: 48px;
 }
 
@@ -626,7 +708,7 @@ const progressPercent = computed(() => {
 
 
 
-/* No capsule selected */
+/* NO CAPSULE SELECTED */
 .capsule-empty {
   display: flex;
   flex-direction: column;
@@ -654,24 +736,5 @@ const progressPercent = computed(() => {
   font-size: 16px;
   max-width: 400px;
 }
-
-
-
-/* progress bar */
-.progress-wrapper {
-  width: 100%;
-  height: 20px;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #22c55e;
-  transition: width 0.3s ease-in-out;
-}
-
 
 </style>

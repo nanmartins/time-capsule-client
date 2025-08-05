@@ -55,27 +55,7 @@ const emit = defineEmits(["capsuleCreated"])
 // Get the selected image
 const handleImageUpload = (event) => {
   imageUrl.value = event.target.files[0]
-};
-
-// Send data to the server
-// const submitCapsule = async () => {
-//   if (!title.value || !message.value || !openAt.value) {
-//     errorMessage.value = "Title, Message and Date to Open fields are required"
-//     return
-//   }
-
-//   try {
-//     await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
-//     emit("capsuleCreated")
-//     errorMessage.value = "Capsule created successfully"
-//     title.value = ""
-//     message.value = ""
-//     openAt.value = ""
-//     imageUrl.value = null
-//   } catch (error) {
-//     errorMessage.value = error.message
-//   }
-// }
+}
 
 const submitCapsule = async () => {
   if (!title.value || !message.value || !openAt.value) {
