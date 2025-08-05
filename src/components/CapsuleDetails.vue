@@ -36,7 +36,6 @@
         <div class="capsule-locked-details-body">
 
           <div class="capsule-locked-body-content">
-
             <LockedSVG :width="'90'" :height="'90'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
 
             <div class="capsule-locked-body-message">
@@ -45,7 +44,6 @@
             </div>
 
             <div class="capsule-locked-duration-progress">
-
               <h3 class="locked-duration-number">{{ lockedDuration.value }}</h3>
               <span class="locked-duration-unit">{{ lockedDuration.unit }} remaining</span>
 
@@ -54,9 +52,7 @@
               </div>
 
               <p>{{ Math.floor(progressPercent) }}% unlocked</p>
-
             </div>
-
           </div>
 
         </div>
@@ -125,7 +121,7 @@
             </button>
 
             <button class="share-button">
-              <ShareSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
+              <SharingSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
               Share
             </button>
 
@@ -170,7 +166,7 @@ import TimerSVG from '@/assets/icons/TimerSVG.vue'
 import HasImageSVG from '@/assets/icons/HasImageSVG.vue'
 import DeleteSVG from '@/assets/icons/DeleteSVG.vue'
 import DownloadSVG from '@/assets/icons/DownloadSVG.vue'
-import ShareSVG from '@/assets/icons/ShareSVG.vue'
+import SharingSVG from '@/assets/icons/SharingSVG.vue'
 
 
 const props = defineProps({
@@ -204,32 +200,37 @@ const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
 
-// Days the capsule has been locked
+// Days to unlock
 const getLockedDurationRaw = () => {
   if (!props.selectedCapsule) return { value: 0, unit: '' }
 
-  const created = new Date(props.selectedCapsule.createdAt)
-  const opened = new Date(props.selectedCapsule.openAt)
+  const now = new Date()
+  const openDate = new Date(props.selectedCapsule.openAt)
+  const diffMs = openDate - now
 
-  const diffMs = opened - created
-  const totalHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const totalDays = Math.floor(totalHours / 24)
-
-  if (totalDays >= 1) {
-    return { value: totalDays, unit: totalDays === 1 ? 'day' : 'days' }
+  if (diffMs <= 0) {
+    return { value: 0, unit: 'days' }
   }
 
-  // less than a day
-  return { value: totalHours, unit: totalHours === 1 ? 'hour' : 'hours' }
+  const totalMinutes = Math.floor(diffMs / 1000 / 60)
+  const days = Math.floor(totalMinutes / (60 * 24))
+  const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+
+  if (days >= 1) {
+    return { value: days, unit: days === 1 ? 'day' : 'days' }
+  }
+
+  return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
 }
 
-// Days the capsule has been locked formatted
+// Days to unlock formatted
 const getLockedDuration = () => {
   const { value, unit } = getLockedDurationRaw()
   return `${value} ${unit}`
 }
 
 const lockedDuration = computed(() => getLockedDurationRaw())
+
 
 // Progress bar
 const progressPercent = computed(() => {
@@ -268,14 +269,11 @@ const progressPercent = computed(() => {
   justify-content: center;
   width: 100%;
   max-width: 800px;
+  margin: auto;
 }
 
-.capsule-unlocked-details {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 
+/* LOCKED CAPSULES */
 .capsule-locked-details {
   display: flex;
   flex-direction: column;
@@ -376,14 +374,14 @@ const progressPercent = computed(() => {
 }
 
 .capsule-locked-body-message h2 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   text-transform: capitalize;
   opacity: 0.9;
 }
 
 .capsule-locked-body-message p {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   opacity: 0.6;
   max-width: 450px;
@@ -416,6 +414,7 @@ const progressPercent = computed(() => {
   margin-bottom: 8px;
 }
 
+/* progress percentage */
 .capsule-locked-duration-progress p {
   font-size: 13px;
   font-weight: 500;
@@ -441,17 +440,12 @@ const progressPercent = computed(() => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+/* UNLOCKED CAPSULES */
+.capsule-unlocked-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
 /* Unlocked header */
 .capsule-unlocked-details-header {
@@ -677,7 +671,6 @@ const progressPercent = computed(() => {
 .capsule-unlocked-details-footer {
   display: flex;
   gap: 15px;
-  /* justify-content: end; */
   margin-top: 48px;
 }
 
@@ -715,7 +708,7 @@ const progressPercent = computed(() => {
 
 
 
-/* No capsule selected */
+/* NO CAPSULE SELECTED */
 .capsule-empty {
   display: flex;
   flex-direction: column;
