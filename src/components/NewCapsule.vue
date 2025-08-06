@@ -93,7 +93,6 @@ const minOpenDate = computed(() => {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`
 })
 
-
 </script>
 
 

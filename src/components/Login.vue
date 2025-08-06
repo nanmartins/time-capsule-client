@@ -46,3 +46,17 @@ const handleLogin = async () => {
   }
 };
 </script>
+
+
+<style scoped>
+
+.user-form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+form {
+  background: transparent;
+  border: 1px solid #cecece;
+}
+</style>

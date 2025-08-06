@@ -1,7 +1,7 @@
 <template>
   <div class="user-form-container">
     <form @submit.prevent="handleRegister">
-      <h1>Sign up</h1>
+      <h1>Register</h1>
       <label for="name">Name:</label>
       <input type="text" id="name" v-model="name" required />
 
@@ -14,6 +14,9 @@
       <button type="submit" class="user-form-btn">Register</button>
 
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+      <p>Already have an account? <RouterLink to="/signin">Sign in</RouterLink></p>
+
     </form>
   </div>
 </template>
@@ -51,6 +54,8 @@ const handleRegister = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100%;
+  max-width: 400px;
 }
 
 form {
@@ -58,7 +63,8 @@ form {
   flex-direction: column;
   width: 100%;
   max-width: 350px;
-  background: #f9f9f9;
+  background: transparent;
+  border: 1px solid #cecece;
   padding: 20px 30px 30px 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
