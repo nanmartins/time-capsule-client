@@ -21,6 +21,8 @@
 
     <HomeWhyCreate />
 
+    <HomeIntroSteps />
+
   </div>
 </template>
 
@@ -28,6 +30,7 @@
 import { onMounted } from 'vue';
 import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
 import HomeWhyCreate from '@/components/HomeWhyCreate.vue';
+import HomeIntroSteps from '@/components/HomeIntroSteps.vue';
 
 onMounted(() => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
