@@ -1,6 +1,6 @@
 <template>
   <div class="sign-in">
-    <img src="@/assets/images/auth-02.jpg" alt="">
+    <img src="@/assets/images/auth-02.png" alt="">
 
     <RouterView />
   </div>
@@ -21,10 +21,11 @@
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
+  place-items: center;
 }
 
 img {
-  max-width: 580px;
+  max-width: 600px;
   opacity: 0.75;
 }
 
