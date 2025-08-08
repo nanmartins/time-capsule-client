@@ -1,10 +1,77 @@
 <!-- StepsIntro.vue -->
 <template>
-  <div class="steps-intro">
-    <div class="steps-container">
+  <div class="home-steps-intro">
+
+    <div class="home-steps-header">
+      <span>GET STARTED</span>
+      <h1>Create Your First Capsule in Minutes</h1>
+      <p>It's easy to start your journey through time. Click on each step to learn more about the process.</p>
+    </div>
+
+    <div class="home-steps-container">
 
       <!-- Left: Steps -->
-      <div class="steps-left">
+       <div class="home-steps-left">
+
+        <!-- Step 1 -->
+        <div
+          class="home-step-box"
+          :class="{ active: currentStep === 1 }"
+          @click="currentStep = 1"
+        >
+          <div class="home-step-icon" :class="{ inactive: currentStep ==! 1 }">
+            <span v-if="currentStep === 1">1</span>
+            <SignupSVG v-else :width="'22'" :height="'22'" :stroke="'#FFFFFF'" :stroke-width="1.8" />
+          </div>
+
+          <div class="step-info">
+            <h3>Sign up for a free account</h3>
+            <p>Create your account with email in just a few seconds</p>
+          </div>
+          <div v-if="currentStep === 1" class="step-check">
+            ✔
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+         <div
+          class="home-step-box"
+          :class="{ active: currentStep === 2 }"
+          @click="currentStep = 2"
+        >
+          <div class="home-step-icon" :class="{ inactive: currentStep ==! 2 }">
+            <span v-if="currentStep === 2">2</span>
+            <WriteSVG v-else :width="'20'" :height="'20'" :stroke="'#FFFFFF'" :stroke-width="0.00002" :fill="'#FFFFFF'"/>
+          </div>
+
+          <div class="step-info">
+            <h3>Write your message</h3>
+            <p>Add text, photos, or any files you want to preserve</p>
+          </div>
+          <div v-if="currentStep === 2" class="step-check">✔</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="home-step-box"
+          :class="{ active: currentStep === 3 }"
+          @click="currentStep = 3"
+        >
+          <div class="home-step-icon" :class="{ inactive: currentStep ==! 3 }">
+            <span v-if="currentStep === 3">3</span>
+            <CalendarSVG v-else :width="'22'" :height="'22'" :stroke="'#FFFFFF'" :stroke-width="1.5" />
+          </div>
+
+          <div class="step-info">
+            <h3>Set your unlock date</h3>
+            <p>Choose when you want to receive your message</p>
+          </div>
+          <div v-if="currentStep === 3" class="step-check">✔</div>
+        </div>
+
+
+       </div>
+      <!-- <div class="steps-left">
         <div
           v-for="step in steps"
           :key="step.id"
@@ -12,8 +79,7 @@
           :class="{ active: currentStep === step.id }"
           @click="currentStep = step.id"
         >
-          <!-- <div class="step-number">{{ step.id }}</div> -->
-          <div class="step-icon">
+          <div class="home-step-icon">
             <span v-if="currentStep === step.id">{{ step.id }}</span>
             <span v-else>{{ step.icon }}</span>
           </div>
@@ -29,7 +95,7 @@
         <button class="cta-button">
           Create Your First Capsule →
         </button>
-      </div>
+      </div> -->
 
       <!-- Right: Content -->
       <div class="steps-right">
@@ -38,11 +104,11 @@
           <p>{{ selectedStep.content }}</p>
 
           <ul class="features-list" v-if="selectedStep.features">
-            <li v-for="(feature, index) in selectedStep.features" :key="index">✔ {{ feature }}</li>
+            <li v-for="(feature, index) in selectedStep.features" :key="index">{{ feature }}</li>
           </ul>
 
           <div v-if="selectedStep.free" class="free-badge">
-            ✔ Completely Free — Create unlimited time capsules at no cost
+            Completely Free — Create unlimited time capsules at no cost
           </div>
         </div>
       </div>
@@ -53,6 +119,9 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
+import WriteSVG from '@/assets/icons/WriteSVG.vue'
+import SignupSVG from '@/assets/icons/SignupSVG.vue'
 
 const steps = [
   {
@@ -94,29 +163,70 @@ const selectedStep = computed(() =>
 </script>
 
 <style scoped>
-.steps-intro {
-  background: #f9f9f9;
-  padding: 64px 24px;
+.home-steps-intro {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding: 64px 24px;
+  background: #f9f9f9;
 }
 
-.steps-container {
+/* Header */
+.home-steps-header {
   display: flex;
-  max-width: 1100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.home-steps-header span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #22c55e;
+  margin-bottom: 5px;
+}
+
+.home-steps-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 115%;
+  letter-spacing: 2px;
+  color: #000000;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.home-steps-header p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  opacity: 0.6;
   width: 100%;
+  max-width: 700px;
+  letter-spacing: 1.2px;
+}
+
+/* Cards container */
+.home-steps-container {
+  display: flex;
+  width: 100%;
+  /* max-width: 1100px; */
   gap: 48px;
 }
 
 /* Left side */
-.steps-left {
+.home-steps-left {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  /* max-width: 480px; */
 }
 
-.step-box {
+.home-step-box {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -127,14 +237,17 @@ const selectedStep = computed(() =>
   cursor: pointer;
   transition: border 0.2s, box-shadow 0.2s;
   position: relative;
+  width: 100%;
+  max-width: 500px;
+  min-width: 500px;
 }
 
-.step-box.active {
-  border: 2px solid #22c55e;
-  box-shadow: 0 0 0 3px #dcfce7;
+.home-step-box.active {
+  border: 1px solid #22c55e;
+  /* box-shadow: 0 0 0 3px #dcfce7; */
 }
 
-.step-number {
+/* .step-number {
   background: #22c55e;
   color: #fff;
   width: 32px;
@@ -144,7 +257,7 @@ const selectedStep = computed(() =>
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .step-info h3 {
   margin: 0;
@@ -159,18 +272,22 @@ const selectedStep = computed(() =>
   color: #6b7280;
 }
 
-.step-icon {
+.home-step-icon {
   background: #22c55e;
   color: #fff;
-  width: 32px;
-  height: 32px;
-  font-weight: 700;
-  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  font-weight: 600;
+  font-size: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.home-step-icon.inactive {
+  background: #1c512f7e;
 }
 
 
@@ -202,7 +319,8 @@ const selectedStep = computed(() =>
 /* Right side */
 .steps-right {
   flex: 1;
-  min-width: 480px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .content-box {
@@ -210,21 +328,14 @@ const selectedStep = computed(() =>
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   padding: 24px;
-  width: 100%;
-  min-height: 280px; /* ou o valor que funcione melhor visualmente */
+  /* width: 100%;
+  max-width: 480px;
+  min-width: 480px; */
+  width: 550px;
+  min-height: 280px;
   box-sizing: border-box;
 }
 
-/* .steps-right {
-  flex: 1;
-} */
-
-/* .content-box {
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  padding: 24px;
-} */
 
 
 
