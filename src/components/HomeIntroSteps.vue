@@ -73,33 +73,16 @@
           </div>
         </div>
 
-
-       </div>
-      <!-- <div class="steps-left">
-        <div
-          v-for="step in steps"
-          :key="step.id"
-          class="step-box"
-          :class="{ active: currentStep === step.id }"
-          @click="currentStep = step.id"
-        >
-          <div class="home-step-icon">
-            <span v-if="currentStep === step.id">{{ step.id }}</span>
-            <span v-else>{{ step.icon }}</span>
+        <div class="home-step-content-free-badge">
+          <!-- <CheckSVG :width="'26'" :height="'26'" :stroke="'#16a34a'" :fill="'#16a34a'" class="home-step-content-free-badge-icon" /> -->
+          <MoneySVG :width="'28'" :height="'28'" :fill="'#FFFFFF'" :stroke-width="2" class="home-step-content-free-badge-icon" />
+          <div class="home-step-content-free-badge-text">
+            <h3>Completely Free</h3>
+            <p>Create unlimited time capsules at no cost</p>
           </div>
-
-          <div class="step-info">
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.description }}</p>
-          </div>
-          <div v-if="currentStep === step.id" class="step-check">✔</div>
-
         </div>
 
-        <button class="cta-button">
-          Create Your First Capsule →
-        </button>
-      </div> -->
+       </div>
 
       <!-- Right: Content -->
        <div class="home-steps-right">
@@ -111,93 +94,108 @@
               <h3>Create Your Free Account</h3>
             </div>
             <p>Getting started is quick and easy. No credit card required.</p>
+
+            <div class="home-step-content-image"></div>
+
+            <ul>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Sign up with email or Google account
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Verify your email address
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Set up your profile
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Start creating capsules immediately
+              </li>
+            </ul>
+
           </template>
 
           <!-- Step 2 -->
           <template v-if="currentStep === 2">
-            <h3>Write your message</h3>
-            <p>Express yourself with rich content and meaningful messages.</p>
-            <ul class="features-list">
-              <li>Write unlimited text messages</li>
-              <li>Upload photos and images</li>
-              <li>Attach documents and files</li>
-              <li>Add a personal title and category</li>
-            </ul>
-            <div class="free-badge">
-              Completely Free — Create unlimited time capsules at no cost
+            <div class="home-step-content-header">
+              <span>2</span>
+              <h3>Compose Your Time Capsule</h3>
             </div>
+            <p>Express yourself with rich content and meaningful messages.</p>
+
+            <div class="home-step-content-image"></div>
+
+            <ul>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Write unlimited text messages
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Upload photos and images
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Attach documents and files
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Add a personal title and category
+              </li>
+            </ul>
+
           </template>
 
           <!-- Step 3 -->
           <template v-if="currentStep === 3">
-            <h3>Set your unlock date</h3>
-            <p>Pick the exact date when your message will become available to your future self.</p>
+            <div class="home-step-content-header">
+              <span>3</span>
+              <h3>Schedule Your Future</h3>
+            </div>
+            <p>Pick the perfect moment to rediscover your message.</p>
+
+            <div class="home-step-content-image"></div>
+
+            <ul>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Choose any future date
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Set specific times if desired
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Add personal notes about why you chose this date
+              </li>
+              <li>
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                Get email notifications when it unlocks
+              </li>
+            </ul>
+
           </template>
         </div>
       </div>
-      <!-- <div class="steps-right">
-        <div class="content-box">
-          <h3>{{ selectedStep.title }}</h3>
-          <p>{{ selectedStep.content }}</p>
-
-          <ul class="features-list" v-if="selectedStep.features">
-            <li v-for="(feature, index) in selectedStep.features" :key="index">{{ feature }}</li>
-          </ul>
-
-          <div v-if="selectedStep.free" class="free-badge">
-            Completely Free — Create unlimited time capsules at no cost
-          </div>
-        </div>
-      </div> -->
 
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import WriteSVG from '@/assets/icons/WriteSVG.vue'
 import SignupSVG from '@/assets/icons/SignupSVG.vue'
 import CheckSVG from '@/assets/icons/CheckSVG.vue'
-
-const steps = [
-  {
-    id: 1,
-    icon: '👤',
-    title: 'Sign up for a free account',
-    description: 'Create your account with email in just a few seconds',
-    content: 'Start your journey by creating your free account. It takes less than a minute!',
-  },
-  {
-    id: 2,
-    icon: '✏️',
-    title: 'Write your message',
-    description: 'Add text, photos, or any files you want to preserve',
-    content: 'Express yourself with rich content and meaningful messages.',
-    features: [
-      'Write unlimited text messages',
-      'Upload photos and images',
-      'Attach documents and files',
-      'Add a personal title and category',
-    ],
-    free: true
-  },
-  {
-    id: 3,
-    icon: '📅',
-    title: 'Set your unlock date',
-    description: 'Choose when you want to receive your message',
-    content: 'Pick the exact date when your message will become available to your future self.',
-  },
-]
-
+import MoneySVG from '@/assets/icons/MoneySVG.vue'
 
 const currentStep = ref(1)
 
-const selectedStep = computed(() =>
-  steps.find((step) => step.id === currentStep.value)
-)
 </script>
 
 <style scoped>
@@ -249,6 +247,8 @@ const selectedStep = computed(() =>
 /* Cards container */
 .home-steps-container {
   display: flex;
+  justify-items: center;
+  align-items: center;
   width: 100%;
   gap: 48px;
 }
@@ -377,6 +377,7 @@ const selectedStep = computed(() =>
   flex: 1;
   display: flex;
   justify-content: flex-start;
+  box-shadow: rgba(99, 99, 99, 0.072) 0px 2px 8px 0px;
 }
 
 .home-step-content-box {
@@ -384,12 +385,15 @@ const selectedStep = computed(() =>
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   padding: 24px;
-  /* width: 100%;
-  max-width: 480px;
-  min-width: 480px; */
   width: 550px;
   min-height: 280px;
   box-sizing: border-box;
+}
+
+.home-step-content-box p {
+  font-size: 14px;
+  color: #000000;
+  opacity: 0.65;
 }
 
 .home-step-content-header {
@@ -397,25 +401,121 @@ const selectedStep = computed(() =>
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .home-step-content-header span {
   background: #22c55e;
   color: #fff;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* flex-shrink: 0; */
+  flex-shrink: 0;
 }
 
+.home-step-content-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  opacity: 0.6;
+}
 
+.home-step-content-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 8px;
+  border: 1px dashed #c8c8c8;
+  margin-top: 16px;
+}
 
+ul {
+  list-style: none;
+  margin-top: 24px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #000000;
+  opacity: 0.65;
+}
+
+.home-step-content-free-badge {
+  /* display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 16px;
+  border: 1px solid #16a34a6b;
+  border-radius: 6px;
+  margin-top: 24px;
+  width: 480px; */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #dcfce7;
+  background: #16a34a;
+  padding: 12px 16px;
+  /* border: 1px solid #16a34a6b; */
+  border-radius: 6px;
+  margin-top: 24px;
+  width: 480px;
+}
+
+.home-step-content-free-badge-icon {
+  /* background: #16a34a;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; */
+  /* background: #FFFFFF; */
+  /* width: 30px; */
+  /* height: 30px; */
+  /* padding: 5px; */
+  /* font-weight: 600; */
+  /* font-size: 20px; */
+  /* border-radius: 50%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-step-content-free-badge-text h3 {
+  /* color: #126831;
+  font-weight: 600; */
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.home-step-content-free-badge-text p {
+  /* color: #17803D;
+  font-weight: 400;
+  opacity: 0.9; */
+  color: #FFFFFF;
+  font-weight: 400;
+  opacity: 0.9;
+}
 
 
 
