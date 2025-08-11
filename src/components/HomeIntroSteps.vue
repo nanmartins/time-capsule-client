@@ -10,7 +10,7 @@
 
     <div class="home-steps-container">
 
-      <!-- Left: Steps -->
+      <!-- Left Steps -->
        <div class="home-steps-left">
 
         <!-- Step 1 -->
@@ -41,7 +41,7 @@
         >
           <div class="home-step-icon">
             <span v-if="currentStep === 2" class="home-step-icon-number">2</span>
-            <WriteSVG v-else class="home-step-icon-icon" :width="'20'" :height="'20'" :stroke-width="0.00002" :fill="'#17A34A'"/>
+            <WriteSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke-width="0.0002" :fill="'#17A34A'" />
           </div>
 
           <div class="home-step-info" :class="{ active: currentStep === 2 }">
@@ -74,7 +74,6 @@
         </div>
 
         <div class="home-step-content-free-badge">
-          <!-- <CheckSVG :width="'26'" :height="'26'" :stroke="'#16a34a'" :fill="'#16a34a'" class="home-step-content-free-badge-icon" /> -->
           <MoneySVG :width="'28'" :height="'28'" :fill="'#FFFFFF'" :stroke-width="2" class="home-step-content-free-badge-icon" />
           <div class="home-step-content-free-badge-text">
             <h3>Completely Free</h3>
@@ -84,9 +83,10 @@
 
        </div>
 
-      <!-- Right: Content -->
+      <!-- Right Content -->
        <div class="home-steps-right">
         <div class="home-step-content-box">
+
           <!-- Step 1 -->
           <template v-if="currentStep === 1">
             <div class="home-step-content-header">
@@ -95,7 +95,9 @@
             </div>
             <p>Getting started is quick and easy. No credit card required.</p>
 
-            <div class="home-step-content-image"></div>
+            <div class="home-step-content-image">
+              <img src="@/assets/images/sign-banner-img.png" alt="">
+            </div>
 
             <ul>
               <li>
@@ -126,7 +128,9 @@
             </div>
             <p>Express yourself with rich content and meaningful messages.</p>
 
-            <div class="home-step-content-image"></div>
+            <div class="home-step-content-image">
+              <img src="@/assets/images/write-banner-img.png" alt="">
+            </div>
 
             <ul>
               <li>
@@ -157,7 +161,9 @@
             </div>
             <p>Pick the perfect moment to rediscover your message.</p>
 
-            <div class="home-step-content-image"></div>
+            <div class="home-step-content-image">
+              <img src="@/assets/images/schedule-banner-img.png" alt="">
+            </div>
 
             <ul>
               <li>
@@ -203,8 +209,8 @@ const currentStep = ref(1)
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   padding: 86px 24px;
-  background: #f9f9f9;
 }
 
 /* Header */
@@ -250,7 +256,9 @@ const currentStep = ref(1)
   justify-items: center;
   align-items: center;
   width: 100%;
+  max-width: 1200px;
   gap: 48px;
+  margin: 0 auto;
 }
 
 /* Left side */
@@ -303,7 +311,6 @@ const currentStep = ref(1)
 
 .home-step-info.active h3 {
   color: #126831;
-  /* color: #14532D; */
   opacity: 1;
 }
 
@@ -325,7 +332,7 @@ const currentStep = ref(1)
   width: 40px;
   height: 40px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -335,11 +342,9 @@ const currentStep = ref(1)
 
 .home-step-icon-icon {
   background: #DCFCE7;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  font-weight: 600;
-  font-size: 20px;
+  width: 38px;
+  height: 38px;
+  padding: 10px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -349,13 +354,11 @@ const currentStep = ref(1)
 
 .home-step-check {
   position: absolute;
-  /* top: 16px; */
   right: 16px;
   color: #22c55e;
   font-weight: bold;
 }
 
-/* CTA button */
 .cta-button {
   margin-top: 16px;
   padding: 12px;
@@ -374,7 +377,6 @@ const currentStep = ref(1)
 
 /* Right side */
 .home-steps-right {
-  flex: 1;
   display: flex;
   justify-content: flex-start;
   box-shadow: rgba(99, 99, 99, 0.072) 0px 2px 8px 0px;
@@ -430,8 +432,16 @@ const currentStep = ref(1)
   width: 100%;
   height: 220px;
   border-radius: 8px;
+  background: #ECEDEF;
   border: 1px dashed #c8c8c8;
   margin-top: 16px;
+}
+
+.home-step-content-image img {
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding-top: 20px;
 }
 
 ul {
@@ -450,18 +460,6 @@ li {
 }
 
 .home-step-content-free-badge {
-  /* display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #16a34a;
-  background: #dcfce7;
-  padding: 16px;
-  border: 1px solid #16a34a6b;
-  border-radius: 6px;
-  margin-top: 24px;
-  width: 480px; */
   display: flex;
   align-items: center;
   gap: 16px;
@@ -470,31 +468,12 @@ li {
   color: #dcfce7;
   background: #16a34a;
   padding: 12px 16px;
-  /* border: 1px solid #16a34a6b; */
   border-radius: 6px;
   margin-top: 24px;
   width: 480px;
 }
 
 .home-step-content-free-badge-icon {
-  /* background: #16a34a;
-  width: 30px;
-  height: 30px;
-  padding: 5px;
-  font-weight: 600;
-  font-size: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0; */
-  /* background: #FFFFFF; */
-  /* width: 30px; */
-  /* height: 30px; */
-  /* padding: 5px; */
-  /* font-weight: 600; */
-  /* font-size: 20px; */
-  /* border-radius: 50%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -502,56 +481,14 @@ li {
 }
 
 .home-step-content-free-badge-text h3 {
-  /* color: #126831;
-  font-weight: 600; */
   color: #FFFFFF;
   font-weight: 600;
 }
 
 .home-step-content-free-badge-text p {
-  /* color: #17803D;
-  font-weight: 400;
-  opacity: 0.9; */
   color: #FFFFFF;
   font-weight: 400;
   opacity: 0.9;
 }
 
-
-
-
-
-/* .content-box h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 12px;
-}
-
-.content-box p {
-  font-size: 15px;
-  color: #374151;
-  margin-bottom: 16px;
-}
-
-.features-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0 0 16px 0;
-}
-
-.features-list li {
-  font-size: 14px;
-  color: #374151;
-  margin-bottom: 8px;
-}
-
-.free-badge {
-  font-size: 14px;
-  font-weight: 600;
-  color: #16a34a;
-  background: #dcfce7;
-  padding: 12px;
-  border-radius: 6px;
-} */
 </style>
