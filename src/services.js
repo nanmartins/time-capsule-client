@@ -97,3 +97,16 @@ export const deleteCapsule = async (capsuleId) => {
     )
   }
 }
+
+
+//////////////////////////////////////// GET STATS ///////////////////////////////////////
+
+// Get stats
+export const fetchStats = async () => {
+  try {
+    const response = await api.get('/stats')
+    return response.data
+  } catch (error) {
+    throw new Error(error.response?.data?.error || 'Error fetching stats')
+  }
+}

@@ -52,7 +52,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue';
   max-height: 550px;
   background: #FFFFFF;
   text-align: center;
-  padding: 64px 24px;
+  padding: 86px 24px;
 }
 
 .home-why-create-header {
@@ -64,7 +64,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue';
 }
 
 .home-why-create-header h1 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
