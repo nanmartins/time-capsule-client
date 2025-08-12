@@ -9,36 +9,37 @@
     <div class="home-periods-cards">
 
       <div class="home-periods-card">
-        <CalendarSVG :width="'28'" :height="'28'" :stroke-width="1.5" class="home-periods-card-icon bg-blue" />
+        <CalendarSVG :width="'24'" :height="'24'" :stroke="'#3B82F6'" :stroke-width="1.5" class="home-periods-card-icon bg-blue" />
         <p>1 Year</p>
         <span>Most popular</span>
       </div>
 
       <div class="home-periods-card">
-        <TimerSVG :width="'28'" :height="'28'" :stroke-width="1.5" class="home-periods-card-icon bg-green" />
+        <TimerSVG :width="'24'" :height="'24'" :stroke="'#17A34A'" :stroke-width="1.5" class="home-periods-card-icon bg-green" />
         <p>5 Years</p>
         <span>Life changes</span>
       </div>
 
       <div class="home-periods-card">
-        <HeartSVG :width="'28'" :height="'28'" :stroke="'#DC2625'" :stroke-width="13" class="home-periods-card-icon bg-red" />
+        <HeartSVG :width="'24'" :height="'24'" :stroke="'#DC2625'" :stroke-width="13" class="home-periods-card-icon bg-red" />
         <p>10 Years</p>
         <span>Major milestones</span>
       </div>
 
       <div class="home-periods-card">
-        <MedalSVG :width="'28'" :height="'28'" :fill="'#9334E9'" class="home-periods-card-icon bg-purple" />
+        <MedalSVG :width="'24'" :height="'24'" :fill="'#9334E9'" class="home-periods-card-icon bg-purple" />
         <p>6 Months</p>
         <span>Short term goals</span>
       </div>
 
       <div class="home-periods-card">
-        <ArrowUpSVG :width="'28'" :height="'28'" class="home-periods-card-icon bg-yellow" />
+        <TrendUpSVG :width="'24'" :height="'24'" :stroke="'#CA8A03'" :stroke-width="1.7" class="home-periods-card-icon bg-yellow" />
         <p>20 Years</p>
         <span>Legacy messages</span>
       </div>
 
       <div class="home-periods-card">
+        <GlobeSVG :width="'24'" :height="'24'" :stroke="'#EA580B'" :stroke-width="1.7" class="home-periods-card-icon bg-orange" />
         <p>Custom</p>
         <span>Your choice</span>
       </div>
@@ -52,7 +53,8 @@ import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import TimerSVG from '@/assets/icons/TimerSVG.vue'
 import HeartSVG from '@/assets/icons/HeartSVG.vue'
 import MedalSVG from '@/assets/icons/MedalSVG.vue'
-import ArrowUpSVG from '@/assets/icons/ArrowUpSVG.vue'
+import TrendUpSVG from '@/assets/icons/TrendUpSVG.vue'
+import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
 
 </script>
 
@@ -95,7 +97,7 @@ import ArrowUpSVG from '@/assets/icons/ArrowUpSVG.vue'
   letter-spacing: 1.2px;
 }
 
-.home-periods-cards {
+/* .home-periods-cards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -111,13 +113,53 @@ import ArrowUpSVG from '@/assets/icons/ArrowUpSVG.vue'
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #c8c8c8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+} */
+
+.home-periods-cards {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  margin-top: 32px;
+  width: 100%;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media (max-width: 1000px) {
+  .home-periods-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .home-periods-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .home-periods-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.home-periods-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
   border-radius: 8px;
   border: 1px solid #c8c8c8;
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+
 
 .home-periods-card-icon {
 
