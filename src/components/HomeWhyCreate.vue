@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import HeartSVG from '@/assets/icons/HeartSVG.vue';
-import LightBulbSVG from '@/assets/icons/LightBulbSVG.vue';
-import TargetSVG from '@/assets/icons/TargetSVG.vue';
+import HeartSVG from '@/assets/icons/HeartSVG.vue'
+import LightBulbSVG from '@/assets/icons/LightBulbSVG.vue'
+import TargetSVG from '@/assets/icons/TargetSVG.vue'
 </script>
 
 <style scoped>

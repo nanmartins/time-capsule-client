@@ -25,15 +25,22 @@
 
     <HomeStatsOverview />
 
+    <HomePeriods />
+
+    <HomeNewsletter />
+
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
-import HomeWhyCreate from '@/components/HomeWhyCreate.vue';
-import HomeIntroSteps from '@/components/HomeIntroSteps.vue';
-import HomeStatsOverview from '@/components/HomeStatsOverview.vue';
+import { onMounted } from 'vue'
+import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
+import HomeWhyCreate from '@/components/HomeWhyCreate.vue'
+import HomeIntroSteps from '@/components/HomeIntroSteps.vue'
+import HomeStatsOverview from '@/components/HomeStatsOverview.vue'
+import HomePeriods from '@/components/HomePeriods.vue'
+import HomeNewsletter from '@/components/HomeNewsletter.vue'
+
 
 onMounted(() => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
