@@ -27,6 +27,8 @@
 
     <HomePeriods />
 
+    <HomeNewsletter />
+
   </div>
 </template>
 
@@ -37,6 +39,7 @@ import HomeWhyCreate from '@/components/HomeWhyCreate.vue'
 import HomeIntroSteps from '@/components/HomeIntroSteps.vue'
 import HomeStatsOverview from '@/components/HomeStatsOverview.vue'
 import HomePeriods from '@/components/HomePeriods.vue'
+import HomeNewsletter from '@/components/HomeNewsletter.vue'
 
 
 onMounted(() => {
