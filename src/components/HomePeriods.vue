@@ -66,7 +66,7 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 64px 16px;
+  padding: 82px 16px;
   width: 100%;
   background: #FFFFFF;
 }
@@ -97,39 +97,16 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   letter-spacing: 1.2px;
 }
 
-/* .home-periods-cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 32px;
-  width: 100%;
-}
-
-.home-periods-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  border-radius: 8px;
-  border: 1px solid #c8c8c8;
-  cursor: pointer;
-  transition: all 0.2s ease;
-} */
-
 .home-periods-cards {
   display: grid;
   gap: 16px;
-  padding: 24px;
+  padding: 0 24px;
   margin-top: 32px;
   width: 100%;
   grid-template-columns: repeat(6, 1fr);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .home-periods-cards {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -156,13 +133,56 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   border-radius: 8px;
   border: 1px solid #c8c8c8;
   cursor: pointer;
+  opacity: 0.7;
   transition: all 0.2s ease;
 }
 
+.home-periods-card:hover {
+  opacity: 1;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 
+.home-periods-card p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+
+.home-periods-card span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #000000;
+  opacity: 0.6;
+}
 
 .home-periods-card-icon {
+  height: 45px;
+  width: 45px;
+  margin-bottom: 16px;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
 
+
+.bg-blue {
+  background: #DBE9FE;
+}
+.bg-green {
+  background: #DCFCE7;
+}
+.bg-red {
+  background: #FEE2E1;
+}
+.bg-purple {
+  background: #F3E8FF;
+}
+.bg-yellow {
+  background: #FEF9C3;
+}
+.bg-orange {
+  background: #FFEDD5;
 }
 
 /* .home-periods-card:hover {
