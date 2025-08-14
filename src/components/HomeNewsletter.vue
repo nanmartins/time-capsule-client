@@ -45,7 +45,7 @@ const subscribe = () => {
 .home-newsletter-container {
   text-align: center;
   padding: 64px 24px;
-  background-color: #17A34A;
+  background: #EFFDF4;
   width: 100%;
   margin: 0 auto;
 }
@@ -62,15 +62,16 @@ const subscribe = () => {
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #FFFFFF;
+  color: #000000;
+  opacity: 0.6;
   margin-bottom: 16px;
 }
 
 .home-newsletter-container p {
   font-size: 15px;
   font-weight: 500;
-  color: #FFFFFF;
-  opacity: 0.9;
+  color: #000000;
+  opacity: 0.6;
   width: 100%;
   letter-spacing: 1.1px;
 }
@@ -80,7 +81,7 @@ const subscribe = () => {
   justify-content: center;
   align-items: stretch;
   gap: 8px;
-  margin: 28px 0 16px 0;
+  margin: 28px 0 12px 0;
   flex-wrap: wrap;
 }
 
@@ -90,25 +91,25 @@ const subscribe = () => {
   max-width: 420px;
   margin: 0;
   padding: 15px 18px;
-  background-color: #EFFDF4;
-  color: #17a34a;
-  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #000000a9;
+  border-radius: 6px;
   font-size: 16px;
-  border: none;
+  border: 1px solid #dbdbdb;
   outline: none;
 }
 
 .home-newsletter-input::placeholder {
-  color: #17a34a;
+  color: #0000004d;
 }
 
 .home-newsletter-button {
   height: 100%;
   padding: 15px 18px;
-  background-color: #EFFDF4;
-  color: #17a34a;
-  border: none;
-  border-radius: 8px;
+  background: #12873d;
+  color: #FFFFFF;
+  border: 1px solid #12873d;
+  border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -116,15 +117,15 @@ const subscribe = () => {
 }
 
 .home-newsletter-button:hover {
-  background-color: #12873d;
-  color: #EFFDF4;
+  background: #2bbb60;
+  color: #FFFFFF;
 }
 
 .home-newsletter-container span {
   font-size: 14px;
   font-weight: 500;
-  color: #FFFFFF;
-  opacity: 0.8;
+  color: #000000;
+  opacity: 0.6;
   width: 100%;
   letter-spacing: 1px;
 }
