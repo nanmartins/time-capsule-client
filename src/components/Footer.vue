@@ -37,12 +37,37 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
 
 <style scoped>
 
-footer {
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 10px;
-  background-color: #EEEEEE;
+  gap: 10px;
+  padding: 24px;
+  background-color: #FAF9F6;
+  border-top: 1px solid #e6e6e6;
 }
 
+.footer-logo-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.footer-logo-container img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+.footer-logo-container h1 {
+  font-size: 64px;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 10px;
+}
 
 
 
