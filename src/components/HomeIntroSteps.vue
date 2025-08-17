@@ -226,7 +226,7 @@ const currentStep = ref(1)
 .home-steps-header span {
   font-size: 14px;
   font-weight: 600;
-  color: #22c55e;
+  color: var(--color-highlight);
   margin-bottom: 5px;
 }
 
@@ -235,16 +235,14 @@ const currentStep = ref(1)
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
 .home-steps-header p {
   font-size: 16px;
   font-weight: 400;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   width: 100%;
   max-width: 700px;
   letter-spacing: 1.2px;
@@ -276,8 +274,8 @@ const currentStep = ref(1)
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 8px;
   padding: 22px 16px;
   cursor: pointer;
@@ -288,13 +286,13 @@ const currentStep = ref(1)
 
 .home-step-box:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  border: 1px solid #d5d5d5;
+  border: 1px solid var(--color-lines);
   transition: all 0.2s ease;
 }
 
 .home-step-box.active {
-  background: #EFFDF4;
-  border: 1px solid #22c55e;
+  background: var(--color-card-bg-accent);
+  border: 1px solid var(--color-highlight);
   zoom: 1.07;
   transition: all 0.2s;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;

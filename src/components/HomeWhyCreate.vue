@@ -50,9 +50,9 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   width: 100%;
   height: 100%;
   max-height: 550px;
-  background: #FFFFFF;
   text-align: center;
   padding: 86px 24px;
+  background: #FFFFFF;
 }
 
 .home-why-create-header {
@@ -68,16 +68,14 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
 .home-why-create-header p {
   font-size: 16px;
   font-weight: 400;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   width: 100%;
   max-width: 700px;
   letter-spacing: 1.2px;
@@ -99,7 +97,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   align-items: center;
   gap: 24px;
   padding: 24px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--color-lines);
   border-radius: 10px;
 }
 
@@ -129,14 +127,12 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
 .home-why-create-card-header h2 {
   font-size: 20px;
   font-weight: 600;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
 }
 
 .home-why-create-card p {
   font-size: 14px;
   font-weight: 400;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
 }
 </style>

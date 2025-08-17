@@ -14,7 +14,7 @@
             <ArrowSVG :width="'20'" :height="'20'" :stroke="'#FFFFFF'" :stroke-width="1.5" />
           </RouterLink>
         </button>
-        <button><RouterLink to="/about">Learn more</RouterLink></button>
+        <button><RouterLink to="/about" class="home-banner-buttons-link">Learn more</RouterLink></button>
       </div>
     </div>
 
@@ -69,24 +69,21 @@ onMounted(() => {
 
 .home-banner h1 {
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 .home-banner h1:nth-child(2) {
-  color: #22C55E;
-  opacity: 0.9;
+  color: var(--color-highlight);
 }
 
 .home-banner p {
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 140%;
   color: #000000;
-  opacity: 0.6;
   width: 100%;
   max-width: 800px;
   margin-top: 20px;
@@ -100,25 +97,26 @@ onMounted(() => {
 }
 
 .home-banner-buttons button {
-  background: #22C55E;
+  background: var(--color-highlight);
   border: none;
   border-radius: 6px;
   padding: 10px 25px;
   font-size: 17px;
+  font-weight: 500;
 }
 
 .home-banner-buttons button:hover {
-  background: #1b9648;
+  background: var(--color-text);
   transition: all 0.2s ease-in-out;
 }
 
 .home-banner-buttons button:nth-child(2) {
   background: transparent;
-  border: 1px solid #cecece;
+  border: 1px solid var(--color-text);
 }
 
 .home-banner-buttons button:nth-child(2):hover {
-  background: #cecece;
+  border: 1px solid var(--color-highlight);
   transition: all 0.2s ease-in-out;
 }
 
@@ -131,9 +129,12 @@ onMounted(() => {
 }
 
 .home-banner-buttons button:nth-child(2) a {
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
+.home-banner-buttons button:nth-child(2):hover a {
+  color: var(--color-highlight);
+  transition: all 0.2s ease-in-out;
+}
 
 </style>

@@ -14,7 +14,7 @@
 
       <template v-if="authStore.user">
         <RouterLink to="/profile">Profile</RouterLink>
-        <button @click="handleLogout">Logout</button>
+        <button @click="handleLogout" class="logout-button">Logout</button>
       </template>
 
       <RouterLink v-else to="/signin">Sign in</RouterLink>
@@ -45,15 +45,12 @@ header {
   align-items: center;
   padding: 15px 25px;
   width: 100%;
-  background-color: #FAF9F6;
+  background: var(--color-bg);
   box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  /* box-shadow: 1px 1px #dfdfdf; */
-  border-bottom: 1px solid #e6e6e6;
-
 }
 
 nav {
@@ -64,36 +61,36 @@ nav {
 }
 
 a {
-  font-family: 'Avenir Next', sans-serif;
   text-decoration: none;
   letter-spacing: 3px;
-  color: #000;
+  color: var(--color-text);
   font-size: 18px;
   font-weight: 300;
-  text-shadow: 2px 1px 1px #FFFFFF;
-  opacity: 0.85;
 }
 
 a:hover {
+  color: var(--color-highlight);
   opacity: 1;
 }
 
-button {
-  padding: 10px 15px 10px 15px;
+.logout-button {
+  padding: 10px 15px;
   background: transparent;
   border: 1px solid #000;
   border-radius: 5px;
-  font-family: 'Avenir Next', sans-serif;
   font-size: 20px;
   line-height: 17px;
-  opacity: 0.85;
   cursor: pointer;
+}
+
+.logout-button:hover {
+  border: 1px solid var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 /* // new logo style */
 img {
   width: 50px;
-  opacity: 0.85;
 }
 
 .logo-container {
@@ -103,11 +100,13 @@ img {
   font-size: 16px;
 }
 
+.logo-container:hover {
+  color: var(--color-text);
+}
+
 .logo-container span {
   font-weight: 300;
-  text-shadow: 2px 1px 1px #FFFFFF;
   font-size: 32px;
   letter-spacing: 8px;
-  opacity: 0.85;
 }
 </style>
