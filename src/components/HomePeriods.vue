@@ -9,37 +9,37 @@
     <div class="home-periods-cards">
 
       <div class="home-periods-card">
-        <CalendarSVG :width="'24'" :height="'24'" :stroke="'#3B82F6'" :stroke-width="1.5" class="home-periods-card-icon bg-blue" />
+        <CalendarSVG :width="'24'" :height="'24'" :stroke="'#3F88C5'" :stroke-width="1.5" class="home-periods-card-icon" />
         <p>1 Year</p>
         <span>Most popular</span>
       </div>
 
       <div class="home-periods-card">
-        <TimerSVG :width="'24'" :height="'24'" :stroke="'#17A34A'" :stroke-width="1.5" class="home-periods-card-icon bg-green" />
+        <TimerSVG :width="'24'" :height="'24'" :stroke="'#3F88C5'" :stroke-width="1.5" class="home-periods-card-icon" />
         <p>5 Years</p>
         <span>Life changes</span>
       </div>
 
       <div class="home-periods-card">
-        <HeartSVG :width="'24'" :height="'24'" :stroke="'#DC2625'" :stroke-width="13" class="home-periods-card-icon bg-red" />
+        <HeartSVG :width="'24'" :height="'24'" :stroke="'#3F88C5'" :stroke-width="13" class="home-periods-card-icon" />
         <p>10 Years</p>
         <span>Major milestones</span>
       </div>
 
       <div class="home-periods-card">
-        <MedalSVG :width="'24'" :height="'24'" :fill="'#9334E9'" class="home-periods-card-icon bg-purple" />
+        <MedalSVG :width="'24'" :height="'24'" :fill="'#3F88C5'" class="home-periods-card-icon" />
         <p>6 Months</p>
         <span>Short term goals</span>
       </div>
 
       <div class="home-periods-card">
-        <TrendUpSVG :width="'24'" :height="'24'" :stroke="'#CA8A03'" :stroke-width="1.7" class="home-periods-card-icon bg-yellow" />
+        <TrendUpSVG :width="'24'" :height="'24'" :stroke="'#3F88C5'" :stroke-width="1.7" class="home-periods-card-icon" />
         <p>20 Years</p>
         <span>Legacy messages</span>
       </div>
 
       <div class="home-periods-card">
-        <GlobeSVG :width="'24'" :height="'24'" :stroke="'#EA580B'" :stroke-width="1.7" class="home-periods-card-icon bg-orange" />
+        <GlobeSVG :width="'24'" :height="'24'" :stroke="'#3F88C5'" :stroke-width="1.7" class="home-periods-card-icon" />
         <p>Custom</p>
         <span>Your choice</span>
       </div>
@@ -82,16 +82,14 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
 .home-periods-header p {
   font-size: 16px;
   font-weight: 400;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   width: 100%;
   max-width: 700px;
   letter-spacing: 1.2px;
@@ -131,7 +129,7 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   align-items: center;
   padding: 24px;
   border-radius: 8px;
-  border: 1px solid #c8c8c8;
+  border: 1px solid var(--color-lines);
   cursor: pointer;
   opacity: 0.7;
   transition: all 0.2s ease;
@@ -145,16 +143,15 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
 .home-periods-card p {
   font-size: 16px;
   font-weight: 600;
-  color: #000000;
+  color: var(--color-text);
   margin-bottom: 6px;
-  opacity: 0.8;
 }
 
 .home-periods-card span {
   font-size: 13px;
   font-weight: 400;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
+  /* opacity: 0.6; */
 }
 
 .home-periods-card-icon {
@@ -163,31 +160,7 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   margin-bottom: 16px;
   padding: 5px 8px;
   border-radius: 5px;
+  background: var(--color-highlight-light);
 }
 
-
-.bg-blue {
-  background: #DBE9FE;
-}
-.bg-green {
-  background: #DCFCE7;
-}
-.bg-red {
-  background: #FEE2E1;
-}
-.bg-purple {
-  background: #F3E8FF;
-}
-.bg-yellow {
-  background: #FEF9C3;
-}
-.bg-orange {
-  background: #FFEDD5;
-}
-
-/* .home-periods-card:hover {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  border: 1px solid #d5d5d5;
-  transition: all 0.2s ease;
-} */
 </style>

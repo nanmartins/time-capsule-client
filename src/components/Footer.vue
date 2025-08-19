@@ -11,10 +11,10 @@
     <span>Connect with us</span>
 
     <div class="footer-socials-container">
-      <LinkedinSVG :width="'28'" :height="'28'" :stroke="'#FFFFFF'" :stroke-width="1" />
-      <FacebookSVG :width="'28'" :height="'28'" :stroke="'#FFFFFF'" :stroke-width="1" />
-      <InstagramSVG :width="'34'" :height="'34'" :stroke="'#FFFFFF'" :stroke-width="7" />
-      <GithubSVG :width="'28'" :height="'30'" :stroke="'#FFFFFF'" :stroke-width="9" />
+      <LinkedinSVG :width="'20'" :height="'20'" :stroke="'#FFFFFF'" :stroke-width="0.8" class="footer-socials-icon" />
+      <FacebookSVG :width="'24'" :height="'24'" :stroke="'#FFFFFF'" :stroke-width="1" class="footer-socials-icon" />
+      <InstagramSVG :width="'34'" :height="'34'" :fill="'#FFFFFF'" :stroke="'#FFFFFF'" :stroke-width="8" class="footer-socials-icon" />
+      <GithubSVG :width="'26'" :height="'26'" :stroke="'#FFFFFF'" :stroke-width="9" class="footer-socials-icon" />
     </div>
 
     <div class="footer-terms-container">
@@ -35,7 +35,6 @@ import FacebookSVG from '@/assets/icons/FacebookSVG.vue'
 import GithubSVG from '@/assets/icons/GithubSVG.vue'
 </script>
 
-
 <style scoped>
 
 .footer-container {
@@ -46,14 +45,13 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
   text-align: center;
   gap: 10px;
   padding: 48px 24px;
-  background-color: #001925;
+  background: var(--color-highlight-dark);
 }
 
 .footer-logo-container {
   display: flex;
   gap: 10px;
   align-items: center;
-  opacity: 0.8;
 }
 
 .footer-logo-container img {
@@ -66,24 +64,22 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
 .footer-logo-container h1 {
   font-size: 34px;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--color-bg-light);
   letter-spacing: 10px;
 }
 
 .footer-description {
   font-size: 18px;
   font-weight: 400;
-  color: #ffffff;
-  opacity: 0.6;
+  color: var(--color-bg-light);
   letter-spacing: 1.5px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .footer-container span {
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
-  opacity: 0.6;
+  color: var(--color-bg-light);
   width: 100%;
   letter-spacing: 1.2px;
 }
@@ -93,7 +89,19 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
   justify-content: center;
   align-items: center;
   gap: 30px;
-  opacity: 0.7;
+}
+
+.footer-socials-icon {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.footer-socials-icon:hover {
+  background: var(--color-highlight);
+  border-radius: 20%;
+  opacity: 0.9;
 }
 
 .footer-terms-container {
@@ -101,15 +109,14 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 10px 0;
+  margin: 15px 0;
   flex-wrap: nowrap;
 }
 
 .footer-terms-container p {
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
-  opacity: 0.6;
+  color: var(--color-bg-light);
   letter-spacing: 1.2px;
   white-space: nowrap;
   padding: 20px 0;
@@ -118,8 +125,7 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
 .footer-copyright {
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
-  opacity: 0.5;
+  color: var(--color-bg-light);
   letter-spacing: 1.2px;
 }
 

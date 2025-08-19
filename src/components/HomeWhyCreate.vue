@@ -8,25 +8,25 @@
 
 
     <div class="home-why-create-cards">
-      <div class="home-why-create-card blue-bg">
+      <div class="home-why-create-card">
         <div class="home-why-create-card-header">
-          <HeartSVG :width="'48'" :height="'48'" class="home-why-card-icon" />
+          <HeartSVG :width="'48'" :height="'48'" :stroke="'#3F88C5'" class="home-why-card-icon" />
           <h2>Emotional Connection</h2>
         </div>
         <p>Create a meaningful dialogue with your future self, capturing your current thoughts, dreams, and feelings in a moment of time.</p>
       </div>
 
-      <div class="home-why-create-card green-bg">
+      <div class="home-why-create-card">
         <div class="home-why-create-card-header">
-          <LightBulbSVG :width="'48'" :height="'48'" :stroke="'#17A34A'" :strokeWidth="1.7" class="home-why-card-icon" />
+          <LightBulbSVG :width="'48'" :height="'48'" :stroke="'#3F88C5'" :strokeWidth="1.7" class="home-why-card-icon" />
           <h2>Personal Growth</h2>
         </div>
         <p>Reflect on your journey, track your progress, and gain insights into how you've evolved and grown over time.</p>
       </div>
 
-      <div class="home-why-create-card purple-bg">
+      <div class="home-why-create-card">
         <div class="home-why-create-card-header">
-          <TargetSVG :width="'48'" :height="'48'" :stroke="'#9334E9'" :strokeWidth="1.7" class="home-why-card-icon" />
+          <TargetSVG :width="'48'" :height="'48'" :stroke="'#3F88C5'" :strokeWidth="1.7" class="home-why-card-icon" />
           <h2>Goal Achievement</h2>
         </div>
         <p>Set intentions and goals, then rediscover them later to see how far you've come and what you've accomplished.</p>
@@ -51,7 +51,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   height: 100%;
   max-height: 550px;
   text-align: center;
-  padding: 86px 24px;
+  padding: 110px 24px;
   background: #FFFFFF;
 }
 
@@ -112,16 +112,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
 .home-why-card-icon {
   padding: 10px;
   border-radius: 5px;
-}
-
-.blue-bg .home-why-card-icon {
-  background: #DBE9FE;
-}
-.green-bg .home-why-card-icon {
-  background: #DCFCE7;
-}
-.purple-bg .home-why-card-icon {
-  background: #F3E8FF;
+  background: var(--color-highlight-light);
 }
 
 .home-why-create-card-header h2 {

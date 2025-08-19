@@ -21,7 +21,7 @@
         >
           <div class="home-step-icon">
             <span v-if="currentStep === 1" class="home-step-icon-number">1</span>
-            <SignupSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke="'#17A34A'" :stroke-width="1.8" />
+            <SignupSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke="'#3F88C5'" :stroke-width="1.8" />
           </div>
 
           <div class="home-step-info" :class="{ active: currentStep === 1 }">
@@ -29,7 +29,7 @@
             <p>Create your account with email in just a few seconds</p>
           </div>
           <div v-if="currentStep === 1" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
           </div>
         </div>
 
@@ -41,7 +41,7 @@
         >
           <div class="home-step-icon">
             <span v-if="currentStep === 2" class="home-step-icon-number">2</span>
-            <WriteSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke-width="0.0002" :fill="'#17A34A'" />
+            <WriteSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke-width="0.0002" :fill="'#3F88C5'" />
           </div>
 
           <div class="home-step-info" :class="{ active: currentStep === 2 }">
@@ -49,7 +49,7 @@
             <p>Add text, photos, or any files you want to preserve</p>
           </div>
           <div v-if="currentStep === 2" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
           </div>
         </div>
 
@@ -61,7 +61,7 @@
         >
           <div class="home-step-icon">
             <span v-if="currentStep === 3" class="home-step-icon-number">3</span>
-            <CalendarSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke="'#17A34A'" :stroke-width="1.8" />
+            <CalendarSVG v-else class="home-step-icon-icon" :width="'22'" :height="'22'" :stroke="'#3F88C5'" :stroke-width="1.8" />
           </div>
 
           <div class="home-step-info" :class="{ active: currentStep === 3 }">
@@ -69,7 +69,7 @@
             <p>Choose when you want to receive your message</p>
           </div>
           <div v-if="currentStep === 3" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
           </div>
         </div>
 
@@ -101,19 +101,19 @@
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Sign up with email or Google account
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Verify your email address
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Set up your profile
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Start creating capsules immediately
               </li>
             </ul>
@@ -134,19 +134,19 @@
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Write unlimited text messages
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Upload photos and images
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Attach documents and files
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Add a personal title and category
               </li>
             </ul>
@@ -167,19 +167,19 @@
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Choose any future date
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Set specific times if desired
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Add personal notes about why you chose this date
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#4be483'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
                 Get email notifications when it unlocks
               </li>
             </ul>
@@ -274,7 +274,7 @@ const currentStep = ref(1)
   display: flex;
   align-items: center;
   gap: 16px;
-  background: var(--color-card-bg);
+  background: var(--color-bg-light);
   border: 1px solid var(--color-lines);
   border-radius: 8px;
   padding: 22px 16px;
@@ -298,35 +298,30 @@ const currentStep = ref(1)
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
-
 .home-step-info h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
-  opacity: 0.8;
+  color: var(--color-text);
 }
 
 .home-step-info.active h3 {
-  color: #126831;
-  opacity: 1;
+  color: var(--color-text);
 }
 
 .home-step-info p {
   margin: 4px 0 0;
   font-size: 14px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 .home-step-info.active p {
-  color: #17803D;
-  opacity: 1;
+  color: var(--color-text);
 }
 
 .home-step-icon-number {
-  background: #22c55e;
-  color: #fff;
+  background: var(--color-highlight);
+  color: var(--color-bg-light);
   width: 40px;
   height: 40px;
   font-weight: 600;
@@ -339,7 +334,7 @@ const currentStep = ref(1)
 }
 
 .home-step-icon-icon {
-  background: #DCFCE7;
+  background: var(--color-highlight-light);
   width: 38px;
   height: 38px;
   padding: 10px;
@@ -353,24 +348,7 @@ const currentStep = ref(1)
 .home-step-check {
   position: absolute;
   right: 16px;
-  color: #22c55e;
   font-weight: bold;
-}
-
-.cta-button {
-  margin-top: 16px;
-  padding: 12px;
-  background-color: #22c55e;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.cta-button:hover {
-  background-color: #16a34a;
 }
 
 /* Right side */
@@ -381,8 +359,8 @@ const currentStep = ref(1)
 }
 
 .home-step-content-box {
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-lines);
   border-radius: 8px;
   padding: 24px;
   width: 550px;
@@ -392,8 +370,7 @@ const currentStep = ref(1)
 
 .home-step-content-box p {
   font-size: 14px;
-  color: #000000;
-  opacity: 0.65;
+  color: var(--color-text);
 }
 
 .home-step-content-header {
@@ -405,12 +382,12 @@ const currentStep = ref(1)
 }
 
 .home-step-content-header span {
-  background: #22c55e;
-  color: #fff;
-  width: 28px;
-  height: 28px;
+  background: var(--color-highlight);
+  color: var(--color-bg-light);
+  width: 32px;
+  height: 32px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -422,16 +399,14 @@ const currentStep = ref(1)
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
 }
 
 .home-step-content-image {
   width: 100%;
   height: 220px;
   border-radius: 8px;
-  background: #ECEDEF;
-  border: 1px dashed #c8c8c8;
+  border: 1px dashed var(--color-lines);
   margin-top: 16px;
 }
 
@@ -453,8 +428,7 @@ li {
   gap: 8px;
   margin-bottom: 6px;
   font-size: 14px;
-  color: #000000;
-  opacity: 0.65;
+  color: var(--color-text);
 }
 
 .home-step-content-free-badge {
@@ -463,8 +437,8 @@ li {
   gap: 16px;
   font-size: 14px;
   font-weight: 600;
-  color: #dcfce7;
-  background: #16a34a;
+  color: var(--color-bg-light);
+  background: var(--color-highlight);
   padding: 12px 16px;
   border-radius: 6px;
   margin-top: 24px;
@@ -479,14 +453,13 @@ li {
 }
 
 .home-step-content-free-badge-text h3 {
-  color: #FFFFFF;
+  color: var(--color-bg-light);
   font-weight: 600;
 }
 
 .home-step-content-free-badge-text p {
-  color: #FFFFFF;
+  color: var(--color-bg-light);
   font-weight: 400;
-  opacity: 0.9;
 }
 
 </style>

@@ -1,11 +1,9 @@
 <template>
-  <header>
-    <!-- <RouterLink to="/"><img src="@/assets/images/logo-test.png" alt="Logo"></RouterLink> -->
+  <header :class="{ 'scrolled': isScrolled }">
     <RouterLink to="/" class="logo-container">
       <img src="@/assets/images/Timenest-logo.png" alt="Logo">
       <span>Timenest</span>
     </RouterLink>
-
 
     <nav>
       <RouterLink to="/">Home</RouterLink>
@@ -23,22 +21,34 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/stores/authStore.js';
-import { useRouter } from 'vue-router';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useAuthStore } from '@/stores/authStore.js'
+import { useRouter } from 'vue-router'
 
-const authStore = useAuthStore();
-const router = useRouter();
+const authStore = useAuthStore()
+const router = useRouter()
+const isScrolled = ref(false)
 
 const handleLogout = () => {
-  authStore.logout();
-  router.push('/');
-  // window.location.reload();
-};
+  authStore.logout()
+  router.push('/')
+}
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 0;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+})
+
 </script>
 
-
 <style scoped>
-
 header {
   display: flex;
   justify-content: space-between;
@@ -51,6 +61,11 @@ header {
   top: 0;
   left: 0;
   z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -76,7 +91,7 @@ a:hover {
 .logout-button {
   padding: 10px 15px;
   background: transparent;
-  border: 1px solid #000;
+  border: 1px solid var(--color-text);
   border-radius: 5px;
   font-size: 20px;
   line-height: 17px;
@@ -88,7 +103,7 @@ a:hover {
   color: var(--color-highlight);
 }
 
-/* // new logo style */
+/* logo style */
 img {
   width: 50px;
 }

@@ -45,7 +45,7 @@ const subscribe = () => {
 .home-newsletter-container {
   text-align: center;
   padding: 64px 24px;
-  background: #EFFDF4;
+  background: var(--color-card-bg-accent);
   width: 100%;
   margin: 0 auto;
 }
@@ -62,16 +62,14 @@ const subscribe = () => {
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
 .home-newsletter-container p {
   font-size: 15px;
   font-weight: 500;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   width: 100%;
   letter-spacing: 1.1px;
 }
@@ -91,24 +89,29 @@ const subscribe = () => {
   max-width: 420px;
   margin: 0;
   padding: 15px 18px;
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-light);
   color: #000000a9;
   border-radius: 6px;
   font-size: 16px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--color-lines);
   outline: none;
 }
 
+.home-newsletter-input:focus {
+  border: 1px solid var(--color-highlight);
+}
+
 .home-newsletter-input::placeholder {
-  color: #0000004d;
+  color: var(--color-text);
+  opacity: 0.6;
 }
 
 .home-newsletter-button {
   height: 100%;
   padding: 15px 18px;
-  background: #12873d;
-  color: #FFFFFF;
-  border: 1px solid #12873d;
+  background: var(--color-highlight);
+  color: var(--color-bg-light);
+  border: 1px solid var(--color-highlight);
   border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
@@ -117,15 +120,14 @@ const subscribe = () => {
 }
 
 .home-newsletter-button:hover {
-  background: #2bbb60;
-  color: #FFFFFF;
+  background: var(--color-highlight-light);
+  color: var(--color-highlight);
 }
 
 .home-newsletter-container span {
   font-size: 14px;
   font-weight: 500;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
   width: 100%;
   letter-spacing: 1px;
 }
