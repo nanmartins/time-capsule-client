@@ -438,8 +438,8 @@ li {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-bg-light);
-  background: var(--color-highlight);
-  padding: 12px 16px;
+  background: var(--color-highlight-dark);
+  padding: 18px;
   border-radius: 6px;
   margin-top: 24px;
   width: 480px;

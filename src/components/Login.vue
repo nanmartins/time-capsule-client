@@ -1,5 +1,12 @@
 <template>
   <div class="user-form-container">
+
+    <!-- Logo no canto superior esquerdo, agora é um link -->
+    <RouterLink to="/" class="logo">
+      <img src="@/assets/images/Timenest-logo.png" alt="Logo" />
+      <h1>Timenest</h1>
+    </RouterLink>
+
     <form @submit.prevent="handleLogin">
       <h1>Login</h1>
       <label for="email">Email:</label>
@@ -52,7 +59,6 @@ const handleLogin = async () => {
 
 .user-form-container {
   width: 100%;
-  max-width: 400px;
 }
 
 form {

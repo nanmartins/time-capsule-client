@@ -1,12 +1,14 @@
 <template>
   <main>
-    <Header />
+    <div v-if="router.currentRoute.value.path !== '/signin' && router.currentRoute.value.path !== '/register'">
+      <Header />
+    </div>
 
     <section>
       <RouterView />
     </section>
 
-    <div v-if="router.currentRoute.value.path !== '/capsules'">
+    <div v-if="router.currentRoute.value.path !== '/capsules' && router.currentRoute.value.path !== '/signin' && router.currentRoute.value.path !== '/register'">
       <Footer />
     </div>
   </main>
