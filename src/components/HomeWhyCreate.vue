@@ -51,7 +51,7 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   height: 100%;
   max-height: 550px;
   text-align: center;
-  padding: 110px 24px;
+  padding: 220px 24px;
   background: #FFFFFF;
 }
 

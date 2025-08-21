@@ -6,27 +6,40 @@
     </div>
 
     <div class="image-container">
-      <img src="@/assets/images/auth-img01.png" alt="Background image">
+      <img src="@/assets/images/auth-img02.png" alt="Background image">
 
-      <RouterLink to="/" class="return-button">
-        <ArrowSVG :width="'32'" :height="'32'" :stroke="'#FFFFFF'" :stroke-width="1.5" class="return-button-icon"/>
+      <!-- <button @click="goBack" class="return-button">
+        <ArrowSVG
+          :width="'32'"
+          :height="'32'"
+          :stroke="'#FFFFFF'"
+          :stroke-width="1.5"
+          class="return-button-icon"
+        />
         Back
-      </RouterLink>
+      </button> -->
 
-      <div class="overlay-text">
-        <h2>Message to Tomorrow</h2>
-      </div>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
+// import { useRouter } from 'vue-router'
+// import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
+
+// const router = useRouter()
+
+// const goBack = () => {
+//   if (window.history.length > 1) {
+//     router.back()
+//   } else {
+//     router.push('/')
+//   }
+// }
 </script>
 
 <style scoped>
-
 .sign-in {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -46,7 +59,6 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
   background: var(--color-bg-light);
 }
 
-
 /* IMAGE SIDE */
 .image-container {
   position: relative;
@@ -58,7 +70,8 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
   width: 100%;
   height: 100%;
   object-fit: fill;
-  opacity: 0.7;
+  border-left: 1px solid var(--color-lines);
+  opacity: 0.75;
 }
 
 .overlay-text {
@@ -75,10 +88,9 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
   text-shadow: 0px 4px 10px rgba(0,0,0,0.6);
 }
 
-.return-button {
+/* .return-button {
   display: flex;
   align-items: center;
-  justify-items: center;
   gap: 15px;
   position: absolute;
   top: 20px;
@@ -89,7 +101,8 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
   border-radius: 6px;
   font-size: 18px;
   letter-spacing: 2px;
-  text-decoration: none;
+  cursor: pointer;
+  border: none;
   transition: background 0.3s ease;
 }
 
@@ -100,5 +113,5 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue';
 
 .return-button-icon {
   transform: rotate(180deg);
-}
+} */
 </style>

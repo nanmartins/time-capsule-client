@@ -15,7 +15,7 @@
         <button @click="handleLogout" class="logout-button">Logout</button>
       </template>
 
-      <RouterLink v-else to="/signin">Sign in</RouterLink>
+      <RouterLink v-else to="/signin" class="logout-button">Sign in</RouterLink>
     </nav>
   </header>
 </template>
@@ -77,10 +77,10 @@ nav {
 
 a {
   text-decoration: none;
-  letter-spacing: 3px;
   color: var(--color-text);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
+  letter-spacing: 3px;
 }
 
 a:hover {
@@ -93,7 +93,7 @@ a:hover {
   background: transparent;
   border: 1px solid var(--color-text);
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 17px;
   cursor: pointer;
 }
@@ -101,6 +101,7 @@ a:hover {
 .logout-button:hover {
   border: 1px solid var(--color-highlight);
   color: var(--color-highlight);
+  background: var(--color-highlight-light);
 }
 
 /* logo style */

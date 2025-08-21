@@ -94,7 +94,7 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
 .footer-socials-icon {
   height: 50px;
   width: 50px;
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
 }
 

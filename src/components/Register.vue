@@ -1,186 +1,122 @@
-<!-- <template>
-  <div class="user-form-container">
-    <form @submit.prevent="handleRegister">
-      <h1>Register</h1>
-      <label for="name">Name:</label>
-      <input type="text" id="name" v-model="name" required />
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" v-model="email" required />
-
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required />
-
-      <button type="submit" class="user-form-btn">Register</button>
-
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-
-      <p>Already have an account? <RouterLink to="/signin">Sign in</RouterLink></p>
-
-    </form>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { registerUser } from '@/services.js';
-
-const name = ref('');
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
-const router = useRouter();
-
-const handleRegister = async () => {
-  try {
-    await registerUser(name.value, email.value, password.value);
-    alert("Usuário cadastrado com sucesso!");
-    router.push('/');
-  } catch (error) {
-    errorMessage.value = error.message;
-    if(errorMessage.value) {
-      setTimeout(() => {
-        errorMessage.value = '';
-      }, 3500)
-    }
-  }
-};
-</script>
-
-<style>
-.user-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  max-width: 400px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 350px;
-  background: transparent;
-  border: 1px solid #cecece;
-  padding: 20px 30px 30px 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.user-form-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 14px;
-  margin: 10px auto;
-  border: none;
-  width: 100%;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.user-form-btn:hover {
-  background-color: #0056b3;
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
-  font-weight: bold;
-  text-align: center;
-  margin: 10px 0;
-}
-</style> -->
-
-
-
 <template>
   <div class="user-form-page">
 
-    <!-- Logo no canto superior esquerdo, agora é um link -->
-    <RouterLink to="/" class="logo">
-      <img src="@/assets/images/Timenest-logo.png" alt="Logo" />
-      <h1>Timenest</h1>
-    </RouterLink>
+    <div class="user-form-wrapper">
 
-    <div class="user-form-container">
-      <form @submit.prevent="handleRegister">
-        <h1>Register</h1>
+      <button @click="goBack" class="return-button">
+        <ArrowSVG :width="'28'" :height="'28'" :stroke="'#2B2D42'" :stroke-width="1.1" class="return-button-icon" />
+        Back
+      </button>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" v-model="name" required />
+      <RouterLink to="/" class="logo">
+        <img src="@/assets/images/Timenest-logo.png" alt="Logo" />
+        <h1>Timenest</h1>
+      </RouterLink>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="email" required />
+      <p class="user-form-welcome">Register now.</p>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" required />
 
-        <button type="submit" class="user-form-btn">Register</button>
+      <div class="user-form-container">
+        <form @submit.prevent="handleRegister">
 
-        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+          <input type="text" id="name" v-model="name" placeholder="Name" required />
+          <input type="email" id="email" v-model="email" placeholder="Email" required />
+          <input type="password" id="password" v-model="password" placeholder="Password" required />
 
-        <p>Already have an account? <RouterLink to="/signin">Sign in</RouterLink></p>
-      </form>
+          <button type="submit" class="user-form-btn">Sign up</button>
+
+          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+          <p class="user-form-direct-link">Already have an account? <RouterLink to="/signin">Sign in</RouterLink></p>
+        </form>
+      </div>
+
     </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { registerUser } from '@/services.js';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { registerUser } from '@/services.js'
+import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 
-const name = ref('');
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
-const router = useRouter();
+const name = ref('')
+const email = ref('')
+const password = ref('')
+const errorMessage = ref('')
+const router = useRouter()
 
 const handleRegister = async () => {
   try {
-    await registerUser(name.value, email.value, password.value);
-    alert("Usuário cadastrado com sucesso!");
-    router.push('/');
+    await registerUser(name.value, email.value, password.value)
+    alert("Usuário cadastrado com sucesso!")
+    router.push('/')
   } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = error.message
     if (errorMessage.value) {
       setTimeout(() => {
-        errorMessage.value = '';
-      }, 3500);
+        errorMessage.value = ''
+      }, 3500)
     }
   }
-};
+}
+
+const goBack = () => {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    router.push('/')
+  }
+}
 </script>
 
 <style>
 .user-form-page {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100%;
   position: relative;
-  padding-top: 80px; /* espaço para o logo */
+}
+
+.user-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.return-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  padding: 8px 22px 8px 18px;
+  background: transparent;
+  border: 1px solid var(--color-highlight-dark);
+  border-radius: 6px;
+  font-size: 18px;
+  color: var(--color-highlight-dark);
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.return-button:hover {
+  background: var(--color-highlight-light);
+}
+
+.return-button-icon {
+  transform: rotate(180deg);
 }
 
 .logo {
-  position: absolute;
-  top: 20px;
-  left: 30px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -194,46 +130,56 @@ const handleRegister = async () => {
 }
 
 .logo h1 {
+  color: var(--color-text);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 10px;
+}
+
+.user-form-welcome {
   font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 200;
+  color: var(--color-text);
+  margin-bottom: 30px;
 }
 
 .user-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
   width: 100%;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
   width: 100%;
-  max-width: 350px;
-  background: transparent;
-  border: 1px solid #cecece;
-  padding: 20px 30px 30px 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 input {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 15px 18px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  font-size: 16px;
+  border: 1px solid var(--color-lines);
   border-radius: 4px;
   box-sizing: border-box;
 }
 
+input:focus {
+  outline: none;
+  border: 1px solid var(--color-highlight);
+}
+
+input::placeholder {
+  font-size: 16px;
+}
+
 .user-form-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 14px;
-  margin: 10px auto;
+  background-color: var(--color-highlight-dark);
+  color: var(--color-bg-light);
+  padding: 15px 18px;
+  font-size: 18px;
+  font-weight: 400;
   border: none;
   width: 100%;
   border-radius: 4px;
@@ -242,14 +188,26 @@ input {
 }
 
 .user-form-btn:hover {
-  background-color: #0056b3;
+  background-color: var(--color-highlight);
 }
 
+.user-form-direct-link {
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.user-form-direct-link a {
+  color: var(--color-highlight-dark);
+}
+
+.user-form-direct-link a:hover {
+  color: var(--color-highlight);
+}
+
+
 .error {
-  color: red;
-  margin-top: 10px;
-  font-weight: bold;
+  color: var(--color-warning);
+  font-weight: 500;
   text-align: center;
-  margin: 10px 0;
 }
 </style>

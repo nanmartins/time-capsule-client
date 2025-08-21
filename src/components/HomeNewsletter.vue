@@ -109,9 +109,9 @@ const subscribe = () => {
 .home-newsletter-button {
   height: 100%;
   padding: 15px 18px;
-  background: var(--color-highlight);
+  background: var(--color-highlight-dark);
   color: var(--color-bg-light);
-  border: 1px solid var(--color-highlight);
+  border: 1px solid var(--color-highlight-dark);
   border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
@@ -120,8 +120,9 @@ const subscribe = () => {
 }
 
 .home-newsletter-button:hover {
-  background: var(--color-highlight-light);
-  color: var(--color-highlight);
+  background: var(--color-highlight);
+  color: var(--color-bg-light);
+  border: 1px solid var(--color-highlight);
 }
 
 .home-newsletter-container span {
