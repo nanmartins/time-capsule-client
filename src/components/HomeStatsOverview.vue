@@ -77,7 +77,7 @@ onMounted(getStats)
   justify-self: center;
   font-size: 38px;
   font-weight: 900;
-  color: #22C55D;
+  color: var(--color-highlight);
   margin-bottom: 8px;
 }
 
@@ -91,7 +91,6 @@ span {
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1.2px;
-  color: #000000;
-  opacity: 0.6;
+  color: var(--color-text);
 }
 </style>

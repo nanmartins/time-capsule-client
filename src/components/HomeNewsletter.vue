@@ -45,7 +45,7 @@ const subscribe = () => {
 .home-newsletter-container {
   text-align: center;
   padding: 64px 24px;
-  background-color: #17A34A;
+  background: var(--color-card-bg-accent);
   width: 100%;
   margin: 0 auto;
 }
@@ -62,15 +62,14 @@ const subscribe = () => {
   font-weight: 700;
   line-height: 115%;
   letter-spacing: 2px;
-  color: #FFFFFF;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
 .home-newsletter-container p {
   font-size: 15px;
   font-weight: 500;
-  color: #FFFFFF;
-  opacity: 0.9;
+  color: var(--color-text);
   width: 100%;
   letter-spacing: 1.1px;
 }
@@ -80,7 +79,7 @@ const subscribe = () => {
   justify-content: center;
   align-items: stretch;
   gap: 8px;
-  margin: 28px 0 16px 0;
+  margin: 28px 0 12px 0;
   flex-wrap: wrap;
 }
 
@@ -90,25 +89,30 @@ const subscribe = () => {
   max-width: 420px;
   margin: 0;
   padding: 15px 18px;
-  background-color: #EFFDF4;
-  color: #17a34a;
-  border-radius: 8px;
+  background-color: var(--color-bg-light);
+  color: #000000a9;
+  border-radius: 6px;
   font-size: 16px;
-  border: none;
+  border: 1px solid var(--color-lines);
   outline: none;
 }
 
+.home-newsletter-input:focus {
+  border: 1px solid var(--color-highlight);
+}
+
 .home-newsletter-input::placeholder {
-  color: #17a34a;
+  color: var(--color-text);
+  opacity: 0.6;
 }
 
 .home-newsletter-button {
   height: 100%;
   padding: 15px 18px;
-  background-color: #EFFDF4;
-  color: #17a34a;
-  border: none;
-  border-radius: 8px;
+  background: var(--color-highlight-dark);
+  color: var(--color-bg-light);
+  border: 1px solid var(--color-highlight-dark);
+  border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -116,15 +120,15 @@ const subscribe = () => {
 }
 
 .home-newsletter-button:hover {
-  background-color: #12873d;
-  color: #EFFDF4;
+  background: var(--color-highlight);
+  color: var(--color-bg-light);
+  border: 1px solid var(--color-highlight);
 }
 
 .home-newsletter-container span {
   font-size: 14px;
   font-weight: 500;
-  color: #FFFFFF;
-  opacity: 0.8;
+  color: var(--color-text);
   width: 100%;
   letter-spacing: 1px;
 }
