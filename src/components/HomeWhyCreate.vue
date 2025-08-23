@@ -51,8 +51,9 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   height: 100%;
   max-height: 550px;
   text-align: center;
-  padding: 220px 24px;
-  background: #FFFFFF;
+  padding: 250px 24px;
+  background: var(--color-bg-light);
+  /* background: linear-gradient(to bottom, var(--color-highlight) 0%, var(--color-bg-light) 60%); */
 }
 
 .home-why-create-header {

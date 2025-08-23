@@ -146,7 +146,9 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   left: 0;
   width: 100%;
   height: 400px; /* fade height */
-  background: linear-gradient(to bottom, rgba(255, 253, 242, 0) 0%, var(--color-bg-light) 100%);
+  background: linear-gradient(to bottom, rgba(255, 253, 242, 0) 0%, rgba(255, 253, 242, 0) 40%, var(--color-bg-light) 100%);
+  /* height: 1000px; */
+  /* background: linear-gradient(to bottom, rgba(255, 253, 242, 0) 0%, rgba(255, 253, 242, 0) 50%, var(--color-highlight) 100%); */
   pointer-events: none;
 }
 

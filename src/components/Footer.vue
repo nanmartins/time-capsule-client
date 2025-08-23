@@ -44,7 +44,7 @@ import GithubSVG from '@/assets/icons/GithubSVG.vue'
   align-items: center;
   text-align: center;
   gap: 10px;
-  padding: 48px 24px;
+  padding: 72px 24px 48px 24px;
   background: var(--color-highlight-dark);
 }
 

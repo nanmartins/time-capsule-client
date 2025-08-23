@@ -11,16 +11,16 @@
 
           <div>
             <h2>{{ selectedCapsule.title }}</h2>
-            <p><LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#000000b7'" :stroke-width="2" /> Locked</p>
+            <p><LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#D81E5B'" :stroke-width="2" /> Locked</p>
           </div>
 
           <ul>
             <li>
-              <CalendarSVG />
+              <CalendarSVG :stroke-width="1.2"/>
               Created: {{ formatDate(selectedCapsule.createdAt) }}
             </li>
             <li>
-              <TimerSVG />
+              <TimerSVG :stroke-width="1.5"/>
               Unlocked: {{ formatDate(selectedCapsule.openAt) }}
             </li>
             <li v-if="selectedCapsule.imageUrl">
@@ -36,7 +36,7 @@
         <div class="capsule-locked-details-body">
 
           <div class="capsule-locked-body-content">
-            <LockedSVG :width="'90'" :height="'90'" :stroke="'#9CA3AF'" :stroke-width="2" class="capsule-locked-body-icon"/>
+            <LockedSVG :width="'90'" :height="'90'" :stroke="'#D81E5B'" :stroke-width="2" class="capsule-locked-body-icon"/>
 
             <div class="capsule-locked-body-message">
               <h2>This capsule is locked</h2>
@@ -68,16 +68,16 @@
           <!-- Unlocked capsules header -->
           <div>
             <h2>{{ selectedCapsule.title }}</h2>
-            <p><UnlockedSVG class="unlocked-header-icon" :stroke="'#036929'" :strokeWidth="2" /> Unlocked</p>
+            <p><UnlockedSVG class="unlocked-header-icon" :stroke="'#09BC8A'" :strokeWidth="2" /> Unlocked</p>
           </div>
 
           <ul>
             <li>
-              <CalendarSVG />
+              <CalendarSVG :stroke-width="1.2" />
               Created: {{ formatDate(selectedCapsule.createdAt) }}
             </li>
             <li>
-              <TimerSVG />
+              <TimerSVG :stroke-width="1.5" />
               Unlocked: {{ formatDate(selectedCapsule.openAt) }}
             </li>
             <li v-if="selectedCapsule.imageUrl">
@@ -97,7 +97,7 @@
 
           <div class="capsule-details-message-container">
             <h3>
-              <MailSVG :width="'22'" :height="'22'" :fill="'#036929'"/>
+              <MailSVG :width="'22'" :height="'22'" :fill="'#000000'" :stroke-width="0.5"/>
               Your Message from the Past
             </h3>
             <p>{{ selectedCapsule.message }}</p>
@@ -105,7 +105,7 @@
 
           <!-- Days to unlock capsule -->
           <div class="capsule-unlocked-details-countdown">
-            <UnlockedSVG class="unlocked-countdown-icon" :width="'30'" :height="'30'" :stroke="'#036929'" :strokeWidth="2" />
+            <UnlockedSVG class="unlocked-countdown-icon" :width="'30'" :height="'30'" :stroke="'#09BC8A'" :strokeWidth="2" />
             <div class="capsule-unlocked-details-countdown-text">
               <p>Unlocked on {{ formatDate(selectedCapsule.openAt) }}</p>
               <p>You waited {{ getLockedDuration() }} to unlock this capsule</p>
@@ -121,12 +121,12 @@
             </button>
 
             <button class="share-button">
-              <SharingSVG :width="'18'" :height="'18'" :stroke="'#000000'" :stroke-width="2"/>
+              <SharingSVG :width="'18'" :height="'18'" :stroke="'#2B2D42'" :stroke-width="2"/>
               Share
             </button>
 
             <button @click="confirmDelete" class="delete-button">
-              <DeleteSVG :width="'20'" :height="'20'" :stroke="'#B91C1B'" :strokeWidth="1.5"/>
+              <DeleteSVG :width="'20'" :height="'20'" :stroke="'#D81E5B'" :strokeWidth="1.5"/>
               Delete
             </button>
            </div>
@@ -146,7 +146,7 @@
 
     <!-- No capsule selected -->
     <div class="capsule-empty" v-else>
-      <MailSVG :width="'70'" :height="'70'" class="capsule-empty-icon" />
+      <MailSVG :width="'70'" :height="'70'" :stroke="'#2B2D42'" :fill="'#2B2D42'" :stroke-width="0.7" class="capsule-empty-icon" />
       <h3>Select a Time Capsule</h3>
       <p>Choose a capsule from the list to view its details and content</p>
     </div>
@@ -254,11 +254,12 @@ const progressPercent = computed(() => {
 .capsule-details {
   padding: 24px 0;
   overflow-y: auto;
-  background-color: #f1f0ed;
+  background: #dbe0e350;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  border-top: 1px solid var(--color-lines);
 }
 
 /* Content container */
@@ -283,8 +284,8 @@ const progressPercent = computed(() => {
 
 /* Locked header */
 .capsule-locked-details-header {
-  background: #FAF9F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
   padding: 24px 24px 18px 24px;
 }
@@ -298,8 +299,8 @@ const progressPercent = computed(() => {
 .capsule-locked-details-header div h2 {
   font-size: 26px;
   font-weight: 600;
+  color: var(--color-text);
   text-transform: capitalize;
-  opacity: 0.7;
 }
 
 .capsule-locked-details-header div p {
@@ -308,13 +309,13 @@ const progressPercent = computed(() => {
   justify-content: center;
   gap: 5px;
   padding: 5px 12px;
-  background: #ececec;
+  background: var(--color-warning-light);
   font-size: 15px;
   font-weight: 500;
-  color: #000000b7;
+  color: var(--color-warning);
   letter-spacing: 0px;
   border-radius: 20px;
-  border: 1px solid #b3b3b3;
+  border: 1px solid var(--color-warning);
   zoom: 0.8;
 }
 
@@ -335,15 +336,15 @@ const progressPercent = computed(() => {
   align-items: center;
   gap: 3px;
   font-size: 14px;
-  color: #666;
+  color: var(--color-text);
 }
 
 
 /* Locked body */
 .capsule-locked-details-body {
   padding: 24px;
-  background: #FAF9F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
 }
 
@@ -359,8 +360,8 @@ const progressPercent = computed(() => {
 
 .capsule-locked-body-icon {
   padding: 12px 18px;
-  background: #F3F4F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg-warning);
+  border: 1px solid var(--color-warning);
   border-radius: 20%;
   align-self: center;
 }
@@ -377,13 +378,13 @@ const progressPercent = computed(() => {
   font-size: 22px;
   font-weight: 600;
   text-transform: capitalize;
-  opacity: 0.9;
+  color: var(--color-text);
 }
 
 .capsule-locked-body-message p {
   font-size: 16px;
   font-weight: 500;
-  opacity: 0.6;
+  color: var(--color-text);
   max-width: 450px;
 }
 
@@ -392,25 +393,22 @@ const progressPercent = computed(() => {
   flex-direction: column;
   width: 100%;
   max-width: 450px;
-  /* gap: 5px; */
   padding: 24px;
   margin: 0 auto;
-  background: #F3F4F6;
-  border: 1px solid #e6e6e6;
-  border-radius: 6px;
+  background: var(--color-bg);
 }
 
 .capsule-locked-duration-progress h3 {
   font-size: 30px;
   font-weight: 700;
-  opacity: 0.7;
+  color: var(--color-text);
   margin-bottom: 6px;
 }
 
 .capsule-locked-duration-progress span {
   font-size: 13px;
   font-weight: 500;
-  opacity: 0.7;
+  color: var(--color-text);
   margin-bottom: 8px;
 }
 
@@ -418,7 +416,7 @@ const progressPercent = computed(() => {
 .capsule-locked-duration-progress p {
   font-size: 13px;
   font-weight: 500;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 /* progress bar */
@@ -426,7 +424,8 @@ const progressPercent = computed(() => {
   width: 100%;
   max-width: 400px;
   height: 15px;
-  background-color: #e0e0e0;
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-highlight-dark);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 10px;
@@ -434,9 +433,9 @@ const progressPercent = computed(() => {
 
 .progress-bar {
   height: 100%;
-  background-color: #858585;
+  background: var(--color-highlight-dark);
   transition: width 0.3s ease-in-out;
-  border-radius: 50%;
+  border-radius: 3px;
 }
 
 
@@ -445,12 +444,13 @@ const progressPercent = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 /* Unlocked header */
 .capsule-unlocked-details-header {
-  background: #FAF9F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
   padding: 24px 24px 18px 24px;
 }
@@ -464,8 +464,8 @@ const progressPercent = computed(() => {
 .capsule-unlocked-details-header div h2 {
   font-size: 26px;
   font-weight: 600;
+  color: var(--color-text);
   text-transform: capitalize;
-  opacity: 0.7;
 }
 
 .capsule-unlocked-details-header div p {
@@ -474,13 +474,13 @@ const progressPercent = computed(() => {
   justify-content: center;
   gap: 5px;
   padding: 5px 12px;
-  background: #6fe99c58;
+  background: var(--color-success-light);
   font-size: 15px;
   font-weight: 500;
-  color: #036929;
+  color: var(--color-success);
   letter-spacing: 0px;
   border-radius: 20px;
-  border: 1px solid #22C55E;
+  border: 1px solid var(--color-success);
   zoom: 0.8;
 }
 
@@ -501,13 +501,13 @@ const progressPercent = computed(() => {
   align-items: center;
   gap: 3px;
   font-size: 14px;
-  color: #666;
+  color: var(--color-text);
 }
 
 /* Unklocked capsule body */
 .capsule-unlocked-details-body {
-  background: #FAF9F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
   padding: 24px 24px 18px 24px;
 }
@@ -521,7 +521,7 @@ const progressPercent = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed #dddddd;
+  border: 1px dashed var(--color-lines);
   border-radius: 6px;
   margin-bottom: 24px;
 }
@@ -541,8 +541,8 @@ const progressPercent = computed(() => {
   width: 100%;
   height: 100%;
   background: rgba(10, 10, 10, 0.6);
-  color: white;
-  text-shadow: 1px 1px #000000;
+  color: var(--color-bg-light);
+  text-shadow: 1px 1px var(--color-text);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -610,7 +610,7 @@ const progressPercent = computed(() => {
 }
 
 .modal-close:hover {
-  background: white;
+  background: var(--color-bg-light);
 }
 
 /* Unlocked capsule message */
@@ -618,8 +618,8 @@ const progressPercent = computed(() => {
   display: flex;
   gap: 15px;
   flex-direction: column;
-  background: #FAF9F6;
-  border: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
   padding: 24px;
 }
@@ -628,14 +628,14 @@ const progressPercent = computed(() => {
   display: flex;
   align-items: center;
   gap: 3px;
+  color: var(--color-text);
   font-size: 17px;
   font-weight: 500;
 }
 
 .capsule-details-message-container p {
   font-size: 16px;
-  color: #000000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 /* Unlocked capsules days counts */
@@ -647,24 +647,23 @@ const progressPercent = computed(() => {
   padding: 18px 24px;
   font-size: 14px;
   letter-spacing: 0px;
-  background: #6fe99c58;
-  color: #036929;
-  border: 1px solid #22C55E;
+  background: var(--color-bg-success);
+  color: var(--color-text);
+  border: 1px solid var(--color-success);
   border-radius: 6px;
   margin-top: 24px;
 }
 
 .unlocked-countdown-icon {
   padding: 6px;
-  background: #22c55e49;
+  background: var(--color-success-light);
   border-radius: 10%;
-  border: 1px solid #22C55E;
+  border: 1px solid var(--color-success);
 }
 
 .capsule-unlocked-details-countdown-text p:first-child {
-  color: #000000;
+  color: var(--color-text);
   font-weight: 600;
-  opacity: 0.7;
 }
 
 /* Unlocked capsules buttons container */
@@ -679,7 +678,6 @@ const progressPercent = computed(() => {
   align-items: center;
   gap: 7px;
   padding: 8px 15px;
-  font-family: 'Avenir Next', sans-serif;
   font-size: 15px;
   font-weight: 500;
   border-radius: 6px;
@@ -688,22 +686,21 @@ const progressPercent = computed(() => {
 
 
 .delete-button {
-  background: #fda5a528;
-  color: #B91C1B;
-  border: 1px solid #FDA5A5;
+  background: var(--color-bg-warning);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
 }
 
 .download-button {
-  background: #22C55E;
+  background: var(--color-highlight-dark);
   color: #FFFFFF;
-  border: 1px solid #22C55E;
+  border: 1px solid var(--color-highlight-dark);
 }
 
 .share-button {
   background: transparent;
-  color: #000000;
-  opacity: 0.7;
-  border: 1px solid #cecece;
+  color: var(--color-highlight-dark);
+  border: 1px solid var(--color-highlight-dark);
 }
 
 
@@ -714,14 +711,14 @@ const progressPercent = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #666;
+  color: var(--color-text);
   text-align: center;
   height: 100%;
 }
 
 .capsule-empty-icon {
   padding: 10px;
-  background: #d8d8d8;
+  background: var(--color-highlight-light);
   border-radius: 100%;
   margin-bottom: 15px;
 }

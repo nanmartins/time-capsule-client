@@ -1,39 +1,50 @@
 <template>
   <div class="new-capsule-form" v-if="authStore.user">
 
-    <div v-if="!formActive" class="open">
-      <h1 @click="formActive = true">+ New Capsule</h1>
+    <!-- Open form modal -->
+    <div class="open" @click="formActive = true">
+      <PlusSVG :width="'22'" :height="'22'" :stroke="'#FFFFFF'" :stroke-width="2" style="margin-bottom: 2px;"/>
+      <p>Message</p>
     </div>
 
-    <form @submit.prevent="submitCapsule" v-else>
-      <h1>New Capsule</h1>
-      <span class="close" @click="formActive = false">X</span>
+    <!-- Modal -->
+    <div v-if="formActive" class="modal-overlay" @click.self="formActive = false">
+      <div class="modal-content">
+        <form @submit.prevent="submitCapsule">
+          <h1>New Message</h1>
 
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" id="title" v-model="title" required />
+          <!-- Close modal -->
+          <span class="close" @click="formActive = false">
+            <PlusSVG :width="'25'" :height="'25'" :stroke="'#2B2D42'" :stroke-width="2" />
+          </span>
+
+          <div class="form-group">
+            <!-- <label for="title">Title:</label> -->
+            <input type="text" id="title" v-model="title" placeholder="Title" required />
+          </div>
+
+          <div class="form-group">
+            <!-- <label for="message">Message:</label> -->
+            <textarea id="message" v-model="message" placeholder="Message" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="openAt">Open at:</label>
+            <input type="datetime-local" id="openAt" v-model="openAt" required :min="minOpenDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="image">Image (optional):</label>
+            <input type="file" id="image" accept="image/*" @change="handleImageUpload" />
+          </div>
+
+          <button type="submit" class="capsule-create-btn">Create Capsule</button>
+
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="message">Message:</label>
-        <textarea id="message" v-model="message" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="openAt">Open At:</label>
-        <input type="datetime-local" id="openAt" v-model="openAt" required :min="minOpenDate" />
-      </div>
-
-      <div class="form-group">
-        <label for="image">Image (optional):</label>
-        <input type="file" id="image" accept="image/*" @change="handleImageUpload" />
-      </div>
-
-      <button type="submit">Create Capsule</button>
-
-      <p v-if="errorMessage" class="message">{{ errorMessage }}</p>
-
-    </form>
   </div>
 </template>
 
@@ -42,6 +53,7 @@
 import { ref, computed } from "vue"
 import { createCapsule } from "@/services.js"
 import { useAuthStore } from '@/stores/authStore.js'
+import PlusSVG from "@/assets/icons/PlusSVG.vue"
 
 const title = ref("")
 const message = ref("")
@@ -81,6 +93,7 @@ const submitCapsule = async () => {
     message.value = ""
     openAt.value = ""
     imageUrl.value = null
+    formActive.value = false
   } catch (error) {
     errorMessage.value = error.message
   }
@@ -92,7 +105,6 @@ const minOpenDate = computed(() => {
   const pad = (n) => (n < 10 ? '0' + n : n)
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`
 })
-
 </script>
 
 
@@ -100,73 +112,95 @@ const minOpenDate = computed(() => {
 .new-capsule-form {
   max-width: 1000px;
   margin: 0;
-  margin-bottom: 30px;
 }
 
-form {
-  box-shadow: none;
-  border-radius: 0;
+.open {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 3px 8px;
+  background: var(--color-highlight-dark);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-bg-light);
+  border-radius: 6px;
+}
+
+.open:hover {
+  background-color: var(--color-highlight);
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: var(--color-bg);
+  padding: 48px;
+  border-radius: 8px;
   position: relative;
-  max-width: 500px;
-  margin: auto;
-}
-
-.form-group {
-  padding-bottom: 18px;
-}
-
-
-label {
-  font-weight: bold;
-  display: block;
-}
-
-textarea, input {
+  max-width: 700px;
   width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-textarea {
-  resize: none;
-  height: 200px;
 }
 
-button {
-  display: block;
-  padding: 20px;
-  background-color: transparent;
-  color: black;
-  border: 1.5px solid #777777;
-  border-radius: 4px;
-  cursor: pointer;
+.modal-content h1 {
+  font-size: 24px;
+  font-weight: 500;
 }
 
-button:hover {
-  background-color: #0056b3;
+.modal-content input {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 10px;
 }
 
-.message {
-  color: #d9534f;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.open h1 {
-  display: inline-block;
-  cursor: pointer;
+.modal-content textarea {
+  width: 100%;
+  min-height: 150px;
+  font-size: 16px;
   padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-lines);
+}
+
+.modal-content textarea:focus {
+  outline: none;
+  border: 1px solid var(--color-highlight);
+}
+
+.modal-content textarea::placeholder {
+  font-size: 16px;
+}
+
+.capsule-create-btn {
+  background-color: var(--color-highlight-dark);
+  color: var(--color-bg-light);
+  padding: 15px 18px;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.capsule-create-btn:hover {
+  background-color: var(--color-highlight);
 }
 
 .close {
   position: absolute;
   top: 15px;
   right: 15px;
+  transform: rotate(45deg);
   cursor: pointer;
-  font-weight: bold;
-  font-size: 20px;
 }
 </style>

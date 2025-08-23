@@ -29,7 +29,7 @@
             <p>Create your account with email in just a few seconds</p>
           </div>
           <div v-if="currentStep === 1" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
           </div>
         </div>
 
@@ -49,7 +49,7 @@
             <p>Add text, photos, or any files you want to preserve</p>
           </div>
           <div v-if="currentStep === 2" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
           </div>
         </div>
 
@@ -69,7 +69,7 @@
             <p>Choose when you want to receive your message</p>
           </div>
           <div v-if="currentStep === 3" class="home-step-check">
-            <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+            <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
           </div>
         </div>
 
@@ -96,24 +96,24 @@
             <p>Getting started is quick and easy. No credit card required.</p>
 
             <div class="home-step-content-image">
-              <img src="@/assets/images/sign-banner-img.png" alt="">
+              <img src="@/assets/images/create-account.png" alt="">
             </div>
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Sign up with email or Google account
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Verify your email address
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Set up your profile
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Start creating capsules immediately
               </li>
             </ul>
@@ -129,24 +129,24 @@
             <p>Express yourself with rich content and meaningful messages.</p>
 
             <div class="home-step-content-image">
-              <img src="@/assets/images/write-banner-img.png" alt="">
+              <img src="@/assets/images/write-message.png" alt="">
             </div>
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Write unlimited text messages
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Upload photos and images
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Attach documents and files
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Add a personal title and category
               </li>
             </ul>
@@ -162,24 +162,24 @@
             <p>Pick the perfect moment to rediscover your message.</p>
 
             <div class="home-step-content-image">
-              <img src="@/assets/images/schedule-banner-img.png" alt="">
+              <img src="@/assets/images/select-date.png" alt="">
             </div>
 
             <ul>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Choose any future date
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Set specific times if desired
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Add personal notes about why you chose this date
               </li>
               <li>
-                <CheckSVG :width="'22'" :height="'22'" :stroke="'#21A179'" :fill="'#21A179'" />
+                <CheckSVG :width="'22'" :height="'22'" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
                 Get email notifications when it unlocks
               </li>
             </ul>
@@ -404,17 +404,19 @@ const currentStep = ref(1)
 
 .home-step-content-image {
   width: 100%;
+  height: 100%;
   height: 220px;
   border-radius: 8px;
-  border: 1px dashed var(--color-lines);
+  border: 2px dashed var(--color-lines);
   margin-top: 16px;
+  background: linear-gradient(to right, #edf3f6 0%, #ffffff 50%, #f0f9ff 100%);
 }
 
 .home-step-content-image img {
   display: block;
   margin: auto;
-  width: 50%;
-  padding-top: 20px;
+  width: 55%;
+  padding-top: 15px;
 }
 
 ul {
