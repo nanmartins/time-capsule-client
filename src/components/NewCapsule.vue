@@ -19,13 +19,13 @@
           </span>
 
           <div class="form-group">
-            <!-- <label for="title">Title:</label> -->
-            <input type="text" id="title" v-model="title" placeholder="Title" required />
+            <label for="title">Title:</label>
+            <input type="text" id="title" v-model="title" required />
           </div>
 
           <div class="form-group">
-            <!-- <label for="message">Message:</label> -->
-            <textarea id="message" v-model="message" placeholder="Message" required></textarea>
+            <label for="message">Message:</label>
+            <textarea id="message" v-model="message" required></textarea>
           </div>
 
           <div class="form-group">
@@ -139,12 +139,12 @@ const minOpenDate = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
 }
 
 .modal-content {
   background: var(--color-bg);
-  padding: 48px;
+  padding: 24px;
   border-radius: 8px;
   position: relative;
   max-width: 700px;
@@ -156,10 +156,16 @@ const minOpenDate = computed(() => {
   font-weight: 500;
 }
 
+.modal-content label {
+  display: block;
+  margin-bottom: 3px;
+}
+
 .modal-content input {
   width: 100%;
   font-size: 16px;
   padding: 12px 10px;
+  margin-bottom: 5px;
 }
 
 .modal-content textarea {
@@ -177,6 +183,22 @@ const minOpenDate = computed(() => {
 
 .modal-content textarea::placeholder {
   font-size: 16px;
+}
+
+.modal-content input[type="file"]::-webkit-file-upload-button {
+  background: var(--color-highlight-dark);
+  color: var(--color-bg-light);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.3s ease;
+}
+
+.modal-content input[type="file"]::-webkit-file-upload-button:hover {
+  background: var(--color-highlight);
 }
 
 .capsule-create-btn {

@@ -402,14 +402,13 @@ const progressPercent = computed(() => {
   font-size: 30px;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 6px;
 }
 
 .capsule-locked-duration-progress span {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--color-text);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 /* progress percentage */

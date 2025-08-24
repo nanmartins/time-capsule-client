@@ -205,7 +205,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   left: 60%;
   transform: translateX(-50%) rotate(-8deg);
   width: 300px;
-  z-index: 2;
+  z-index: 1;
   opacity: 0.7;
   animation: floatBottle 6s ease-in-out infinite;
 }

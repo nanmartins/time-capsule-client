@@ -243,8 +243,8 @@ const getCountdown = (openAt) => {
 ul {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 10px;
+  gap: 10px;
+  margin: 12px;
   list-style-type: none;
 }
 
