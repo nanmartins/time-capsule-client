@@ -20,7 +20,7 @@
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search capsules..."
+        placeholder="Search..."
         class="search-capsules"
       />
     </div>
@@ -117,6 +117,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useCapsuleStore } from '@/stores/capsuleStore'
 import NewCapsule from './NewCapsule.vue'
 import CircleSVG from '@/assets/icons/CircleSVG.vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
@@ -126,16 +127,36 @@ import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
 import LockedSVG from '@/assets/icons/LockedSVG.vue'
 import MailSVG from '@/assets/icons/MailSVG.vue'
 
-const props = defineProps({
-  openCapsules: Array,
-  lockedCapsules: Array,
-  selectedCapsule: Object,
-  unlockedCapsulesCount: Number,
-  lockedCapsulesCount: Number
-})
+// store
+const capsuleStore = useCapsuleStore()
 
+// Keeps same emits
 const emit = defineEmits(['select-capsule', 'select-locked-capsule'])
 
+// search input
+const searchQuery = ref("")
+
+// data from capsuleStore
+const openCapsules = computed(() => capsuleStore.openCapsules || [])
+const lockedCapsules = computed(() => capsuleStore.lockedCapsules || [])
+const unlockedCapsulesCount = computed(() => capsuleStore.unlockedCapsulesCount || 0)
+const lockedCapsulesCount = computed(() => capsuleStore.lockedCapsulesCount || 0)
+const selectedCapsule = computed(() => capsuleStore.selectedCapsule || null)
+
+// filters capsules
+const filteredOpenCapsules = computed(() =>
+  openCapsules.value.filter((capsule) =>
+    capsule.title?.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+const filteredLockedCapsules = computed(() =>
+  lockedCapsules.value.filter((capsule) =>
+    capsule.title?.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+// select capsule
 const selectCapsule = (capsule) => {
   emit('select-capsule', capsule)
 }
@@ -144,28 +165,12 @@ const selectLockedCapsule = (capsule) => {
   emit('select-locked-capsule', capsule)
 }
 
-// Search capsules
-const searchQuery = ref("")
-
-const filteredOpenCapsules = computed(() =>
-  props.openCapsules.filter((capsule) =>
-    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-)
-
-const filteredLockedCapsules = computed(() =>
-  props.lockedCapsules.filter((capsule) =>
-    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-)
-
-// Countdown timer for locked capsules
+// countdown for locked capsule
 const getCountdown = (openAt) => {
   const now = new Date()
   const openDate = new Date(openAt)
 
   const diffMs = openDate - now
-
   if (diffMs <= 0) return 'Available now'
 
   const totalMinutes = Math.floor(diffMs / 1000 / 60)
@@ -177,9 +182,8 @@ const getCountdown = (openAt) => {
   if (hours > 0) return `${hours}h left`
   return `${minutes}m left`
 }
-
-
 </script>
+
 
 <style scoped>
 .capsules-list {

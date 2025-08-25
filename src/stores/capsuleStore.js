@@ -39,11 +39,24 @@ export const useCapsuleStore = defineStore("capsuleStore", {
       this.startCountdown(capsule)
     },
 
+
     async addCapsule(title, message, openAt, image) {
-      const newCapsule = await createCapsule(title, message, openAt, image)
-      this.lockedCapsules.unshift(newCapsule) // começa como bloqueada
+      const response = await createCapsule(title, message, openAt, image)
+      const newCapsule = response.capsule
+
+      const now = new Date()
+
+      if (new Date(newCapsule.openAt) <= now) {
+        // this.openCapsules.unshift(newCapsule)
+        this.openCapsules = [...this.openCapsules, newCapsule];
+      } else {
+        // this.lockedCapsules.unshift(newCapsule)
+        this.lockedCapsules = [...this.lockedCapsules, newCapsule];
+      }
+
       return newCapsule
     },
+
 
     async removeCapsule(capsuleId) {
       await deleteCapsule(capsuleId)
@@ -53,7 +66,7 @@ export const useCapsuleStore = defineStore("capsuleStore", {
       this.countdown = ""
     },
 
-    // countdown para cápsula bloqueada
+    // countdown for locked capsule
     startCountdown(capsule) {
       clearInterval(this._countdownInterval)
       const update = () => {

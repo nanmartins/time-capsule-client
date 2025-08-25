@@ -48,11 +48,10 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, computed } from "vue"
-import { createCapsule } from "@/services.js"
 import { useAuthStore } from '@/stores/authStore.js'
+import { useCapsuleStore } from '@/stores/capsuleStore'
 import PlusSVG from "@/assets/icons/PlusSVG.vue"
 
 const title = ref("")
@@ -61,6 +60,7 @@ const openAt = ref("")
 const imageUrl = ref(null)
 const errorMessage = ref("")
 const authStore = useAuthStore()
+const capsuleStore = useCapsuleStore()
 const formActive = ref(false)
 const emit = defineEmits(["capsuleCreated"])
 
@@ -77,7 +77,6 @@ const submitCapsule = async () => {
 
   const now = new Date()
   const openDate = new Date(openAt.value)
-
   const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000)
 
   if (openDate < twoHoursFromNow) {
@@ -86,8 +85,8 @@ const submitCapsule = async () => {
   }
 
   try {
-    await createCapsule(title.value, message.value, openAt.value, imageUrl.value)
-    emit("capsuleCreated")
+    await capsuleStore.addCapsule(title.value, message.value, openAt.value, imageUrl.value)
+
     errorMessage.value = "Capsule created successfully"
     title.value = ""
     message.value = ""
@@ -95,7 +94,7 @@ const submitCapsule = async () => {
     imageUrl.value = null
     formActive.value = false
   } catch (error) {
-    errorMessage.value = error.message
+    errorMessage.value = error.message || "Error creating capsule"
   }
 }
 
@@ -106,6 +105,7 @@ const minOpenDate = computed(() => {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`
 })
 </script>
+
 
 
 <style scoped>
@@ -149,6 +149,7 @@ const minOpenDate = computed(() => {
   position: relative;
   max-width: 700px;
   width: 100%;
+  overflow: auto;
 }
 
 .modal-content h1 {
