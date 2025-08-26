@@ -3,19 +3,24 @@
 
     <!-- Capsule List Header -->
     <div class="capsules-list-header">
-      <h2>My Time Capsules</h2>
+
+      <div class="capsules-list-header-title-create">
+        <h2>My Messages</h2>
+        <NewCapsule />
+      </div>
+
       <div class="capsules-count-container">
         <p>{{ unlockedCapsulesCount + lockedCapsulesCount }} total</p>
         <div class="capsules-count">
-          <p><CircleSVG :fill="'#22C55E'" /> unlocked: {{ unlockedCapsulesCount }}</p>
-          <p><CircleSVG /> locked: {{ lockedCapsulesCount }}</p>
+          <p><CircleSVG :fill="'#09BC8A'" /> unlocked: {{ unlockedCapsulesCount }}</p>
+          <p><CircleSVG :fill="'#D81E5B'" /> locked: {{ lockedCapsulesCount }}</p>
         </div>
       </div>
 
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search capsules..."
+        placeholder="Search..."
         class="search-capsules"
       />
     </div>
@@ -26,6 +31,7 @@
         v-for="capsule in filteredOpenCapsules"
         :key="capsule._id"
         @click="selectCapsule(capsule)"
+        class="capsule-unlocked-list"
         :class="{ active: selectedCapsule && selectedCapsule._id === capsule._id }"
       >
         <div class="capsule-title-container">
@@ -33,9 +39,9 @@
 
           <div class="capsule-title-icons-container">
             <div v-if="capsule.imageUrl">
-              <HasImageSVG :width="'18'" :height="'18'" />
+              <HasImageSVG :width="'18'" :height="'18'" :stroke-width="1" />
             </div>
-            <UnlockedSVG :stroke="'#22C55E'" :stroke-width="1.2" />
+            <UnlockedSVG :stroke="'#09BC8A'" :stroke-width="1.5" />
           </div>
 
         </div>
@@ -44,18 +50,18 @@
 
         <div class="capsule-date-container">
           <span>
-            <CalendarSVG />
+            <CalendarSVG :stroke-width="1.5"/>
             {{ new Date(capsule.createdAt).toLocaleDateString() }}
           </span>
 
           <span>
-            <TimerSVG />
+            <TimerSVG :stroke-width="1.5"/>
             {{ new Date(capsule.openAt).toLocaleDateString() }}
           </span>
         </div>
 
         <span class="capsule-list-status">
-          <MailSVG :width="'18px'" :height="'18px'" :fill="'#036929'"/>
+          <MailSVG :width="'18px'" :height="'18px'" :fill="'#FFFFFF'" :stroke="'#FFFFFF'" :stroke-width="0.5" />
           Ready to read
         </span>
 
@@ -70,6 +76,7 @@
         v-for="capsule in filteredLockedCapsules"
         :key="capsule._id"
         @click="selectLockedCapsule(capsule)"
+        class="capsule-locked-list"
         :class="{ active: selectedCapsule && selectedCapsule._id === capsule._id }"
       >
         <div class="capsule-title-container">
@@ -79,25 +86,25 @@
             <div v-if="capsule.imageUrl">
               <HasImageSVG :width="'18'" :height="'18'" />
             </div>
-            <LockedSVG :stroke-width="1.2" />
+            <LockedSVG :stroke-width="1.5" :stroke="'#D81E5B'" />
           </div>
 
         </div>
 
         <div class="capsule-date-container">
           <span>
-            <CalendarSVG />
+            <CalendarSVG :stroke-width="1.5" />
             {{ new Date(capsule.createdAt).toLocaleDateString() }}
           </span>
 
           <span>
-            <TimerSVG />
+            <TimerSVG :stroke-width="1.5" />
             {{ new Date(capsule.openAt).toLocaleDateString() }}
           </span>
         </div>
 
         <span class="capsule-list-locked-status">
-          <TimerSVG :width="'15px'" :height="'15px'" />
+          <TimerSVG :width="'15px'" :height="'15px'" :stroke="'#D81E5B'" :stroke-width="2" />
           {{ getCountdown(capsule.openAt) }}
         </span>
       </li>
@@ -110,6 +117,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useCapsuleStore } from '@/stores/capsuleStore'
+import NewCapsule from './NewCapsule.vue'
 import CircleSVG from '@/assets/icons/CircleSVG.vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import TimerSVG from '@/assets/icons/TimerSVG.vue'
@@ -118,16 +127,36 @@ import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
 import LockedSVG from '@/assets/icons/LockedSVG.vue'
 import MailSVG from '@/assets/icons/MailSVG.vue'
 
-const props = defineProps({
-  openCapsules: Array,
-  lockedCapsules: Array,
-  selectedCapsule: Object,
-  unlockedCapsulesCount: Number,
-  lockedCapsulesCount: Number
-})
+// store
+const capsuleStore = useCapsuleStore()
 
+// Keeps same emits
 const emit = defineEmits(['select-capsule', 'select-locked-capsule'])
 
+// search input
+const searchQuery = ref("")
+
+// data from capsuleStore
+const openCapsules = computed(() => capsuleStore.openCapsules || [])
+const lockedCapsules = computed(() => capsuleStore.lockedCapsules || [])
+const unlockedCapsulesCount = computed(() => capsuleStore.unlockedCapsulesCount || 0)
+const lockedCapsulesCount = computed(() => capsuleStore.lockedCapsulesCount || 0)
+const selectedCapsule = computed(() => capsuleStore.selectedCapsule || null)
+
+// filters capsules
+const filteredOpenCapsules = computed(() =>
+  openCapsules.value.filter((capsule) =>
+    capsule.title?.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+const filteredLockedCapsules = computed(() =>
+  lockedCapsules.value.filter((capsule) =>
+    capsule.title?.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+// select capsule
 const selectCapsule = (capsule) => {
   emit('select-capsule', capsule)
 }
@@ -136,28 +165,12 @@ const selectLockedCapsule = (capsule) => {
   emit('select-locked-capsule', capsule)
 }
 
-// Search capsules
-const searchQuery = ref("")
-
-const filteredOpenCapsules = computed(() =>
-  props.openCapsules.filter((capsule) =>
-    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-)
-
-const filteredLockedCapsules = computed(() =>
-  props.lockedCapsules.filter((capsule) =>
-    capsule.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-)
-
-// Countdown timer for locked capsules
+// countdown for locked capsule
 const getCountdown = (openAt) => {
   const now = new Date()
   const openDate = new Date(openAt)
 
   const diffMs = openDate - now
-
   if (diffMs <= 0) return 'Available now'
 
   const totalMinutes = Math.floor(diffMs / 1000 / 60)
@@ -169,15 +182,15 @@ const getCountdown = (openAt) => {
   if (hours > 0) return `${hours}h left`
   return `${minutes}m left`
 }
-
-
 </script>
+
 
 <style scoped>
 .capsules-list {
   overflow-y: auto;
-  background-color: #FAF9F6;
-  border-right: 1px solid #e6e6e6;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-lines);
+  border-top: 1px solid var(--color-lines);
 }
 
 /* CAPSULES LIST HEADER */
@@ -186,14 +199,19 @@ const getCountdown = (openAt) => {
   flex-direction: column;
   gap: 5px;
   padding: 20px 15px;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid var(--color-lines);
 }
 
-.capsules-list-header h2 {
+.capsules-list-header-title-create {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.capsules-list-header-title-create h2 {
   font-size: 20px;
   font-weight: 600;
-  color: #000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 .capsules-count-container {
@@ -201,8 +219,7 @@ const getCountdown = (openAt) => {
   justify-content: space-between;
   font-size: 15px;
   font-weight: 300;
-  color: #000;
-  opacity: 0.7;
+  color: var(--color-text);
   padding-top: 10px;
 }
 
@@ -215,25 +232,23 @@ const getCountdown = (openAt) => {
   width: 100%;
   padding: 10px;
   margin: 10px 0 0 0;
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--color-lines);
   border-radius: 6px;
   font-size: 1rem;
-  background-color: transparent;
+  background: var(--color-bg-light);
 }
 
 .search-capsules:focus {
   outline: none;
-  /* border: 1px solid #e6e6e6; */
-  box-shadow: 0 0 0 1px #ccc;
-  background-color: #fff;
+  border: 1px solid var(--color-highlight);
 }
 
 /* CAPSULES LIST */
 ul {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 10px;
+  gap: 10px;
+  margin: 12px;
   list-style-type: none;
 }
 
@@ -245,30 +260,42 @@ li {
   cursor: pointer;
   transition: background 0.3s;
   border-radius: 6px;
-  border: 1px solid #e6e6e6;
-  border-left: 4px solid #cfcfcf;
+  border: 1px solid var(--color-lines);
+  border-left: 4px solid var(--color-success);
+}
+
+.capsule-locked-list {
+  border-left: 4px solid var(--color-warning);
 }
 
 li:hover {
-  background: #f0f0f0;
+  background: var(--color-bg-dark);
   box-shadow: 1px 3px 5px #e0e0e0;
 }
 
+.capsule-locked-list:hover {
+  background: var(--color-bg-warning)
+}
+
 li.active {
-  background: #f0f0f0;
+  background: var(--color-card-bg-accent);
+  border: 1px solid var(--color-highlight);
+}
+.capsule-locked-list.active {
+  background: var(--color-bg-warning);
+  border: 1px solid var(--color-warning);
 }
 
 li p {
   font-size: 16px;
   font-weight: 600;
-  color: #000;
-  opacity: 0.7;
+  color: var(--color-text);
 }
 
 .capsule-preview {
   font-size: 14px;
   font-weight: 300;
-  color: #444;
+  color: var(--color-text);
   line-height: 1.4em;
   max-height: 2.8em;
   overflow: hidden;
@@ -288,8 +315,8 @@ li p {
   font-size: 13px;
   font-weight: 600;
   width: 100%;
-  background: #6fe99c58;
-  color: #036929;
+  background: var(--color-highlight-dark);
+  color: var(--color-bg-light);
   padding: 3px;
   border-radius: 6px;
 }
@@ -302,8 +329,8 @@ li p {
   font-size: 13px;
   font-weight: 600;
   width: 100%;
-  background: #e4e4e4;
-  color: #656565;
+  background: var(--color-warning-light);
+  color: var(--color-warning);
   padding: 3px;
   border-radius: 6px;
 }

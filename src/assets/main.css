@@ -3,6 +3,7 @@
 :root {
   --color-bg: #fbfbfb;
   --color-bg-light: #FFFFFF;
+  --color-bg-dark: #edf3f6;
   --color-card-bg-accent: #f0f9ff;
   --color-text: #000000;
   --color-highlight: #3F88C5;
@@ -10,7 +11,12 @@
   --color-highlight-dark: #2B2D42;
   --color-lines: #D2D2D2;
   --color-card-bg: #FAFAFA;
-  --color-warning: #D81E5B;
+  --color-success: #09BC8A;
+  --color-success-light: #d7fcf1;
+  --color-bg-success: #eefffa;
+  --color-warning: #D7263D;
+  --color-warning-light: #ffdfea;
+  --color-bg-warning: #fff8fa;
 }
 
 *,
@@ -21,6 +27,20 @@
   padding: 0;
   font-family: 'Avenir Next', sans-serif;
 }
+
+
+/* SCROLL BAR STYLES */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-highlight);
+  border-radius: 6px;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-highlight) var(--color-bg-dark);
+}
+
 
 body {
   background: var(--color-bg);

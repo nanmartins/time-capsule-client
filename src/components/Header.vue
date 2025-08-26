@@ -60,7 +60,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 999;
   transition: box-shadow 0.3s ease;
 }
 

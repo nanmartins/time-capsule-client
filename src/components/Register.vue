@@ -192,7 +192,7 @@ input::placeholder {
 }
 
 .user-form-direct-link {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--color-text);
 }
 

@@ -45,7 +45,7 @@ const subscribe = () => {
 .home-newsletter-container {
   text-align: center;
   padding: 64px 24px;
-  background: var(--color-card-bg-accent);
+  background: var(--color-highlight-light);
   width: 100%;
   margin: 0 auto;
 }
@@ -90,7 +90,7 @@ const subscribe = () => {
   margin: 0;
   padding: 15px 18px;
   background-color: var(--color-bg-light);
-  color: #000000a9;
+  color: var(--color-text);
   border-radius: 6px;
   font-size: 16px;
   border: 1px solid var(--color-lines);
