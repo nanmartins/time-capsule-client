@@ -1,43 +1,38 @@
 <template>
-  <div class="capsule-details" >
+  <div class="capsule-details">
 
-    <div class="capsule-details-container" v-if="selectedCapsule">
+    <div class="capsule-details-container" v-if="store.selectedCapsule">
 
       <!-- Locked Capsule Details -->
       <div class="capsule-locked-details" v-if="isLocked">
-
-        <!-- Locked capsules header -->
         <div class="capsule-locked-details-header">
-
           <div>
-            <h2>{{ selectedCapsule.title }}</h2>
-            <p><LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#D81E5B'" :stroke-width="2" /> Locked</p>
+            <h2>{{ store.selectedCapsule.title }}</h2>
+            <p>
+              <LockedSVG class="locked-header-icon" :width="'15'" :height="'15'" :stroke="'#D81E5B'" :stroke-width="2" />
+              Locked
+            </p>
           </div>
 
           <ul>
             <li>
               <CalendarSVG :stroke-width="1.2"/>
-              Created: {{ formatDate(selectedCapsule.createdAt) }}
+              Created: {{ formatDate(store.selectedCapsule.createdAt) }}
             </li>
             <li>
               <TimerSVG :stroke-width="1.5"/>
-              Unlocked: {{ formatDate(selectedCapsule.openAt) }}
+              Unlocked: {{ formatDate(store.selectedCapsule.openAt) }}
             </li>
-            <li v-if="selectedCapsule.imageUrl">
+            <li v-if="store.selectedCapsule.imageUrl">
               <HasImageSVG style="margin-bottom: 2px;"/>
-              Has attachement
+              Has attachment
             </li>
           </ul>
-
         </div>
 
-
-        <!-- Capsule locked body -->
         <div class="capsule-locked-details-body">
-
           <div class="capsule-locked-body-content">
             <LockedSVG :width="'90'" :height="'90'" :stroke="'#D81E5B'" :stroke-width="2" class="capsule-locked-body-icon"/>
-
             <div class="capsule-locked-body-message">
               <h2>This capsule is locked</h2>
               <p>Your message will be revealed when the unlock date arrives. The anticipation makes it even more special!</p>
@@ -54,44 +49,39 @@
               <p>{{ Math.floor(progressPercent) }}% unlocked</p>
             </div>
           </div>
-
         </div>
-
       </div>
-
 
       <!-- Unlocked Capsule Details -->
       <div class="capsule-unlocked-details" v-else>
-
         <div class="capsule-unlocked-details-header">
-
-          <!-- Unlocked capsules header -->
           <div>
-            <h2>{{ selectedCapsule.title }}</h2>
-            <p><UnlockedSVG class="unlocked-header-icon" :stroke="'#09BC8A'" :strokeWidth="2" /> Unlocked</p>
+            <h2>{{ store.selectedCapsule.title }}</h2>
+            <p>
+              <UnlockedSVG class="unlocked-header-icon" :stroke="'#09BC8A'" :strokeWidth="2" />
+              Unlocked
+            </p>
           </div>
 
           <ul>
             <li>
               <CalendarSVG :stroke-width="1.2" />
-              Created: {{ formatDate(selectedCapsule.createdAt) }}
+              Created: {{ formatDate(store.selectedCapsule.createdAt) }}
             </li>
             <li>
               <TimerSVG :stroke-width="1.5" />
-              Unlocked: {{ formatDate(selectedCapsule.openAt) }}
+              Unlocked: {{ formatDate(store.selectedCapsule.openAt) }}
             </li>
-            <li v-if="selectedCapsule.imageUrl">
+            <li v-if="store.selectedCapsule.imageUrl">
               <HasImageSVG style="margin-bottom: 2px;"/>
-              Has attachement
+              Has attachment
             </li>
           </ul>
-
         </div>
 
-        <!-- Unlocked capsule body -->
         <div class="capsule-unlocked-details-body">
-          <div class="capsule-details-image-container" v-if="selectedCapsule.imageUrl">
-            <img :src="selectedCapsule.imageUrl" alt="Capsule Image" @click="showModal = true"/>
+          <div class="capsule-details-image-container" v-if="store.selectedCapsule.imageUrl">
+            <img :src="store.selectedCapsule.imageUrl" alt="Capsule Image" @click="openModal"/>
             <div class="image-overlay">Click to view full size</div>
           </div>
 
@@ -100,21 +90,18 @@
               <MailSVG :width="'22'" :height="'22'" :fill="'#000000'" :stroke-width="0.5"/>
               Your Message from the Past
             </h3>
-            <p>{{ selectedCapsule.message }}</p>
+            <p>{{ store.selectedCapsule.message }}</p>
           </div>
 
-          <!-- Days to unlock capsule -->
           <div class="capsule-unlocked-details-countdown">
             <UnlockedSVG class="unlocked-countdown-icon" :width="'30'" :height="'30'" :stroke="'#09BC8A'" :strokeWidth="2" />
             <div class="capsule-unlocked-details-countdown-text">
-              <p>Unlocked on {{ formatDate(selectedCapsule.openAt) }}</p>
+              <p>Unlocked on {{ formatDate(store.selectedCapsule.openAt) }}</p>
               <p>You waited {{ getLockedDuration() }} to unlock this capsule</p>
             </div>
           </div>
 
-          <!-- Delete capsule button -->
-           <div class="capsule-unlocked-details-footer">
-
+          <div class="capsule-unlocked-details-footer">
             <button class="download-button">
               <DownloadSVG :width="'18'" :height="'18'" :stroke="'#FFFFFF'" :stroke-width="2"/>
               Download
@@ -129,19 +116,17 @@
               <DeleteSVG :width="'20'" :height="'20'" :stroke="'#D81E5B'" :strokeWidth="1.5"/>
               Delete
             </button>
-           </div>
+          </div>
         </div>
 
         <!-- Modal -->
         <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
           <div class="modal-content">
-            <img :src="selectedCapsule.imageUrl" alt="Full Capsule Image" />
+            <img :src="store.selectedCapsule.imageUrl" alt="Full Capsule Image" />
             <button class="modal-close" @click="closeModal">✕</button>
           </div>
         </div>
-
       </div>
-
     </div>
 
     <!-- No capsule selected -->
@@ -150,14 +135,12 @@
       <h3>Select a Time Capsule</h3>
       <p>Choose a capsule from the list to view its details and content</p>
     </div>
-
   </div>
-
 </template>
-
 
 <script setup>
 import { computed, ref } from 'vue'
+import { useCapsuleStore } from '@/stores/capsuleStore'
 import MailSVG from '@/assets/icons/MailSVG.vue'
 import UnlockedSVG from '@/assets/icons/UnlockedSVG.vue'
 import LockedSVG from '@/assets/icons/LockedSVG.vue'
@@ -168,62 +151,43 @@ import DeleteSVG from '@/assets/icons/DeleteSVG.vue'
 import DownloadSVG from '@/assets/icons/DownloadSVG.vue'
 import SharingSVG from '@/assets/icons/SharingSVG.vue'
 
-
-const props = defineProps({
-  selectedCapsule: Object,
-  countdown: String,
-})
-
-const emit = defineEmits(['delete-capsule'])
+const store = useCapsuleStore()
 const showModal = ref(false)
 
-const openModal = () => {
-  showModal.value = true
-}
-
-const closeModal = () => {
-  showModal.value = false
-}
+const openModal = () => (showModal.value = true)
+const closeModal = () => (showModal.value = false)
 
 const isLocked = computed(() => {
-  if (!props.selectedCapsule) return false
-  return new Date(props.selectedCapsule.openAt).getTime() > new Date().getTime()
+  if (!store.selectedCapsule) return false
+  return new Date(store.selectedCapsule.openAt).getTime() > new Date().getTime()
 })
 
-const confirmDelete = () => {
+const confirmDelete = async () => {
   if (confirm('Are you sure you want to delete this capsule?')) {
-    emit('delete-capsule', props.selectedCapsule._id)
+    await store.removeCapsule(store.selectedCapsule._id)
   }
 }
 
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString()
-}
+const formatDate = (date) => new Date(date).toLocaleDateString()
 
-// Days to unlock
+// Duration raw
 const getLockedDurationRaw = () => {
-  if (!props.selectedCapsule) return { value: 0, unit: '' }
+  if (!store.selectedCapsule) return { value: 0, unit: '' }
 
   const now = new Date()
-  const openDate = new Date(props.selectedCapsule.openAt)
+  const openDate = new Date(store.selectedCapsule.openAt)
   const diffMs = openDate - now
 
-  if (diffMs <= 0) {
-    return { value: 0, unit: 'days' }
-  }
+  if (diffMs <= 0) return { value: 0, unit: 'days' }
 
   const totalMinutes = Math.floor(diffMs / 1000 / 60)
   const days = Math.floor(totalMinutes / (60 * 24))
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
 
-  if (days >= 1) {
-    return { value: days, unit: days === 1 ? 'day' : 'days' }
-  }
-
+  if (days >= 1) return { value: days, unit: days === 1 ? 'day' : 'days' }
   return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
 }
 
-// Days to unlock formatted
 const getLockedDuration = () => {
   const { value, unit } = getLockedDurationRaw()
   return `${value} ${unit}`
@@ -231,12 +195,10 @@ const getLockedDuration = () => {
 
 const lockedDuration = computed(() => getLockedDurationRaw())
 
-
-// Progress bar
 const progressPercent = computed(() => {
   const now = new Date().getTime()
-  const created = new Date(props.selectedCapsule.createdAt).getTime()
-  const open = new Date(props.selectedCapsule.openAt).getTime()
+  const created = new Date(store.selectedCapsule.createdAt).getTime()
+  const open = new Date(store.selectedCapsule.openAt).getTime()
 
   if (now >= open) return 100
   if (now <= created) return 0
@@ -244,9 +206,8 @@ const progressPercent = computed(() => {
   const progress = ((now - created) / (open - created)) * 100
   return Math.min(100, Math.max(0, progress))
 })
-
-
 </script>
+
 
 <style scoped>
 
