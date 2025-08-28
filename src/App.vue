@@ -22,5 +22,4 @@ import router from './router';
 
 const authStore = useAuthStore();
 authStore.fetchUserProfile();
-
 </script>
