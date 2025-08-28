@@ -1,11 +1,55 @@
 
+// import { defineStore } from 'pinia'
+// import { getUser } from '@/services.js'
+
+// export const useAuthStore = defineStore('auth', {
+//   state: () => ({
+//     user: null,
+//     token: localStorage.getItem('token') || null,
+//   }),
+
+//   actions: {
+//     setUser(user) {
+//       this.user = user
+//     },
+
+//     setToken(token) {
+//       this.token = token
+//       localStorage.setItem('token', token)
+//     },
+
+//     async fetchUserProfile() {
+//       try {
+//         if (!this.token) return
+
+//         const userData = await getUser()
+//         this.setUser(userData)
+//       } catch (error) {
+//         console.error('Error fetching user profile:', error.message)
+//         this.logout()
+//       }
+//     },
+
+//     logout() {
+//       this.user = null
+//       this.token = null
+//       localStorage.removeItem('token')
+//       window.location.reload()
+//     }
+//   }
+// })
+// window.location.href = '/'
+
+
 import { defineStore } from 'pinia'
 import { getUser } from '@/services.js'
+import jwtDecode from 'jwt-decode'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     token: localStorage.getItem('token') || null,
+    tokenExpiryTimeout: null,
   }),
 
   actions: {
@@ -16,12 +60,25 @@ export const useAuthStore = defineStore('auth', {
     setToken(token) {
       this.token = token
       localStorage.setItem('token', token)
+
+      // Decode JWT expiration (exp is in seconds)
+      const { exp } = jwtDecode(token)
+      const expiresInMs = exp * 1000 - Date.now()
+
+      if (this.tokenExpiryTimeout) clearTimeout(this.tokenExpiryTimeout)
+
+      if (expiresInMs > 0) {
+        this.tokenExpiryTimeout = setTimeout(() => {
+          this.logout()
+        }, expiresInMs)
+      } else {
+        this.logout()
+      }
     },
 
     async fetchUserProfile() {
       try {
         if (!this.token) return
-
         const userData = await getUser()
         this.setUser(userData)
       } catch (error) {
@@ -34,8 +91,9 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       this.token = null
       localStorage.removeItem('token')
-      // window.location.href = '/'
-      window.location.reload()
-    }
-  }
+
+      if (this.tokenExpiryTimeout) clearTimeout(this.tokenExpiryTimeout)
+      this.tokenExpiryTimeout = null
+    },
+  },
 })
