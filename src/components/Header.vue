@@ -10,18 +10,10 @@
       <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/capsules">Capsules</RouterLink>
 
-      <!-- <template v-if="authStore.user">
-        <RouterLink to="/profile">Profile</RouterLink>
-        <button @click="handleLogout" class="logout-button">Logout</button>
-      </template> -->
-
+      <!-- Avatar with dropdown -->
       <template v-if="authStore.user">
-        <!-- Avatar with dropdown -->
         <div class="avatar-dropdown" @click="toggleDropdown">
-          <img
-            :src="authStore.user.avatarUrl || defaultAvatar"
-            class="avatar-img"
-            />
+          <img :src="authStore.user.avatarUrl || defaultAvatar" class="avatar-img" />
           <div v-if="showDropdown" class="dropdown-menu">
             <p>Hello {{ authStore.user.name }}!</p>
             <span class="divider"></span>
@@ -51,7 +43,6 @@ const authStore = useAuthStore()
 const router = useRouter()
 const isScrolled = ref(false)
 const showDropdown = ref(false)
-// const defaultAvatar = '@/assets/images/Timenest-logo.png'
 
 const handleLogout = () => {
   authStore.logout()
@@ -199,7 +190,6 @@ img {
 /* dropdown style */
 .avatar-dropdown {
   position: relative;
-  /* cursor: pointer; */
 }
 
 .avatar-img {
@@ -217,7 +207,6 @@ img {
   right: 0;
   background: var(--color-bg);
   border: 1px solid var(--color-lines);
-  /* border-top: none; */
   border-radius: 6px;
   padding: 24px;
   display: flex;

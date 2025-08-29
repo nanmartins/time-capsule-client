@@ -10,24 +10,21 @@ const api = axios.create({
 
 // Add the JWT token to requests
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+  const authStore = useAuthStore()
+  if (authStore.token) {
+    config.headers.Authorization = `Bearer ${authStore.token}`
   }
   return config
 })
 
-// Intercept response errors
+// Intercept responses with errors
 api.interceptors.response.use(
   response => response,
   error => {
     if (error.response && error.response.status === 401) {
       const authStore = useAuthStore()
       authStore.logout()
-
-      // Redirect to the sign-in page
-      window.location.href = '/signin'
-      //window.location.reload()
+      window.location.href = '/signin' // redirect to the sign-in page
     }
     return Promise.reject(error)
   }
