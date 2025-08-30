@@ -47,10 +47,8 @@ export const useCapsuleStore = defineStore("capsuleStore", {
       const now = new Date()
 
       if (new Date(newCapsule.openAt) <= now) {
-        // this.openCapsules.unshift(newCapsule)
         this.openCapsules = [...this.openCapsules, newCapsule];
       } else {
-        // this.lockedCapsules.unshift(newCapsule)
         this.lockedCapsules = [...this.lockedCapsules, newCapsule];
       }
 

@@ -1,5 +1,6 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 import HomeView from '../views/HomeView.vue'
 import SignInView from '@/views/SignInView.vue'
 import CapsulesView from '@/views/CapsulesView.vue'
@@ -43,16 +44,16 @@ const router = createRouter({
   ],
 })
 
-import { useAuthStore } from '@/stores/authStore'
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
-  if (to.meta.requiresAuth && !authStore.token) {
-    next('/signin')
-  } else {
-    next()
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    return next('/signin')
   }
+
+  next()
 })
+
 
 export default router
