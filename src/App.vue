@@ -15,11 +15,16 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/stores/authStore.js';
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/authStore.js'
 import Header from './components/Header.vue'
-import Footer from './components/Footer.vue';
-import router from './router';
+import Footer from './components/Footer.vue'
+import router from './router'
 
-const authStore = useAuthStore();
-authStore.fetchUserProfile();
+const authStore = useAuthStore()
+authStore.fetchUserProfile()
+
+onMounted( async () => {
+  await authStore.restoreSession()
+})
 </script>

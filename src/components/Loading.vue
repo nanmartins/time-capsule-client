@@ -1,0 +1,32 @@
+<template>
+  <section>
+    <div class="loader"></div>
+  </section>
+</template>
+
+<style scoped>
+
+section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  width: 80px;
+  height: 40px;
+  zoom: 1.5;
+  background:
+    radial-gradient(circle 11px at top,#0000 94%,#b0e5f3) 0 20px,
+    radial-gradient(circle 11px at top,#0000 94%,#5dc1e4) 0 10px,
+    radial-gradient(circle 11px at top,#0000 94%,#008cd9) 0 0;
+  background-size: 20px 100%;
+  background-repeat: repeat-x;
+  animation: l7 1.3s infinite linear;
+}
+@keyframes l7 {
+  50%  {background-position: 10px 15px,-10px 12px,15px 8px}
+  100% {background-position: 20px 20px,-20px 10px,20px 0px}
+}
+</style>

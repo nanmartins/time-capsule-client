@@ -1,5 +1,8 @@
 <template>
-  <div class="capsules-grid">
+
+  <Loading v-if="capsuleStore.loading" />
+
+  <div class="capsules-grid" v-else>
     <CapsulesList
       :openCapsules="capsuleStore.openCapsules"
       :lockedCapsules="capsuleStore.lockedCapsules"
@@ -24,6 +27,7 @@ import { onMounted } from "vue"
 import { useCapsuleStore } from "@/stores/capsuleStore"
 import CapsulesList from "@/components/CapsulesList.vue"
 import CapsuleDetails from "@/components/CapsuleDetails.vue"
+import Loading from "@/components/Loading.vue"
 
 const capsuleStore = useCapsuleStore()
 

@@ -178,15 +178,38 @@ const getLockedDurationRaw = () => {
   const openDate = new Date(store.selectedCapsule.openAt)
   const diffMs = openDate - now
 
-  if (diffMs <= 0) return { value: 0, unit: 'days' }
+  if (diffMs <= 0) return { value: 0, unit: 'minutes' }
 
   const totalMinutes = Math.floor(diffMs / 1000 / 60)
   const days = Math.floor(totalMinutes / (60 * 24))
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+  const minutes = totalMinutes % 60
 
-  if (days >= 1) return { value: days, unit: days === 1 ? 'day' : 'days' }
-  return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
+  if (days >= 1) {
+    return { value: days, unit: days === 1 ? 'day' : 'days' }
+  } else if (hours >= 1) {
+    return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
+  } else {
+    return { value: minutes, unit: minutes === 1 ? 'minute' : 'minutes' }
+  }
 }
+
+// const getLockedDurationRaw = () => {
+//   if (!store.selectedCapsule) return { value: 0, unit: '' }
+
+//   const now = new Date()
+//   const openDate = new Date(store.selectedCapsule.openAt)
+//   const diffMs = openDate - now
+
+//   if (diffMs <= 0) return { value: 0, unit: 'days' }
+
+//   const totalMinutes = Math.floor(diffMs / 1000 / 60)
+//   const days = Math.floor(totalMinutes / (60 * 24))
+//   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+
+//   if (days >= 1) return { value: days, unit: days === 1 ? 'day' : 'days' }
+//   return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
+// }
 
 const getLockedDuration = () => {
   const { value, unit } = getLockedDurationRaw()
