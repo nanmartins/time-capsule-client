@@ -20,6 +20,7 @@
       @delete-capsule="capsuleStore.removeCapsule"
     />
   </div>
+
 </template>
 
 <script setup>

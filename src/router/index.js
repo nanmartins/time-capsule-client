@@ -54,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next('/login')
+    next('/signin')
   } else {
     next()
   }
