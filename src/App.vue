@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <div v-if="router.currentRoute.value.path !== '/signin' && router.currentRoute.value.path !== '/register'">
-      <Header />
-    </div>
+  <div v-if="router.currentRoute.value.path !== '/signin' && router.currentRoute.value.path !== '/register'">
+    <Header />
+  </div>
 
-    <section>
-      <RouterView />
-    </section>
+  <section>
+    <RouterView />
+  </section>
 
+  <main v-if="isAppReady">
     <div v-if="router.currentRoute.value.path !== '/capsules' && router.currentRoute.value.path !== '/signin' && router.currentRoute.value.path !== '/register'">
       <Footer />
     </div>
@@ -15,11 +15,18 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/stores/authStore.js';
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/authStore.js'
 import Header from './components/Header.vue'
-import Footer from './components/Footer.vue';
-import router from './router';
+import Footer from './components/Footer.vue'
+import router from './router'
 
-const authStore = useAuthStore();
-authStore.fetchUserProfile();
+const authStore = useAuthStore()
+const isAppReady = ref(false)
+
+onMounted(async () => {
+  await authStore.restoreSession()
+  await router.isReady()
+  isAppReady.value = true
+})
 </script>

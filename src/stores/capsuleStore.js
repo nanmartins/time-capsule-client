@@ -74,6 +74,13 @@ export const useCapsuleStore = defineStore("capsuleStore", {
 
         if (timeLeft <= 0) {
           clearInterval(this._countdownInterval)
+
+          // move capsule de locked to open
+          this.lockedCapsules = this.lockedCapsules.filter(c => c._id !== capsule._id)
+          if (!this.openCapsules.find(c => c._id === capsule._id)) {
+            this.openCapsules = [...this.openCapsules, capsule]
+          }
+
           this.selectCapsule(capsule)
           return
         }
@@ -87,6 +94,8 @@ export const useCapsuleStore = defineStore("capsuleStore", {
       update()
       this._countdownInterval = setInterval(update, 1000)
     }
+
+
   },
 
   getters: {

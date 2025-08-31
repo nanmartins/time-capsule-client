@@ -13,6 +13,7 @@
       <!-- Avatar with dropdown -->
       <template v-if="authStore.user">
         <div class="avatar-dropdown" @click="toggleDropdown">
+
           <img :src="authStore.user.avatarUrl || defaultAvatar" class="avatar-img" />
           <div v-if="showDropdown" class="dropdown-menu">
             <p>Hello {{ authStore.user.name }}!</p>
@@ -175,6 +176,10 @@ img {
   align-items: center;
   gap: 10px;
   font-size: 16px;
+}
+
+.logo-container:hover {
+  color: var(--color-text);
 }
 
 .logo-container.router-link-active {

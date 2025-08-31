@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
       this.user = user
     },
 
+
     setToken(token) {
       this.token = token
       localStorage.setItem('token', token)
@@ -57,6 +58,27 @@ export const useAuthStore = defineStore('auth', {
         this.setUser(userData)
       } catch (error) {
         console.error('Error fetching user profile:', error.message)
+        this.logout()
+      }
+    },
+
+
+    async restoreSession() {
+      const savedToken = localStorage.getItem('token')
+      if (!savedToken) return
+
+      try {
+        const { exp } = jwtDecode(savedToken)
+        const isExpired = Date.now() >= exp * 1000
+        if (isExpired) {
+          this.logout()
+          return
+        }
+
+        this.token = savedToken
+        await this.fetchUserProfile()
+      } catch (err) {
+        console.error('Error restoring session:', err)
         this.logout()
       }
     },

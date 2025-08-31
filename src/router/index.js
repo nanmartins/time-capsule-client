@@ -45,15 +45,19 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    return next('/signin')
+  // wait for the session to be loaded
+  if (!authStore.user && authStore.token) {
+    await authStore.restoreSession()
   }
 
-  next()
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/signin')
+  } else {
+    next()
+  }
 })
-
 
 export default router

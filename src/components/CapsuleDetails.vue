@@ -97,7 +97,7 @@
             <UnlockedSVG class="unlocked-countdown-icon" :width="'30'" :height="'30'" :stroke="'#09BC8A'" :strokeWidth="2" />
             <div class="capsule-unlocked-details-countdown-text">
               <p>Unlocked on {{ formatDate(store.selectedCapsule.openAt) }}</p>
-              <p>You waited {{ getLockedDuration() }} to unlock this capsule</p>
+              <p>You waited {{ getTotalLockedDuration() }} to unlock this capsule</p>
             </div>
           </div>
 
@@ -170,7 +170,7 @@ const confirmDelete = async () => {
 
 const formatDate = (date) => new Date(date).toLocaleDateString()
 
-// Duration raw
+// Time until the capsule is unlocked
 const getLockedDurationRaw = () => {
   if (!store.selectedCapsule) return { value: 0, unit: '' }
 
@@ -178,23 +178,44 @@ const getLockedDurationRaw = () => {
   const openDate = new Date(store.selectedCapsule.openAt)
   const diffMs = openDate - now
 
-  if (diffMs <= 0) return { value: 0, unit: 'days' }
+  if (diffMs <= 0) return { value: 0, unit: 'minutes' }
+
+  const totalMinutes = Math.floor(diffMs / 1000 / 60)
+  const days = Math.floor(totalMinutes / (60 * 24))
+  const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+  const minutes = totalMinutes % 60
+
+  if (days >= 1) {
+    return { value: days, unit: days === 1 ? 'day' : 'days' }
+  } else if (hours >= 1) {
+    return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
+  } else {
+    return { value: minutes, unit: minutes === 1 ? 'minute' : 'minutes' }
+  }
+}
+
+const lockedDuration = computed(() => getLockedDurationRaw())
+
+// Total time the capsule was locked
+const getTotalLockedDuration = () => {
+  if (!store.selectedCapsule) return '0 hours'
+
+  const created = new Date(store.selectedCapsule.createdAt)
+  const openDate = new Date(store.selectedCapsule.openAt)
+  const diffMs = openDate - created
 
   const totalMinutes = Math.floor(diffMs / 1000 / 60)
   const days = Math.floor(totalMinutes / (60 * 24))
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
 
-  if (days >= 1) return { value: days, unit: days === 1 ? 'day' : 'days' }
-  return { value: hours, unit: hours === 1 ? 'hour' : 'hours' }
+  if (days >= 1) {
+    return `${days} ${days === 1 ? 'day' : 'days'}`
+  } else {
+    return `${hours} ${hours === 1 ? 'hour' : 'hours'}`
+  }
 }
 
-const getLockedDuration = () => {
-  const { value, unit } = getLockedDurationRaw()
-  return `${value} ${unit}`
-}
-
-const lockedDuration = computed(() => getLockedDurationRaw())
-
+// Progress bar
 const progressPercent = computed(() => {
   const now = new Date().getTime()
   const created = new Date(store.selectedCapsule.createdAt).getTime()
