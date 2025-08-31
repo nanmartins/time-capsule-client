@@ -1,15 +1,21 @@
 <template>
   <div class="about">
-    <h1>About</h1>
+
+    <AboutHero />
+
+    <AboutDigitalCapsule />
+
   </div>
 </template>
 
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
+import AboutHero from '@/components/AboutHero.vue'
+import AboutDigitalCapsule from '@/components/AboutDigitalCapsule.vue'
 
 onMounted(() => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 })
 </script>
 
@@ -17,9 +23,8 @@ onMounted(() => {
 <style>
 
 .about {
-  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 </style>

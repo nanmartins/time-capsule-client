@@ -63,12 +63,16 @@ const handleRegister = async () => {
   }
 }
 
+// const goBack = () => {
+//   if (window.history.length > 1) {
+//     router.back()
+//   } else {
+//     router.push('/')
+//   }
+// }
+
 const goBack = () => {
-  if (window.history.length > 1) {
-    router.back()
-  } else {
-    router.push('/')
-  }
+  router.push('/')
 }
 </script>
 
