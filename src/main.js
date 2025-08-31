@@ -13,7 +13,11 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-const authStore = useAuthStore()
-await authStore.restoreSession()
+async function init() {
+  const authStore = useAuthStore()
+  await authStore.restoreSession()
 
-app.mount('#app')
+  app.mount('#app')
+}
+
+init()
