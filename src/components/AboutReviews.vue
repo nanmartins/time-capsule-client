@@ -8,13 +8,13 @@
 
     <div class="about-reviews-cards">
 
-      <div v-for="(review, index) in reviews" :key="index" class="review-card">
+      <div v-for="(review, index) in reviews" :key="index" class="about-reviews-card">
         <!-- Rating stars -->
-        <div class="review-rating" :aria-label="`Rating: ${review.rating} out of 5`" role="img">
+        <div class="about-reviews-rating" :aria-label="`Rating: ${review.rating} out of 5`" role="img">
           <svg
             v-for="star in 5"
             :key="star"
-            class="star"
+            class="about-reviews-star"
             :class="{ filled: star <= review.rating }"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -23,14 +23,14 @@
           </svg>
         </div>
 
-        <p class="review-text">"{{ review.text }}"</p>
+        <p class="about-reviews-message">"{{ review.text }}"</p>
 
-        <div class="review-user">
-          <img :src="review.image" :alt="review.name" class="review-image" />
+        <div class="about-reviews-user">
+          <img :src="review.image" :alt="review.name" class="about-reviews-image" />
 
-          <div class="review-user-info">
+          <div class="about-reviews-user-info">
             <h3>{{ review.name }}</h3>
-            <span class="review-location">{{ review.location }}</span>
+            <span>{{ review.location }}</span>
           </div>
 
         </div>
@@ -85,6 +85,7 @@ const reviews = [
   height: 100%;
   text-align: center;
   padding: 100px 24px;
+  background: var(--color-bg-light);
 }
 
 .about-reviews-header {
@@ -93,7 +94,7 @@ const reviews = [
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-bottom: 70px;
+  margin-bottom: 48px;
   max-width: 800px;
 }
 
@@ -115,7 +116,6 @@ const reviews = [
 }
 
 /* About Cards */
-
 .about-reviews-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -124,7 +124,7 @@ const reviews = [
   margin: auto;
 }
 
-.review-card {
+.about-reviews-card {
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -137,14 +137,59 @@ const reviews = [
   position: relative;
 }
 
-.review-card h3 {
+/* Stars */
+.about-reviews-rating {
+  display: flex;
+  gap: 4px;
+}
+
+.about-reviews-star {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--color-highlight);
+  stroke-width: 1.2;
+}
+
+.about-reviews-star.filled {
+  fill: var(--color-highlight);
+  stroke: var(--color-highlight-dark);
+}
+
+/* Review message */
+.about-reviews-message {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* Review user */
+.about-reviews-user {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Avatar */
+.about-reviews-image {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-lines);
+}
+
+/* Review user name */
+.about-reviews-user-info h3 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 4px;
   color: var(--color-text);
 }
 
-.review-location {
+.about-reviews-location {
   display: block;
   font-size: 14px;
   font-weight: 400;
@@ -152,56 +197,11 @@ const reviews = [
   margin-bottom: 12px;
 }
 
-.review-text {
-  font-size: 15px;
-  font-style: italic;
-  line-height: 1.6;
-  color: var(--color-text);
-}
-
-.review-image {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-  border: 1px solid var(--color-lines);
-}
-
-/* Stars */
-.review-rating {
-  display: flex;
-  gap: 4px;
-}
-
-.star {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: var(--color-highlight, #F6C343);
-  stroke-width: 1.2;
-}
-
-.star.filled {
-  fill: var(--color-highlight, #F6C343);
-  stroke: var(--color-highlight-dark, #F6C343);
-}
-
-/* Review user */
-.review-user {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
 /* Quote icon */
 .about-quote-icon {
   position: absolute;
   top: 8px;
   right: 8px;
-  /* transform: translate(-50%, -50%); */
-  /* font-size: 80px; */
-  /* color: var(--color-lines); */
   opacity: 0.75;
 }
 
