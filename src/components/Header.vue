@@ -106,7 +106,7 @@ nav {
 a {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   letter-spacing: 2px;
 }

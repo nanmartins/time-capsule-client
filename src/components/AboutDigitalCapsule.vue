@@ -11,36 +11,40 @@
       <div class="about-capsule-cards">
 
         <div class="about-capsule-card">
-          <FolderSVG :width="'18'" :height="'18'" :stroke-width="2"/>
+          <FolderSVG :stroke="'#3F88C5'" :stroke-width="1.9" class="about-capsule-card-icon" />
           <div class="about-capsule-card-content">
             <h3>Preserved Digital Memories</h3>
-            <p>Safeguard unique moments in a secure, lasting format—creating digital time capsules that can carry your story into the future.</p>
+            <p>Preserve your memories in a secure digital capsule, built to last into the future.</p>
           </div>
         </div>
 
         <div class="about-capsule-card">
-          <ShieldSVG :width="'18'" :height="'18'" :stroke-width="2" />
+          <ShieldSVG :stroke="'#3F88C5'" :stroke-width="2" class="about-capsule-card-icon" />
           <div class="about-capsule-card-content">
             <h3>Security & Privacy Assured</h3>
-            <p>Each capsule is protected and locked until the date you choose, keeping your thoughts and memories completely private until the right moment arrives.</p>
+            <p>Always secure—only you can open it, at the moment you decide.</p>
           </div>
         </div>
 
         <div class="about-capsule-card">
-          <FutureClockSVG :width="'18'" :height="'18'" />
+          <FutureClockSVG :fill="'#3F88C5'" class="about-capsule-card-icon" />
           <div class="about-capsule-card-content">
             <h3>The Power of Time</h3>
-            <p>Digital time capsules turn the simple act of writing into a meaningful experience—where the present meets the future, helping you reflect on change, values, and milestones over the years.</p>
+            <p>Time capsules make writing meaningful—linking present and future, and revealing your growth over time.</p>
           </div>
         </div>
       </div>
 
 
       <div class="about-capsule-cards">
-        <h3>Your Message Awaits</h3>
-        <p>Imagine opening a heartfelt letter from yourself one, five, or even ten years ago. What would you want to remember? What dreams would you want to revisit?</p>
 
-        <span>"Dear future me, today I'm 25 and just started my dream job. I hope by the time you read this, you've traveled the world and found true happiness..."</span>
+        <div class="about-capsule-card-right">
+          <MailSVG :fill="'#3F88C5'" :stroke="'#3F88C5'" :stroke-width="0.2" class="about-capsule-card-right-icon" />
+          <h3>Your Message Awaits</h3>
+          <p>Imagine opening a heartfelt letter from yourself one, five, or even ten years ago. What would you want to remember? What dreams would you want to revisit?</p>
+
+          <span>"Dear future me, today I'm 25 and just started my dream job. I hope by the time you read this, you've traveled the world and found true happiness..."</span>
+        </div>
       </div>
 
     </div>
@@ -51,6 +55,7 @@
 import FolderSVG from '@/assets/icons/FolderSVG.vue'
 import ShieldSVG from '@/assets/icons/ShieldSVG.vue'
 import FutureClockSVG from '@/assets/icons/FutureClockSVG.vue'
+import MailSVG from '@/assets/icons/MailSVG.vue'
 </script>
 
 <style scoped>
@@ -60,9 +65,9 @@ import FutureClockSVG from '@/assets/icons/FutureClockSVG.vue'
   justify-content: center;
   width: 100%;
   height: 100%;
-  max-height: 550px;
+  /* max-height: 550px; */
   text-align: center;
-  padding: 300px 24px;
+  padding: 100px 24px;
   background: var(--color-bg-light);
 }
 
@@ -96,21 +101,122 @@ import FutureClockSVG from '@/assets/icons/FutureClockSVG.vue'
 .about-capsule-card-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 1000px;
+  gap: 48px;
+  max-width: 950px;
   margin: auto;
 }
 
+/* Cards left side */
 .about-capsule-cards {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
+  gap: 46px;
 }
 
 .about-capsule-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
+}
+
+.about-capsule-card svg {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+}
+
+.about-capsule-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 8px;
+  background: var(--color-highlight-light);
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.about-capsule-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.about-capsule-card-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 1.1px;
+}
+
+.about-capsule-card-content p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: 1px;
+  /* text-align: justify; */
+}
+
+/* Cards right side */
+.about-capsule-card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 36px;
+  gap: 16px;
+  text-align: left;
+  background: var(--color-bg-dark);
+  border-radius: 8px;
+}
+
+.about-capsule-card-right svg {
+  width: 66px;
+  height: 66px;
+  flex-shrink: 0;
+}
+
+.about-capsule-card-right-icon {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: var(--color-highlight-light);
+  margin: 5px auto;
+}
+
+.about-capsule-card-right h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 1.1px;
+}
+
+.about-capsule-card-right p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: 1px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  text-align: justify;
+  padding: 0 10px;
+}
+
+.about-capsule-card-right span {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text);
+  letter-spacing: 1px;
+  text-align: justify;
+  background: var(--color-bg-light);
+  padding: 22px 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 </style>
