@@ -93,4 +93,52 @@ span {
   letter-spacing: 1.2px;
   color: var(--color-text);
 }
+
+
+/* MEDIA SCREEN */
+@media (max-width: 1200px) {
+  .home-stats-overview {
+    gap: 32px; /* diminui o espaçamento entre cards */
+    padding: 32px 0;
+  }
+
+  .home-stat-card h3 {
+    font-size: 36px; /* texto um pouco menor */
+  }
+
+  .home-stat-card p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .home-stats-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 300px); /* 2 colunas */
+    align-content: center;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .home-stat-card {
+    padding: 16px 24px;
+  }
+
+  .home-stat-card h3 {
+    font-size: 32px;
+  }
+
+  .home-stat-card p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-stats-overview {
+    /* grid-template-columns: 1fr; */
+    grid-template-columns: repeat(2, 1fr);
+    padding: 36px 24px;
+    gap: 24px 12px;
+  }
+}
 </style>

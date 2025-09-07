@@ -355,7 +355,7 @@ const currentStep = ref(1)
 .home-steps-right {
   display: flex;
   justify-content: flex-start;
-  box-shadow: rgba(99, 99, 99, 0.072) 0px 2px 8px 0px;
+  /* box-shadow: rgba(99, 99, 99, 0.072) 0px 2px 8px 0px; */
 }
 
 .home-step-content-box {
@@ -366,6 +366,7 @@ const currentStep = ref(1)
   width: 550px;
   min-height: 280px;
   box-sizing: border-box;
+  box-shadow: rgba(99, 99, 99, 0.072) 0px 2px 8px 0px;
 }
 
 .home-step-content-box p {
@@ -462,6 +463,43 @@ li {
 .home-step-content-free-badge-text p {
   color: var(--color-bg-light);
   font-weight: 400;
+}
+
+
+/* MEDIA SCREEN */
+@media (max-width: 1200px) {
+  .home-steps-container {
+    padding: 0 16px; /* espaço lateral */
+    gap: 32px; /* menor espaço entre colunas */
+  }
+
+  .home-step-box,
+  .home-step-content-box,
+  .home-step-content-free-badge {
+    width: 100%; /* ocupar toda a largura disponível */
+    max-width: 500px; /* limite para não ficar gigante em tablets */
+  }
+}
+
+@media (max-width: 1000px) {
+  .home-steps-container {
+    flex-direction: column; /* muda para coluna */
+    align-items: center; /* centraliza os elementos */
+  }
+
+  .home-steps-left,
+  .home-steps-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .home-step-box,
+  .home-step-content-box,
+  .home-step-content-free-badge {
+    width: 100%;
+    max-width: 600px;
+  }
 }
 
 </style>
