@@ -287,4 +287,93 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 }
 
 
+/* MEDIA SCREEN */
+@media (max-width: 880px) {
+
+  .home-banner {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* text-align: center; */
+    /* width: 100%; */
+    /* height: 100%; */
+    padding: 0 24px;
+  }
+
+  .home-banner h1 {
+    font-size: 38px;
+    /* font-weight: 800; */
+    /* line-height: 115%; */
+    /* letter-spacing: 2px; */
+    /* color: var(--color-text); */
+  }
+
+  .home-banner p {
+    font-size: 18px;
+    /* font-weight: 300; */
+    /* line-height: 140%; */
+    /* color: var(--color-text); */
+    /* width: 100%; */
+    /* max-width: 800px; */
+    /* margin-top: 20px; */
+    /* letter-spacing: 1.2px; */
+  }
+
+  .home-banner-buttons button {
+    /* background: var(--color-highlight-dark); */
+    /* border: none; */
+    /* border-radius: 6px; */
+    padding: 10px 18px;
+    font-size: 15px;
+    /* font-weight: 500; */
+    /* cursor: pointer; */
+  }
+
+  .floating-bottle {
+    /* position: absolute; */
+    /* bottom: 12%; */
+    /* left: 60%; */
+    /* transform: translateX(-50%) rotate(-8deg); */
+    width: 240px;
+    z-index: 1;
+    opacity: 0.7;
+    animation: floatBottle 6s ease-in-out infinite;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .home-banner h1 {
+    font-size: 32px;
+    /* font-weight: 800; */
+    /* line-height: 115%; */
+    /* letter-spacing: 2px; */
+    /* color: var(--color-text); */
+  }
+
+  .home-banner p {
+    font-size: 16px;
+    /* font-weight: 300; */
+    /* line-height: 140%; */
+    /* color: var(--color-text); */
+    /* width: 100%; */
+    /* max-width: 800px; */
+    /* margin-top: 20px; */
+    /* letter-spacing: 1.2px; */
+  }
+
+  .home-banner-buttons button {
+    /* background: var(--color-highlight-dark); */
+    /* border: none; */
+    /* border-radius: 6px; */
+    padding: 10px 14px;
+    font-size: 14px;
+    /* font-weight: 500; */
+    /* cursor: pointer; */
+  }
+
+}
+
 </style>
