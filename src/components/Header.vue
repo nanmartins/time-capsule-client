@@ -38,6 +38,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useAuthStore } from '@/stores/authStore.js'
 import { useRouter } from 'vue-router'
+import NewCapsule from './NewCapsule.vue'
 import defaultAvatar from '@/assets/images/default-avatar.png'
 
 const authStore = useAuthStore()
@@ -58,7 +59,7 @@ const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
 }
 
-// close dropdown on click outside
+// close dropdown when click outside
 const handleClickOutside = (e) => {
   if (!e.target.closest('.avatar-dropdown')) {
     showDropdown.value = false

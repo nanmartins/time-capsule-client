@@ -287,4 +287,50 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 }
 
 
+/* MEDIA SCREEN */
+@media (max-width: 880px) {
+
+  .home-banner {
+    padding: 0 24px;
+  }
+
+  .home-banner h1 {
+    font-size: 38px;
+  }
+
+  .home-banner p {
+    font-size: 18px;
+  }
+
+  .home-banner-buttons button {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
+  .floating-bottle {
+    width: 240px;
+    z-index: 1;
+    opacity: 0.7;
+    animation: floatBottle 6s ease-in-out infinite;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .home-banner h1 {
+    font-size: 32px;
+  }
+
+  .home-banner p {
+    font-size: 16px;
+  }
+
+  .home-banner-buttons button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+}
+
 </style>
