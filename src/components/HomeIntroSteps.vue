@@ -266,7 +266,7 @@ const currentStep = ref(1)
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
 }
 
@@ -494,8 +494,13 @@ li {
     justify-content: center;
   }
 
+  .home-steps-left {
+    margin-bottom: 16px;
+  }
+
   .home-step-content-free-badge {
     order: -1;
+    margin-bottom: 16px;
   }
 
   .home-step-box,

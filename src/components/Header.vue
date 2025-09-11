@@ -58,7 +58,7 @@ const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
 }
 
-// close dropdown on click outside
+// close dropdown when click outside
 const handleClickOutside = (e) => {
   if (!e.target.closest('.avatar-dropdown')) {
     showDropdown.value = false
