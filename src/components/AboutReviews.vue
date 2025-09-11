@@ -61,7 +61,7 @@ const reviews = [
   },
   {
     name: "Lucas Pereira",
-    location: "Lisbon, Portugal",
+    location: "Porto, Portugal",
     text: "I used TimeCapsule to write down my goals for the next three years. Just knowing that they’re waiting for me in the future gives me a stronger sense of accountability and excitement. It’s more powerful than I expected.",
     image: Review02,
     rating: 5

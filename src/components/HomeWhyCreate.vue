@@ -49,7 +49,6 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
   justify-content: center;
   width: 100%;
   height: 100%;
-  /* max-height: 550px; */
   text-align: center;
   padding: 86px 24px;
   background: var(--color-bg-light);
@@ -131,12 +130,8 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
 /* MEDIA SCREEN */
 @media (max-width: 880px) {
   .home-why-create-cards {
-    /* display: grid; */
     grid-template-columns: 1fr;
-    /* gap: 24px; */
-    /* width: 100%; */
     max-width: 500px;
-    /* margin: 0 auto; */
   }
 }
 </style>
