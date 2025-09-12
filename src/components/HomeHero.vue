@@ -17,6 +17,7 @@
 
         <div class="home-banner-buttons">
           <button>
+            <!-- Need to fix the create your first capsule button -->
             <RouterLink to="/capsules">
               Create your first capsule
               <ArrowSVG :width="'20'" :height="'20'" :stroke="'#FFFFFF'" :stroke-width="1.5" />
