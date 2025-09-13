@@ -321,8 +321,48 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 
 @media (max-width: 600px) {
 
+  .home-hero-container {
+    /* position: relative;
+    width: 100%; */
+    height: 90vh;
+    min-height: 90vh;
+    height: 90dvh;
+    min-width: 90dvh;
+    /* overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
+
+  .home-hero-container::after {
+    /* content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; */
+    height: 200px; /* fade height */
+    /* background: linear-gradient(to bottom, rgba(255, 253, 242, 0) 0%, rgba(255, 253, 242, 0) 40%, var(--color-bg-light) 100%);
+    pointer-events: none; */
+  }
+
+  .home-hero-container .wave {
+    /* position: absolute;
+    left: 0;
+    width: 100%; */
+    height: 120%;
+    /* background: #3F88C5;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: 0.5s; */
+  }
+
+
+  .content {
+    position: relative;
+    bottom: 10%;
+  }
+
   .home-banner {
-    max-width: 100dvw;
+    max-width: 100vw;
   }
 
   .home-banner h1 {
