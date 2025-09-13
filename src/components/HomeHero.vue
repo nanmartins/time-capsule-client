@@ -133,11 +133,13 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 100vh;
+  height: 100dvh;
+  min-width: 100dvh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
 .home-hero-container::after {
@@ -319,6 +321,10 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 
 @media (max-width: 600px) {
 
+  .home-banner {
+    max-width: 100dvw;
+  }
+
   .home-banner h1 {
     font-size: 32px;
   }
@@ -330,6 +336,10 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   .home-banner-buttons button {
     padding: 10px 14px;
     font-size: 14px;
+  }
+
+  .floating-bottle {
+    width: 200px;
   }
 
 }
