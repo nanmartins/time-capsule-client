@@ -38,7 +38,6 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useAuthStore } from '@/stores/authStore.js'
 import { useRouter } from 'vue-router'
-import NewCapsule from './NewCapsule.vue'
 import defaultAvatar from '@/assets/images/default-avatar.png'
 
 const authStore = useAuthStore()
