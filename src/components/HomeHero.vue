@@ -69,7 +69,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 
 .home-banner p {
   font-size: 22px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 140%;
   color: var(--color-text);
   width: 100%;
@@ -322,37 +322,18 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
 @media (max-width: 600px) {
 
   .home-hero-container {
-    /* position: relative;
-    width: 100%; */
     height: 90vh;
     min-height: 90vh;
     height: 90dvh;
     min-width: 90dvh;
-    /* overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
   }
 
   .home-hero-container::after {
-    /* content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%; */
     height: 200px; /* fade height */
-    /* background: linear-gradient(to bottom, rgba(255, 253, 242, 0) 0%, rgba(255, 253, 242, 0) 40%, var(--color-bg-light) 100%);
-    pointer-events: none; */
   }
 
   .home-hero-container .wave {
-    /* position: absolute;
-    left: 0;
-    width: 100%; */
     height: 120%;
-    /* background: #3F88C5;
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
-    transition: 0.5s; */
   }
 
 

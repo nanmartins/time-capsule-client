@@ -541,7 +541,7 @@ li {
 
   .home-step-content-image {
     height: auto;
-    min-height: 220px;
+    min-height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
