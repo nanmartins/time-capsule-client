@@ -135,7 +135,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   height: 100vh;
   min-height: 100vh;
   height: 100dvh;
-  min-width: 100dvh;
+  min-height: 100dvh;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -325,7 +325,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
     height: 90vh;
     min-height: 90vh;
     height: 90dvh;
-    min-width: 90dvh;
+    min-height: 90dvh;
   }
 
   .home-hero-container::after {

@@ -513,6 +513,10 @@ li {
 
 @media (max-width: 600px) {
 
+  .home-steps-header h1 {
+    font-size: 20px;
+  }
+
   .home-step-box {
     gap: 12px;
     padding: 18px 16px;
