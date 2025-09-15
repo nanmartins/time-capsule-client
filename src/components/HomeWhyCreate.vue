@@ -130,6 +130,10 @@ import TargetSVG from '@/assets/icons/TargetSVG.vue'
 /* MEDIA SCREEN */
 @media (max-width: 880px) {
 
+  .home-why-create-header h1 {
+    font-size: 20px;
+  }
+
   .home-why-create-cards {
     grid-template-columns: 1fr;
     max-width: 500px;

@@ -104,23 +104,6 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   grid-template-columns: repeat(6, 1fr);
 }
 
-@media (max-width: 1100px) {
-  .home-periods-cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .home-periods-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .home-periods-cards {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 
 .home-periods-card {
   display: flex;
@@ -151,7 +134,6 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   font-size: 13px;
   font-weight: 400;
   color: var(--color-text);
-  /* opacity: 0.6; */
 }
 
 .home-periods-card-icon {
@@ -161,6 +143,30 @@ import GlobeSVG from '@/assets/icons/GlobeSVG.vue'
   padding: 5px 8px;
   border-radius: 5px;
   background: var(--color-highlight-light);
+}
+
+
+
+@media (max-width: 1100px) {
+  .home-periods-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .home-periods-header h1 {
+    font-size: 20px;
+  }
+
+  .home-periods-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .home-periods-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 </style>
