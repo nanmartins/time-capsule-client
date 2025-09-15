@@ -139,5 +139,12 @@ span {
     padding: 36px 24px;
     gap: 24px 12px;
   }
+
+  .home-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
