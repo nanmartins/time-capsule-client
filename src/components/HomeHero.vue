@@ -325,7 +325,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
     height: 90vh;
     min-height: 90vh;
     height: 90dvh;
-    min-height: 90dvh;
+    /* min-height: 90dvh; */
   }
 
   .home-hero-container::after {
@@ -360,7 +360,7 @@ import ArrowSVG from '@/assets/icons/ArrowSVG.vue'
   }
 
   .floating-bottle {
-    width: 200px;
+    width: 180px;
   }
 
 }
