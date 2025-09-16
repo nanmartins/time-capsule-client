@@ -406,7 +406,7 @@ const currentStep = ref(1)
 .home-step-content-image {
   width: 100%;
   height: 100%;
-  height: 220px;
+  max-height: 220px;
   border-radius: 8px;
   border: 2px dashed var(--color-lines);
   margin-top: 16px;
@@ -417,7 +417,7 @@ const currentStep = ref(1)
   display: block;
   margin: auto;
   width: 55%;
-  padding-top: 15px;
+  padding: 12px;
 }
 
 ul {
@@ -513,6 +513,10 @@ li {
 
 @media (max-width: 600px) {
 
+  .home-steps-container {
+    padding: 0;
+  }
+
   .home-steps-header h1 {
     font-size: 20px;
   }
@@ -543,9 +547,20 @@ li {
     order: -1;
   }
 
+  li {
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  li svg {
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+
   .home-step-content-image {
     height: auto;
-    min-height: 150px;
+    min-height: 120px;
+    max-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
