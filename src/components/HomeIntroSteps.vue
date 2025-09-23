@@ -1,5 +1,5 @@
 <!-- StepsIntro.vue -->
-<template>
+<!-- <template>
   <div class="home-steps-intro">
 
     <div class="home-steps-header">
@@ -10,10 +10,11 @@
 
     <div class="home-steps-container">
 
-      <!-- Left Steps -->
+      Left Steps------------------------------------------------------------
+
        <div class="home-steps-left">
 
-        <!-- Step 1 -->
+        Step 1--------------------------------------------------------------
         <div
           class="home-step-box"
           :class="{ active: currentStep === 1 }"
@@ -33,7 +34,7 @@
           </div>
         </div>
 
-        <!-- Step 2 -->
+        Step 2--------------------------------------------------------------
          <div
           class="home-step-box"
           :class="{ active: currentStep === 2 }"
@@ -53,7 +54,7 @@
           </div>
         </div>
 
-        <!-- Step 3 -->
+        Step 3------------------------------------------------------------
         <div
           class="home-step-box"
           :class="{ active: currentStep === 3 }"
@@ -83,11 +84,11 @@
 
        </div>
 
-      <!-- Right Content -->
+      Right Content------------------------------------------------------------
        <div class="home-steps-right">
         <div class="home-step-content-box">
 
-          <!-- Step 1 -->
+          Step 1--------------------------------------------------------------
           <template v-if="currentStep === 1">
             <div class="home-step-content-header">
               <span>1</span>
@@ -120,7 +121,7 @@
 
           </template>
 
-          <!-- Step 2 -->
+          Step 2--------------------------------------------------------------
           <template v-if="currentStep === 2">
             <div class="home-step-content-header">
               <span>2</span>
@@ -153,7 +154,7 @@
 
           </template>
 
-          <!-- Step 3 -->
+          Step 3------------------------------------------------------------
           <template v-if="currentStep === 3">
             <div class="home-step-content-header">
               <span>3</span>
@@ -190,9 +191,249 @@
 
     </div>
   </div>
+</template> -->
+
+
+<template>
+  <div class="home-steps-intro">
+    <!-- Header -->
+    <div class="home-steps-header">
+      <span>GET STARTED</span>
+      <h1>Create Your First Capsule in Minutes</h1>
+      <p>It's easy to start your journey through time. Click on each step to learn more about the process.</p>
+    </div>
+
+    <!-- DESKTOP / TABLET layout (two columns) -->
+    <div v-if="!isMobile" class="home-steps-container">
+      <div class="home-steps-left">
+        <div
+          v-for="step in steps"
+          :key="step.id"
+          class="home-step-box"
+          :class="{ active: currentStep === step.id }"
+          @click="selectStep(step.id)"
+        >
+          <div class="home-step-icon">
+            <span v-if="currentStep === step.id" class="home-step-icon-number">{{ step.id }}</span>
+            <component
+              v-else
+              :is="step.icon"
+              class="home-step-icon-icon"
+              :width="22"
+              :height="22"
+            />
+          </div>
+
+          <div class="home-step-info" :class="{ active: currentStep === step.id }">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.subtitle }}</p>
+          </div>
+
+          <div v-if="currentStep === step.id" class="home-step-check">
+            <CheckSVG :width="22" :height="22" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
+          </div>
+        </div>
+
+        <!-- Free badge -->
+        <div class="home-step-content-free-badge">
+          <MoneySVG :width="28" :height="28" :fill="'#FFFFFF'" class="home-step-content-free-badge-icon" />
+          <div class="home-step-content-free-badge-text">
+            <h3>Completely Free</h3>
+            <p>Create unlimited time capsules at no cost</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: active side content -->
+      <div class="home-steps-right">
+        <div v-if="activeStep" class="home-step-content-box">
+          <div class="home-step-content-header">
+            <span>{{ activeStep.id }}</span>
+            <h3>{{ activeStep.contentTitle }}</h3>
+          </div>
+
+          <p>{{ activeStep.contentText }}</p>
+
+          <div class="home-step-content-image">
+            <img :src="activeStep.image" :alt="activeStep.title" />
+          </div>
+
+          <ul>
+            <li v-for="(item, idx) in activeStep.items" :key="idx">
+              <CheckSVG :width="22" :height="22" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
+              <span class="li-text">{{ item }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE layout: each step with inline content below its own card -->
+    <div v-else class="home-steps-mobile">
+      <div
+        v-for="step in steps"
+        :key="step.id"
+        class="mobile-step"
+      >
+        <div
+          class="home-step-box"
+          :class="{ active: currentStep === step.id }"
+          @click="selectStep(step.id)"
+        >
+          <div class="home-step-icon">
+            <span v-if="currentStep === step.id" class="home-step-icon-number">{{ step.id }}</span>
+            <component
+              v-else
+              :is="step.icon"
+              class="home-step-icon-icon"
+              :width="22"
+              :height="22"
+            />
+          </div>
+
+          <div class="home-step-info" :class="{ active: currentStep === step.id }">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.subtitle }}</p>
+          </div>
+
+          <div v-if="currentStep === step.id" class="home-step-check">
+            <CheckSVG :width="22" :height="22" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
+          </div>
+        </div>
+
+        <!-- conteúdo inline (expand on click below card) -->
+        <transition name="accordion">
+          <div v-show="currentStep === step.id" class="home-step-content-box mobile-inline">
+            <div class="home-step-content-header">
+              <span>{{ step.id }}</span>
+              <h3>{{ step.contentTitle }}</h3>
+            </div>
+
+            <p>{{ step.contentText }}</p>
+
+            <div class="home-step-content-image">
+              <img :src="step.image" :alt="step.title" />
+            </div>
+
+            <ul>
+              <li v-for="(item, idx) in step.items" :key="idx">
+                <CheckSVG :width="22" :height="22" :stroke="'#09BC8A'" :fill="'#09BC8A'" />
+                <span class="li-text">{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </transition>
+      </div>
+
+      <!-- Badge completely free on mobile -->
+      <div class="home-step-content-free-badge mobile-badge">
+        <MoneySVG :width="28" :height="28" :fill="'#FFFFFF'" class="home-step-content-free-badge-icon" />
+        <div class="home-step-content-free-badge-text">
+          <h3>Completely Free</h3>
+          <p>Create unlimited time capsules at no cost</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
+
 <script setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
+import WriteSVG from '@/assets/icons/WriteSVG.vue'
+import SignupSVG from '@/assets/icons/SignupSVG.vue'
+import CheckSVG from '@/assets/icons/CheckSVG.vue'
+import MoneySVG from '@/assets/icons/MoneySVG.vue'
+import CreateImg from '@/assets/images/create-account.png'
+import WriteImg from '@/assets/images/write-message.png'
+import SelectDateImg from '@/assets/images/select-date.png'
+
+const currentStep = ref(1)
+
+/* isMobile reactive */
+const isMobile = ref(false)
+function updateIsMobile() {
+  isMobile.value = window.innerWidth <= 1000
+}
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateIsMobile)
+})
+
+// date descrentralized for each step
+const steps = [
+  {
+    id: 1,
+    title: "Sign up for a free account",
+    subtitle: "Create your account with email in just a few seconds",
+    contentTitle: "Create Your Free Account",
+    contentText: "Getting started is quick and easy. No credit card required.",
+    image: CreateImg,
+    items: [
+      "Sign up with email or Google account",
+      "Verify your email address",
+      "Set up your profile",
+      "Start creating capsules immediately"
+    ],
+    icon: SignupSVG
+  },
+  {
+    id: 2,
+    title: "Write your message",
+    subtitle: "Add text, photos, or any files you want to preserve",
+    contentTitle: "Compose Your Time Capsule",
+    contentText: "Express yourself with rich content and meaningful messages.",
+    image: WriteImg,
+    items: [
+      "Write unlimited text messages",
+      "Upload photos and images",
+      "Attach documents and files",
+      "Add a personal title and category"
+    ],
+    icon: WriteSVG
+  },
+  {
+    id: 3,
+    title: "Set your unlock date",
+    subtitle: "Choose when you want to receive your message",
+    contentTitle: "Schedule Your Future",
+    contentText: "Pick the perfect moment to rediscover your message.",
+    image: SelectDateImg,
+    items: [
+      "Choose any future date",
+      "Set specific times if desired",
+      "Add personal notes about why you chose this date",
+      "Get email notifications when it unlocks"
+    ],
+    icon: CalendarSVG
+  }
+]
+
+/* util: step active (desktop) */
+const activeStep = computed(() => steps.find(s => s.id === currentStep.value) || steps[0])
+
+// step selection on click:
+//   - desktop: just select
+//   - mobile: toggle
+function selectStep(id) {
+  if (isMobile.value) {
+    currentStep.value = currentStep.value === id ? null : id
+  } else {
+    currentStep.value = id
+  }
+}
+</script>
+
+
+
+
+
+
+<!-- <script setup>
 import { ref } from 'vue'
 import CalendarSVG from '@/assets/icons/CalendarSVG.vue'
 import WriteSVG from '@/assets/icons/WriteSVG.vue'
@@ -202,7 +443,7 @@ import MoneySVG from '@/assets/icons/MoneySVG.vue'
 
 const currentStep = ref(1)
 
-</script>
+</script> -->
 
 <style scoped>
 .home-steps-intro {
