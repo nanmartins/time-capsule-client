@@ -301,7 +301,7 @@
           </div>
         </div>
 
-        <!-- conteúdo inline (expand on click below card) -->
+        <!-- inline content (expand on click below card) -->
         <transition name="accordion">
           <div v-show="currentStep === step.id" class="home-step-content-box mobile-inline">
             <div class="home-step-content-header">
